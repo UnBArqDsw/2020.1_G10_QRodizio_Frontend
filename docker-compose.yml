@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  app:
+    command: "yarn serve"
+    build: .
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '8080:8080'
