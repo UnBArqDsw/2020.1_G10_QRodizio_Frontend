@@ -1,10 +1,33 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About</router-link> |
+    <router-link v-if="!logged" to="/loggin">Loggin</router-link>
+    <router-link v-else to="/user-home">User Home</router-link>
   </div>
   <router-view />
 </template>
+
+<script>
+export default {
+  name: "App",
+
+  mounted() {
+    let userToken = localStorage.getItem("userToken");
+
+    if (userToken !== null && userToken.length > 0) {
+      this.$store.dispatch("logUserIn", userToken);
+      this.logged = true;
+    }
+  },
+
+  computed: {
+    logged() {
+      return this.$store.state.userToken.length > 0;
+    }
+  }
+};
+</script>
 
 <style>
 #app {
