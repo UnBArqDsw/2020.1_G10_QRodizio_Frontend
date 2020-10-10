@@ -3,14 +3,20 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link v-if="!logged" to="/loggin">Loggin</router-link>
-    <router-link v-else to="/user-home">User Home</router-link>
+    <LoggedUserRoutes v-else />
   </div>
   <router-view />
 </template>
 
 <script>
+import LoggedUserRoutes from "./components/LoggedUserRoutes";
+
 export default {
   name: "App",
+
+  components: {
+    LoggedUserRoutes: LoggedUserRoutes
+  },
 
   mounted() {
     let userToken = localStorage.getItem("userToken");
