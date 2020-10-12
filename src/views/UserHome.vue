@@ -2,7 +2,7 @@
   <div>
     <h1>User home</h1>
     <strong>Token: </strong>
-    <spam>{{ token }}</spam>
+    <span>{{ token }}</span>
     <br />
     <button @click="logUserOut">Logout</button>
   </div>
