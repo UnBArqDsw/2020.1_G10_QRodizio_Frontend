@@ -3,8 +3,6 @@
     <h1>User home</h1>
     <strong>Token: </strong>
     <span>{{ token }}</span>
-    <br />
-    <button @click="logUserOut">Logout</button>
   </div>
 </template>
 
@@ -15,13 +13,6 @@ export default {
   computed: {
     token() {
       return this.$store.state.userToken;
-    }
-  },
-
-  methods: {
-    logUserOut() {
-      this.$store.dispatch("logUserOut");
-      this.$router.push("/");
     }
   }
 };

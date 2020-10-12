@@ -7,19 +7,22 @@
     </template>
 
     <template slot="start">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <b-navbar-item tag="router-link" to="/">
         Home
       </b-navbar-item>
 
       <LoggedUserRoutes v-if="logged" />
     </template>
 
-    <template slot="end" v-if="logged">
+    <template slot="end">
       <b-navbar-item tag="div">
         <div class="buttons">
-          <a class="button is-light" @click="logUserOut">
+          <a v-if="logged" class="button is-light" @click="logUserOut">
             Log out
           </a>
+          <b-button v-else tag="router-link" to="/loggin" type="is-link">
+            Log in
+          </b-button>
         </div>
       </b-navbar-item>
     </template>

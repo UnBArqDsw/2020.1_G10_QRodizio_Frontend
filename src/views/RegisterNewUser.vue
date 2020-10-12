@@ -1,33 +1,67 @@
 <template>
-  <div>
-    <form @submit.prevent="registerUser">
-      Tipo de conta:
-      <select v-model="role" id="user-role">
-        <option value="basic" default>Funcionário</option>
-        <option value="manager">Gerente</option>
-      </select>
+  <div class="columns is-flex is-vcentered is-centered">
+    <div class="column is-half">
+      <div class="field">
+        <label class="label">Tipo de conta:</label>
+        <div class="control">
+          <div class="select">
+            <select v-model="role">
+              <option value="basic">Funcionário</option>
+              <option value="manager">Gerente</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-      <br />
+      <div class="field">
+        <label class="label">Nome</label>
+        <div class="control has-icons-left has-icons-right">
+          <input
+            class="input"
+            type="text"
+            placeholder="Text input"
+            v-model="name"
+          />
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+      </div>
 
-      <span>Nome: </span>
-      <input type="text" id="user-name" v-model="name" />
-      <br />
+      <div class="field">
+        <p class="control has-icons-left has-icons-right">
+          <input
+            class="input"
+            type="email"
+            placeholder="Email"
+            v-model="email"
+          />
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </p>
+      </div>
 
-      <span>Email: </span>
-      <input type="text" id="user-email" v-model="email" />
-      <br />
+      <div class="field">
+        <p class="control has-icons-left">
+          <input
+            class="input"
+            type="password"
+            placeholder="Password"
+            v-model="password"
+          />
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
 
-      <span>password: </span>
-      <input type="password" id="user-password" v-model="password" />
-      <br />
+      <b-button @click="registerUser">Registrar</b-button>
+      <hr />
 
-      <button>Registrar</button>
-    </form>
-
-    <hr />
-
-    <div>
-      {{ userCreated.message }}
+      <div>
+        {{ userCreated.message }}
+      </div>
     </div>
   </div>
 </template>
@@ -46,18 +80,25 @@ export default {
       password: "",
       userCreated: {
         error: false,
-        message: ""
-      }
+        message: "",
+      },
     };
   },
 
   computed: {
     loggedUserToken() {
       return this.$store.state.userToken;
-    }
+    },
   },
 
   methods: {
+    clearForm() {
+      this.role = "basic";
+      this.name = "";
+      this.email = "";
+      this.password = "";
+    },
+
     registerUser() {
       axios
         .post(
@@ -66,21 +107,22 @@ export default {
             role: this.role,
             name: this.name,
             email: this.email,
-            password: this.password
+            password: this.password,
           },
           {
-            headers: { Authorization: `Bearer ${this.loggedUserToken}` }
+            headers: { Authorization: `Bearer ${this.loggedUserToken}` },
           }
         )
         .then(() => {
           this.userCreated.error = false;
           this.userCreated.message = "Usuário criado";
+          this.clearForm();
         })
-        .catch(error => {
+        .catch((error) => {
           this.userCreated.error = true;
           this.userCreated.message = error.response.data.error;
         });
-    }
-  }
+    },
+  },
 };
 </script>

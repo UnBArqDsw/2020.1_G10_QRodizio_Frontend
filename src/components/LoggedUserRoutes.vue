@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <b-navbar-item tag="router-link" :to="{ path: '/user-home' }">
+  <fragment>
+    <b-navbar-item tag="router-link" to="/user-home">
       User Home
     </b-navbar-item>
 
-    <b-navbar-item tag="router-link" :to="{ path: '/register-new-user' }">
+    <b-navbar-item tag="router-link" to="/register-new-user">
       Registrar novo usuário
     </b-navbar-item>
 
-    <b-navbar-item tag="router-link" :to="{ path: '/list-users' }">
+    <b-navbar-item tag="router-link" to="/list-users">
       Listar usuários
     </b-navbar-item>
-  </div>
+  </fragment>
 </template>
 
 <script>

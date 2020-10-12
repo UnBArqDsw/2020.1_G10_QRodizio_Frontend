@@ -2,8 +2,8 @@
   <div id="app">
     <TopNavbar />
 
-    <div class="container">
-      <router-view/>
+    <div id="main-content" class="container">
+      <router-view />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: "App",
 
   components: {
-    TopNavbar
+    TopNavbar,
   },
 
   mounted() {
@@ -25,6 +25,12 @@ export default {
       this.$store.dispatch("logUserIn", userToken);
       this.logged = true;
     }
-  }
+  },
 };
 </script>
+
+<style scoped>
+#main-content {
+  margin-top: 20px;
+}
+</style>
