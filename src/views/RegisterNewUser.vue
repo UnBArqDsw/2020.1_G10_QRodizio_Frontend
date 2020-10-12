@@ -9,15 +9,15 @@
 
       <br />
 
-      <spam>Nome: </spam>
+      <span>Nome: </span>
       <input type="text" id="user-name" v-model="name" />
       <br />
 
-      <spam>Email: </spam>
+      <span>Email: </span>
       <input type="text" id="user-email" v-model="email" />
       <br />
 
-      <spam>password: </spam>
+      <span>password: </span>
       <input type="password" id="user-password" v-model="password" />
       <br />
 

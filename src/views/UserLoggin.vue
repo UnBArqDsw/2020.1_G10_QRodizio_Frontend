@@ -1,10 +1,10 @@
 <template>
   <div>
     <form @submit.prevent="logUser">
-      <spam>Email: </spam>
+      <span>Email: </span>
       <input type="text" id="user-email" v-model="email" />
       <br />
-      <spam>password: </spam>
+      <span>password: </span>
       <input type="password" id="user-password" v-model="password" />
       <br />
       <button>Logar</button>
