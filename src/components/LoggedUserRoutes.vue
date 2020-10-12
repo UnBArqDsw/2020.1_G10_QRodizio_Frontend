@@ -1,13 +1,21 @@
 <template>
-  <div>
-    <router-link to="/user-home">User Home</router-link> |
-    <router-link to="/register-new-user">Register new user</router-link> |
-    <router-link to="/list-users">Listar usuários</router-link>
-  </div>
+  <fragment>
+    <b-navbar-item tag="router-link" to="/user-home">
+      User Home
+    </b-navbar-item>
+
+    <b-navbar-item tag="router-link" to="/register-new-user">
+      Registrar novo usuário
+    </b-navbar-item>
+
+    <b-navbar-item tag="router-link" to="/list-users">
+      Listar usuários
+    </b-navbar-item>
+  </fragment>
 </template>
 
 <script>
 export default {
-  name: "LoggedUserRoutes"
+  name: "LoggedUserRoutes",
 };
 </script>

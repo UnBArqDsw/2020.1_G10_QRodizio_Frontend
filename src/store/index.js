@@ -27,4 +27,9 @@ export default new Vuex.Store({
       context.commit("logUserOut");
     }
   },
+  getters: {
+    logged(state) {
+      return state.userToken.length > 0;
+    }
+  }
 })

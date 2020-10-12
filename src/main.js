@@ -3,8 +3,14 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+import { Plugin } from 'vue-fragment'
+
 
 Vue.config.productionTip = false
+Vue.use(Buefy)
+Vue.use(Plugin);
 
 new Vue({
   router,
