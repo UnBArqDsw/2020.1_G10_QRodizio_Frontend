@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import UserLoggin from "../views/UserLoggin.vue";
+import UserHome from "../views/UserHome.vue";
+import RegisterNewUser from "../views/RegisterNewUser";
+import ListUsers from "../views/ListUsers";
 
 const routes = [
   {
@@ -15,6 +19,26 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/loggin",
+    name: "Loggin",
+    component: UserLoggin
+  },
+  {
+    path: "/user-home",
+    name: "UserHome",
+    component: UserHome
+  },
+  {
+    path: "/register-new-user",
+    name: "RegisterNewUser",
+    component: RegisterNewUser
+  },
+  {
+    path: "/list-users",
+    name: "ListUsers",
+    component: ListUsers
   }
 ];
 
