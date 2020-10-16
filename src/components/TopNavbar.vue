@@ -11,6 +11,10 @@
         Home
       </b-navbar-item>
 
+      <b-navbar-item tag="router-link" to="/temp-table-demands/1">
+        Pedidos
+      </b-navbar-item>
+
       <LoggedUserRoutes v-if="logged" />
     </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="field">
-      <label class="label">Tipo de conta:</label>
+      <label class="label">Tipo de status:</label>
       <div class="control">
         <div class="select">
           <select v-model="demandStatus">

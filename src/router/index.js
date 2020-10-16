@@ -7,7 +7,8 @@ import UserHome from "../views/UserHome.vue";
 import RegisterNewUser from "../views/RegisterNewUser";
 import ListUsers from "../views/ListUsers";
 import EmployeeDemands from "../views/EmployeeDemands";
-import ClientDemands from "../views/ClientDemands";
+import TempTableDemands from "../views/TempTableDemands";
+import MakeNewDemand from "../views/MakeNewDemand";
 
 
 Vue.use(VueRouter);
@@ -44,10 +45,15 @@ const routes = [
     component: EmployeeDemands
   },
   {
-    path: "/client-demands",
-    name: "ClientDemands",
-    component: ClientDemands
+    path: "/temp-table-demands/:id",
+    name: "TempTableDemands",
+    component: TempTableDemands
   },
+  {
+    path: "/make-new-demand",
+    name: "MakeNewDemand",
+    component: MakeNewDemand
+  }
 ]
 
 const router = new VueRouter({
