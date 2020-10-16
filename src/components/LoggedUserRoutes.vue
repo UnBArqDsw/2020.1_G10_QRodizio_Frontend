@@ -11,6 +11,13 @@
     <b-navbar-item tag="router-link" to="/list-users">
       Listar usuários
     </b-navbar-item>
+
+    <b-navbar-item tag="router-link" to="/employee-demands">
+      Listar pedidos
+    </b-navbar-item>
+    <b-navbar-item tag="router-link" to="/client-demands">
+      Fazer pedido
+    </b-navbar-item>
   </fragment>
 </template>
 

@@ -6,6 +6,9 @@ import UserLoggin from "../views/UserLoggin.vue";
 import UserHome from "../views/UserHome.vue";
 import RegisterNewUser from "../views/RegisterNewUser";
 import ListUsers from "../views/ListUsers";
+import EmployeeDemands from "../views/EmployeeDemands";
+import ClientDemands from "../views/ClientDemands";
+
 
 Vue.use(VueRouter);
 
@@ -34,7 +37,17 @@ const routes = [
     path: "/list-users",
     name: "ListUsers",
     component: ListUsers
-  }
+  },
+  {
+    path: "/employee-demands",
+    name: "EmployeeDemands",
+    component: EmployeeDemands
+  },
+  {
+    path: "/client-demands",
+    name: "ClientDemands",
+    component: ClientDemands
+  },
 ]
 
 const router = new VueRouter({
