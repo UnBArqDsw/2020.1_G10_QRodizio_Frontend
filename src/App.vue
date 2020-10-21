@@ -1,9 +1,11 @@
 <template>
   <div id="nav">
+    <router-link to="/costumer_tables">Mesas</router-link> |
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link v-if="!logged" to="/loggin">Loggin</router-link>
     <LoggedUserRoutes v-else />
+    
   </div>
   <router-view />
 </template>

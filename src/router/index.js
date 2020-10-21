@@ -4,6 +4,7 @@ import UserLoggin from "../views/UserLoggin.vue";
 import UserHome from "../views/UserHome.vue";
 import RegisterNewUser from "../views/RegisterNewUser";
 import ListUsers from "../views/ListUsers";
+import CostumerTable from "../views/CostumerTable"
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
     path: "/list-users",
     name: "ListUsers",
     component: ListUsers
+  },
+  {
+    path: "/costumer_tables",
+    name: "CostumerTable",
+    component: CostumerTable
   }
 ];
 
