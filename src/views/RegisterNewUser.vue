@@ -13,11 +13,11 @@
       <input type="text" id="user-name" v-model="name" />
       <br />
 
-      <spam>Email: </spam>
+      <spam>E-mail: </spam>
       <input type="text" id="user-email" v-model="email" />
       <br />
 
-      <spam>password: </spam>
+      <spam>Senha: </spam>
       <input type="password" id="user-password" v-model="password" />
       <br />
 

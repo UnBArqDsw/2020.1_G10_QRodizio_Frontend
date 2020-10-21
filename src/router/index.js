@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import UserLoggin from "../views/UserLoggin.vue";
+import UserLogin from "../views/UserLogin.vue";
 import UserHome from "../views/UserHome.vue";
 import RegisterNewUser from "../views/RegisterNewUser";
 import ListUsers from "../views/ListUsers";
@@ -22,9 +22,9 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: "/loggin",
-    name: "Loggin",
-    component: UserLoggin
+    path: "/login",
+    name: "Login",
+    component: UserLogin
   },
   {
     path: "/user-home",

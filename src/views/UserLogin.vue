@@ -1,13 +1,13 @@
 <template>
   <div>
     <form @submit.prevent="logUser">
-      <spam>Email: </spam>
+      <spam>E-mail: </spam>
       <input type="text" id="user-email" v-model="email" />
       <br />
-      <spam>password: </spam>
+      <spam>Senha: </spam>
       <input type="password" id="user-password" v-model="password" />
       <br />
-      <button>Logar</button>
+      <button>Iniciar sessão</button>
     </form>
   </div>
 </template>
@@ -16,7 +16,7 @@
 import axios from "axios";
 
 export default {
-  name: "UserLoggin",
+  name: "UserLogin",
 
   data() {
     return {
@@ -27,7 +27,7 @@ export default {
 
   methods: {
     async logUser() {
-      let response = await axios.post("http://127.0.0.1:5000/auth/loggin", {
+      let response = await axios.post("http://127.0.0.1:5000/auth/login", {
         email: this.email,
         password: this.password
       });
