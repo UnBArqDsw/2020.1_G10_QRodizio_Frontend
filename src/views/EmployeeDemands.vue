@@ -46,6 +46,7 @@ export default {
 
   data() {
     return {
+      keepUpdating: true,
       isLoading: false,
       demandStatus: "waiting",
       status: [],
@@ -68,10 +69,25 @@ export default {
   async mounted() {
     await this.getDemandStatus();
     this.demands = this.status[0];
-    await this.fetchDemands(this.status[0]); //status waiting
+    await this.fetchDemands(this.demandStatus);
+    this.updateDemandsTable();
+  },
+
+  destroyed() {
+    this.keepUpdating = false;
   },
 
   methods: {
+    updateDemandsTable() {
+      if(this.keepUpdating == false) return;
+
+      window.setTimeout(async () => {
+        await this.fetchDemands(this.demandStatus);
+
+        this.updateDemandsTable();
+      }, 1000);
+    },
+
     async getDemandStatus() {
       let request = await axios.get("http://127.0.0.1:5000/demands/status");
 
@@ -81,13 +97,13 @@ export default {
     },
 
     async fetchDemands(status) {
-      this.isLoading = true;
+      // this.isLoading = true;
 
       let request = await axios.get(`http://127.0.0.1:5000/demands/${status}`, {
         headers: { Authorization: `Bearer ${this.loggedUserToken}` },
       });
 
-      this.isLoading = false;
+      // this.isLoading = false;
 
       if (request.status === 200) {
         this.demands = request.data.demands;
