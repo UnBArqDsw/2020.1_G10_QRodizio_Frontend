@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h1>User home</h1>
+    <h1>Página inicial do usuário</h1>
     <strong>Token: </strong>
-    <span>{{ token }}</span>
+    <spam>{{ token }}</spam>
+    <br />
+    <button @click="logUserOut">Encerrar sessão</button>
   </div>
 </template>
 

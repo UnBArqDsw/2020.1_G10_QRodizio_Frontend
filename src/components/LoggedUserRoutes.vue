@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <b-navbar-item tag="router-link" to="/user-home">
-      User Home
+      Página inicial
     </b-navbar-item>
 
     <b-navbar-item tag="router-link" to="/register-new-user">
