@@ -2,18 +2,28 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Home from "../views/Home.vue";
-import UserLogin from "../views/UserLogin.vue";
-import UserHome from "../views/UserHome.vue";
-import RegisterNewUser from "../views/RegisterNewUser";
-import ListUsers from "../views/ListUsers";
-import EmployeeDemands from "../views/EmployeeDemands";
-import TempTableDemands from "../views/TempTableDemands";
-import MakeNewDemand from "../views/MakeNewDemand";
-import CostumerTable from "../views/CostumerTable";
+
+// Employee routes
+import UserLogin from "../views/employee/UserLogin.vue";
+import UserHome from "../views/employee/UserHome.vue";
+import RegisterNewUser from "../views/employee/RegisterNewUser";
+import ListUsers from "../views/employee/ListUsers";
+import EmployeeDemands from "../views/employee/EmployeeDemands";
+import CreateTable from "../views/employee/CreateTable";
+import ListTables from "../views/employee/ListTables";
+import ViewSession from "../views/employee/ViewSession";
+
+// Customer routes
+import CustomerTable from "../views/customer/CustomerTable";
+import TempTableDemands from "../views/customer/TempTableDemands";
+import MakeNewDemand from "../views/customer/MakeNewDemand";
 
 Vue.use(VueRouter);
 
 const routes = [
+  /** ################################################################### */
+  /** ################## EMPLOYEE ROUTES ################################ */
+  /** ################################################################### */
   {
     path: "/",
     name: "Home",
@@ -45,19 +55,39 @@ const routes = [
     component: EmployeeDemands,
   },
   {
+    path: "/create-table",
+    name: "CreateTable",
+    component: CreateTable
+  },
+  {
+    path: "/list-tables",
+    name: "ListTables",
+    component: ListTables
+  },
+  {
+    path: "/view-session/:id",
+    name: "ViewSession",
+    component: ViewSession
+  },
+
+
+  /** ################################################################### */
+  /** ################## CUSTOMER ROUTES ################################ */
+  /** ################################################################### */
+  {
     path: "/temp-table-demands/:id",
     name: "TempTableDemands",
     component: TempTableDemands,
   },
   {
-    path: "/make-new-demand",
+    path: "/make-new-demand/:sessionUrl",
     name: "MakeNewDemand",
     component: MakeNewDemand,
   },
   {
-    path: "/costumer_tables",
-    name: "CostumerTable",
-    component: CostumerTable,
+    path: "/table/:url",
+    name: "CustomerTable",
+    component: CustomerTable,
   },
 ];
 

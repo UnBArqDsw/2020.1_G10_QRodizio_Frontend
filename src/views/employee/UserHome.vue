@@ -2,9 +2,7 @@
   <div>
     <h1>Página inicial do usuário</h1>
     <strong>Token: </strong>
-    <spam>{{ token }}</spam>
-    <br />
-    <button @click="logUserOut">Encerrar sessão</button>
+    <span>{{ token }}</span>
   </div>
 </template>
 

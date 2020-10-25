@@ -15,7 +15,10 @@
     <b-navbar-item tag="router-link" to="/employee-demands">
       Listar pedidos
     </b-navbar-item>
-    
+
+    <b-navbar-item tag="router-link" to="/list-tables">
+      Mesas
+    </b-navbar-item>
   </fragment>
 </template>
 

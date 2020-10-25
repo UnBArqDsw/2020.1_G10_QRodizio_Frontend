@@ -29,7 +29,7 @@
       <tbody>
         <tr v-for="demand in demands" :key="demand.id">
           <td>Mesa X</td>
-          <td>{{ demand.item.name }}</td>
+          <td>{{ demand.item ? demand.item.name : "" }}</td>
           <td>{{ demand.quantity }}</td>
           <td>{{ demand.customer }}</td>
         </tr>
@@ -46,7 +46,7 @@ export default {
 
   data() {
     return {
-      keepUpdating: true,
+      keepUpdating: false,
       isLoading: false,
       demandStatus: "waiting",
       status: [],

@@ -31,6 +31,7 @@
           :description="item.description"
           :id="item.id"
           :value="item.value"
+          :sessionUrl="sessionUrl"
         />
       </div>
     </div>
@@ -39,7 +40,7 @@
 
 <script>
 import axios from "axios";
-import MenuItemForDemand from "../components/MenuItemForDemand";
+import MenuItemForDemand from "../../components/MenuItemForDemand";
 
 export default {
   name: "MakeNewDemand",
@@ -53,6 +54,12 @@ export default {
       menus: [],
       items: [],
     };
+  },
+
+  computed: {
+    sessionUrl() {
+      return this.$route.params.sessionUrl;
+    }
   },
 
   watch: {

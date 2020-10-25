@@ -33,8 +33,6 @@
           </td>
         </tr>
       </tbody>
-
-      <tbody></tbody>
     </table>
   </div>
 </template>

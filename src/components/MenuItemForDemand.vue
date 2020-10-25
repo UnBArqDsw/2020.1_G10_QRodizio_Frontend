@@ -37,7 +37,7 @@ import axios from "axios";
 export default {
   name: "MenuItemForDemand",
 
-  props: ["name", "description", "id", "value"],
+  props: ["name", "description", "id", "value", "sessionUrl"],
 
   data() {
     return {
@@ -54,24 +54,33 @@ export default {
     },
   },
 
+  computed: {
+    sessionId() {
+      return this.$store.state.tableSession.id;
+    },
+
+    sessionUrl() {
+      return this.$store.state.tableSession.url;
+    },
+  },
+
   methods: {
     async sendDemand() {
       let quantity = this.quantity;
       let item_id = this.id;
-
-      console.log(quantity);
-      console.log(item_id);
+      let session_id = this.sessionId;
 
       this.isLoading = true;
       let response = await axios.post("http://127.0.0.1:5000/demands/", {
         customer: "Ninguem",
         quantity,
         item_id,
+        session_id
       });
       this.isLoading = false;
 
       if (response.status == 201) {
-        this.$router.push("/temp-table-demands/1");
+        this.$router.push(`/table/${this.sessionUrl}`);
       } else {
         alert("Deu ruim");
         console.log(request);
