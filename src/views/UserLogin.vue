@@ -46,7 +46,7 @@
 import axios from "axios";
 
 export default {
-  name: "UserLoggin",
+  name: "UserLogin",
 
   data() {
     return {
@@ -57,7 +57,7 @@ export default {
 
   methods: {
     async logUser() {
-      let response = await axios.post("http://127.0.0.1:5000/auth/loggin", {
+      let response = await axios.post("http://127.0.0.1:5000/auth/login", {
         email: this.email,
         password: this.password,
       });

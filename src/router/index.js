@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '../views/Home.vue'
-import UserLoggin from "../views/UserLoggin.vue";
+import Home from "../views/Home.vue";
+import UserLogin from "../views/UserLogin.vue";
 import UserHome from "../views/UserHome.vue";
 import RegisterNewUser from "../views/RegisterNewUser";
 import ListUsers from "../views/ListUsers";
+import CostumerTable from "../views/CostumerTable"
 
 Vue.use(VueRouter);
 
@@ -16,9 +17,9 @@ const routes = [
     component: Home
   },
   {
-    path: "/loggin",
-    name: "Loggin",
-    component: UserLoggin
+    path: "/login",
+    name: "Login",
+    component: UserLogin
   },
   {
     path: "/user-home",
@@ -34,6 +35,11 @@ const routes = [
     path: "/list-users",
     name: "ListUsers",
     component: ListUsers
+  },
+  {
+    path: "/costumer_tables",
+    name: "CostumerTable",
+    component: CostumerTable
   }
 ]
 
