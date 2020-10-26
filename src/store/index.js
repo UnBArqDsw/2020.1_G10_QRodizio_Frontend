@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userToken: ""
+    userToken: "",
+    tableSession: {}
   },
   mutations: {
     logUserIn(state, token) {
@@ -16,7 +17,11 @@ export default new Vuex.Store({
     logUserOut(state) {
       state.userToken = "";
       localStorage.setItem("userToken", "");
-    }
+    },
+
+    setTableSesssion(state, session) {
+      state.tableSession = session;
+    },
   },
   actions: {
     logUserIn(context, token) {
@@ -25,7 +30,11 @@ export default new Vuex.Store({
 
     logUserOut(context) {
       context.commit("logUserOut");
-    }
+    },
+
+    setTableSesssion(context, session) {
+      context.commit("setTableSesssion", session);
+    },
   },
   getters: {
     logged(state) {

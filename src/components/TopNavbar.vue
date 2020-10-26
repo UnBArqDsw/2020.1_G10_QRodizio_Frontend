@@ -11,6 +11,10 @@
         Home
       </b-navbar-item>
 
+      <b-navbar-item tag="router-link" to="/table/1-59a9639a-1778-11eb-aa36-7429afd877c3">
+        Pedidos
+      </b-navbar-item>
+
       <LoggedUserRoutes v-if="logged" />
     </template>
 
@@ -20,7 +24,7 @@
           <a v-if="logged" class="button is-light" @click="logUserOut">
             Log out
           </a>
-          <b-button v-else tag="router-link" to="/loggin" type="is-link">
+          <b-button v-else tag="router-link" to="/login" type="is-link">
             Log in
           </b-button>
         </div>
