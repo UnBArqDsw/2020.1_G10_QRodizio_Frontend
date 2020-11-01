@@ -1,12 +1,47 @@
 <template>
   <div>
-    <strong>Usuários</strong>
+    <a class="button is-light" @click="gotoRegisterNewUser">
+      Cadastrar novo usuário
+    </a>
+
     <hr />
-    <ul>
-      <li v-for="user in users" :key="user.id">
-        {{ user.name }} - {{ user.role == 0 ? "Funcionário" : "Gerente" }}
-      </li>
-    </ul>
+
+    <table class="table is-striped is-fullwidth">
+      <thead>
+        <tr>
+          <th>Cargo</th>
+          <th>Nome</th>
+          <th>Logado</th>
+          <th>Editar</th>
+          <th>Deletar</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="user in users" :key="user.id">
+          <td>
+            {{ displayUserRole(user.role) }}
+          </td>
+          <td>{{ user.name }}</td>
+          <td>
+            <span class="userNotLogged">
+              {{ "não" }}
+            </span>
+          </td>
+          <td>
+            <button class="button is-light">editar</button>
+          </td>
+          <td>
+            <button
+              class="button is-danger"
+              @click="confirmDeleteUser(user.id)"
+            >
+              deletar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -18,14 +53,18 @@ export default {
 
   data() {
     return {
-      users: []
+      users: [],
     };
   },
 
   computed: {
     loggedUserToken() {
       return this.$store.state.userToken;
-    }
+    },
+
+    loggedUserId() {
+      return this.$store.state.userData.id;
+    },
   },
 
   async mounted() {
@@ -33,14 +72,79 @@ export default {
   },
 
   methods: {
+    displayUserRole(role) {
+      let text = "";
+
+      switch (role) {
+        case 0:
+          text = "Funcionário";
+          break;
+        case 1:
+          text = "Gerente";
+          break;
+        default:
+          text = "";
+      }
+
+      return text;
+    },
+
     async fetchUsers() {
       let response = await axios.get("http://127.0.0.1:5000/employees/", {
-        headers: { Authorization: `Bearer ${this.loggedUserToken}` }
+        headers: { Authorization: `Bearer ${this.loggedUserToken}` },
       });
 
       this.users = response.data.employees;
-      console.log(response.data);
-    }
-  }
+    },
+
+    gotoRegisterNewUser() {
+      this.$router.push("/register-new-user");
+    },
+
+    async confirmDeleteUser(userId) {
+      if (userId == this.loggedUserId) {
+        this.$buefy.dialog.alert({
+          title: "Atenção",
+          message: "Você nao pode se deletar",
+          type: "is-danger",
+          hasIcon: true,
+          icon: "times-circle",
+          iconPack: "fa",
+          ariaRole: "alertdialog",
+          ariaModal: true,
+        });
+
+        return;
+      }
+
+      this.$buefy.dialog.confirm({
+        message: "Deseja realmente deletar esse usuário ?",
+        onConfirm: async () => await this.deleteUser(userId),
+      });
+    },
+
+    async deleteUser(userId) {
+      let response = await axios.delete(
+        `http://127.0.0.1:5000/employees/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${this.loggedUserToken}` },
+        }
+      );
+
+      if(response.status == 202) {
+        await this.fetchUsers();
+      }
+    },
+  },
 };
 </script>
+
+<style scoped>
+.userLogged {
+  color: #48c774;
+}
+
+.userNotLogged {
+  color: #f14668;
+}
+</style>

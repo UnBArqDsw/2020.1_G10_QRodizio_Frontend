@@ -1,6 +1,13 @@
 <template>
   <div class="columns is-flex is-vcentered is-centered">
     <div class="column is-half">
+      <a class="button is-light" @click="goBack">
+        Voltar
+      </a>
+
+      <br />
+      <br />
+
       <div class="field">
         <label class="label">Tipo de conta:</label>
         <div class="control">
@@ -123,6 +130,10 @@ export default {
           this.userCreated.message = error.response.data.error;
         });
     },
+
+    goBack() {
+      this.$router.push("/list-users");
+    }
   },
 };
 </script>
