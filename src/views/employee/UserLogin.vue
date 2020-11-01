@@ -63,7 +63,8 @@ export default {
       });
 
       if (response.status === 200) {
-        this.$store.dispatch("logUserIn", response.data.token);
+        let { token, user } = response.data;
+        this.$store.dispatch("logUserIn", { token, user });
         this.$router.push("/user-home");
       } else {
         alert("Deu ruim");

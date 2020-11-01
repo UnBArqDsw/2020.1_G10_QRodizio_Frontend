@@ -9,7 +9,9 @@
 </template>
 
 <script>
-import TopNavbar from "./components/TopNavbar";
+import TopNavbar from "./components/TopNavbar/TopNavbar";
+
+const isNotBank = (data) => data !== null && data.length > 0;
 
 export default {
   name: "App",
@@ -20,9 +22,14 @@ export default {
 
   mounted() {
     let userToken = localStorage.getItem("userToken");
+    let userData = localStorage.getItem("userData");
 
-    if (userToken !== null && userToken.length > 0) {
-      this.$store.dispatch("logUserIn", userToken);
+    if (isNotBank(userToken) && isNotBank(userData)) {
+      this.$store.dispatch("logUserIn", {
+        token: userToken,
+        user: JSON.parse(userData),
+      });
+
       this.logged = true;
     }
   },
