@@ -18,6 +18,10 @@ export default new Vuex.Store({
       localStorage.setItem("userData", JSON.stringify(user));
     },
 
+    SOCKET_logUserIn(state, { user }) {
+      console.log(`User ${user.email} logged`);
+    },
+
     logUserOut(state) {
       state.userToken = "";
       state.userData = {};
