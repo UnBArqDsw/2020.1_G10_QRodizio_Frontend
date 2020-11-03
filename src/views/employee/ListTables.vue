@@ -6,9 +6,10 @@
           <th>id</th>
           <th>Status</th>
           <th>Data</th>
-          <th>Quantidade de pedidos</th>
           <th>Ver QRCode</th>
           <th>Ver Sessão</th>
+          <th>Identificação mesa</th>
+          <th>Quantidade de pedidos</th>
         </tr>
       </thead>
       <tbody>
@@ -21,9 +22,9 @@
             <span v-else class="button is-success is-light">Aberta</span>
           </td>
           <td>{{ table.last_session.created_on }}</td>
-          <td>{{ table.total_demands }}</td>
           <td>
-            <button class="button is-light">Ver QRCode</button>
+            <button v-on:click="teste()" class="button is-light">Ver QRCode</button>
+            <p v-if="showQrcode">{{table.qrcode}}</p>
           </td>
           <td>
             <b-navbar-item
@@ -34,6 +35,8 @@
               Ver Sessão
             </b-navbar-item>
           </td>
+          <td>{{table.identifier}}</td>
+          <td>{{ table.total_demands }}</td>
         </tr>
       </tbody>
     </table>
@@ -49,6 +52,7 @@ export default {
   data() {
     return {
       tables: [],
+      showQrcode:false,
     };
   },
 
@@ -57,6 +61,11 @@ export default {
   },
 
   methods: {
+    
+    teste() {
+      this.showQrcode=!this.showQrcode;
+    },
+
     async fetchTables() {
       let response = await axios.get("http://127.0.0.1:5000/tables/");
 
