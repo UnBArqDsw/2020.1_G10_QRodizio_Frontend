@@ -2,14 +2,6 @@
   <fragment>
     <b-navbar-item
       tag="router-link"
-      to="/register-new-user"
-      v-bind:class="{ hidden: userIsNotManager }"
-    >
-      Registrar novo usuário
-    </b-navbar-item>
-
-    <b-navbar-item
-      tag="router-link"
       to="/list-users"
       v-bind:class="{ hidden: userIsNotManager }"
     >

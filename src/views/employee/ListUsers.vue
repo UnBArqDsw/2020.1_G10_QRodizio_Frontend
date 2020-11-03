@@ -29,7 +29,7 @@
             </span>
           </td>
           <td>
-            <button class="button is-light">editar</button>
+            <button class="button is-light" @click="gotoEditUser(user)">editar</button>
           </td>
           <td>
             <button
@@ -135,6 +135,10 @@ export default {
         await this.fetchUsers();
       }
     },
+
+    gotoEditUser(user) {
+      this.$router.push({name: "EditUser", params: {...user}});
+    }
   },
 };
 </script>
