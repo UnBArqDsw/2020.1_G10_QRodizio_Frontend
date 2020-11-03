@@ -12,6 +12,7 @@ import EmployeeDemands from "../views/employee/EmployeeDemands";
 import CreateTable from "../views/employee/CreateTable";
 import ListTables from "../views/employee/ListTables";
 import ViewSession from "../views/employee/ViewSession";
+import EditUser from "../views/employee/EditUser";
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
@@ -57,19 +58,23 @@ const routes = [
   {
     path: "/create-table",
     name: "CreateTable",
-    component: CreateTable
+    component: CreateTable,
   },
   {
     path: "/list-tables",
     name: "ListTables",
-    component: ListTables
+    component: ListTables,
   },
   {
     path: "/view-session/:id",
     name: "ViewSession",
-    component: ViewSession
+    component: ViewSession,
   },
-
+  {
+    path: "/edit-user",
+    name: "EditUser",
+    component: EditUser, 
+  },
 
   /** ################################################################### */
   /** ################## CUSTOMER ROUTES ################################ */

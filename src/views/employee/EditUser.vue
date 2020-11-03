@@ -8,7 +8,7 @@
       <br />
       <br />
 
-      <div class="field">
+      <div class="field" v-if="isManager">
         <label class="label">Tipo de conta:</label>
         <div class="control">
           <div class="select">
@@ -63,11 +63,11 @@
         </p>
       </div>
 
-      <b-button @click="registerUser">Registrar</b-button>
+      <b-button @click="updateUser">Atualizar dados</b-button>
       <hr />
 
       <div>
-        {{ userCreated.message }}
+        {{ userUpdated.message }}
       </div>
     </div>
   </div>
@@ -75,17 +75,19 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
-  name: "RegisterNewUser",
+  name: "EditUser",
 
   data() {
     return {
+      id: 0,
       role: "basic",
       name: "",
       email: "",
       password: "",
-      userCreated: {
+      userUpdated: {
         error: false,
         message: "",
       },
@@ -96,44 +98,48 @@ export default {
     loggedUserToken() {
       return this.$store.state.userToken;
     },
+
+    ...mapGetters(["isManager"]),
+  },
+
+  mounted() {
+    this.id = this.$route.params.id;
+    this.role = this.$route.params.role == 1 ? "manager" : "basic";
+    this.name = this.$route.params.name;
+    this.email = this.$route.params.email;
   },
 
   methods: {
-    clearForm() {
-      this.role = "basic";
-      this.name = "";
-      this.email = "";
-      this.password = "";
-    },
+    updateUser() {
+      const data = {
+        role: this.role,
+        name: this.name,
+        email: this.email,
+      };
 
-    registerUser() {
+      if (this.password.length > 0) data.password = this.password;
+
       axios
-        .post(
-          "http://127.0.0.1:5000/auth/register",
-          {
-            role: this.role,
-            name: this.name,
-            email: this.email,
-            password: this.password,
-          },
+        .put(
+          `http://127.0.0.1:5000/employees/${this.id}`,
+          { ...data },
           {
             headers: { Authorization: `Bearer ${this.loggedUserToken}` },
           }
         )
         .then(() => {
-          this.userCreated.error = false;
-          this.userCreated.message = "Usuário criado";
-          this.clearForm();
+          this.userUpdated.error = false;
+          this.userUpdated.message = "Usuário atualizado";
         })
         .catch((error) => {
-          this.userCreated.error = true;
-          this.userCreated.message = error.response.data.error;
+          this.userUpdated.error = true;
+          this.userUpdated.message = error.response.data.error;
         });
     },
 
     goBack() {
       this.$router.push("/list-users");
-    }
+    },
   },
 };
 </script>
