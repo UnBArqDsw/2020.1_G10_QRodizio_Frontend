@@ -8,22 +8,22 @@
       <br>
         <section>
         <div class="field">
-            <b-checkbox v-model="method" native-value="Money">Dinheiro</b-checkbox>
+            <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
         </div>
         <div class="field">
-            <b-checkbox v-model="method" native-value="Card">
+            <b-checkbox v-model="method" native-value="card">
                 Cartão
             </b-checkbox>
         </div>
         <div class="field">
-            <b-checkbox v-model="method" native-value="Both">
+            <b-checkbox v-model="method" native-value="both">
                 Indeterminado
             </b-checkbox>
         </div>
     </section>
     <p>{{method}}</p>
     <br>
-    <button v-on:click="teste()" class="button is-light">Começar a pedir</button>
+    <button v-on:click="registerNewSession()" class="button is-light">Começar a pedir</button>
   </div>
 </template>
 
@@ -52,8 +52,30 @@ export default {
         alert("Ops, selecione uma opção")
       } else {
         //faz o post.
-        
+
       }
+    },
+    registerNewSession() {
+      axios
+        .post(
+          "http://127.0.0.1:5000/sessions/",
+          
+          {
+            url: this.generateUrl,
+            closed: false,
+            table_id: 1,
+            pay_method: this.method[0],
+          },
+          // {
+          //   headers: { Authorization: `Bearer ${this.loggedUserToken}` },
+          // }
+        )
+        .then(() => {
+          alert("Sessão criada");
+        })
+        .catch((error) => {
+          alert(error);
+        });
     },
   },
 };
