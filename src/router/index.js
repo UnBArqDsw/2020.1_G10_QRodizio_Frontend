@@ -11,6 +11,7 @@ import ListUsers from "../views/employee/ListUsers";
 import EmployeeDemands from "../views/employee/EmployeeDemands";
 import CreateTable from "../views/employee/CreateTable";
 import ListTables from "../views/employee/ListTables";
+import NewSession from "../views/employee/NewSession";
 import ViewSession from "../views/employee/ViewSession";
 
 // Customer routes
@@ -63,6 +64,11 @@ const routes = [
     path: "/list-tables",
     name: "ListTables",
     component: ListTables
+  },
+  {
+    path: "/new-session",
+    name: "NewSession",
+    component: NewSession
   },
   {
     path: "/view-session/:id",

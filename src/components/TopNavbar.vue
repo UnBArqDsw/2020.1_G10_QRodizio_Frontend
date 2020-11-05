@@ -15,6 +15,10 @@
         Pedidos
       </b-navbar-item>
 
+      <b-navbar-item tag="router-link" to="/list-tables">
+        Mesas
+      </b-navbar-item>
+
       <LoggedUserRoutes v-if="logged" />
     </template>
 
