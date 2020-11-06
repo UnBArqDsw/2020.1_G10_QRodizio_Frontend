@@ -1,5 +1,5 @@
 <template>
-  <b-navbar>
+  <b-navbar id = "header">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img src="@/assets/qr_code_icon.png" alt="QRodizio logo" />
@@ -7,15 +7,15 @@
     </template>
 
     <template slot="start">
-      <b-navbar-item tag="router-link" to="/">
+      <b-navbar-item id="link" tag="router-link" to="/">
         Home
       </b-navbar-item>
 
-      <b-navbar-item tag="router-link" to="/table/1-59a9639a-1778-11eb-aa36-7429afd877c3">
+      <b-navbar-item id="link" tag="router-link" to="/table/1-59a9639a-1778-11eb-aa36-7429afd877c3">
         Pedidos
       </b-navbar-item>
 
-      <b-navbar-item tag="router-link" to="/list-tables">
+      <b-navbar-item id="link" tag="router-link" to="/list-tables">
         Mesas
       </b-navbar-item>
 
@@ -59,3 +59,12 @@ export default {
   },
 };
 </script>
+
+<style>
+  #header{
+    background: linear-gradient(315deg, #EB4511 0%, #B02E0C 74%);
+  }
+  #link{
+    color: black;
+  }
+</style>
