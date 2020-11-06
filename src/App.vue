@@ -20,6 +20,12 @@ export default {
     TopNavbar,
   },
 
+  sockets: {
+    frontend_current_logged_employee(employees) {
+      this.$store.dispatch("setLoggedUsers", employees);
+    }
+  },
+
   mounted() {
     let userToken = localStorage.getItem("userToken");
     let userData = localStorage.getItem("userData");

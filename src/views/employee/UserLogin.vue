@@ -55,13 +55,6 @@ export default {
     };
   },
 
-  sockets: {
-    frontend_employee_logged(user) {
-      console.log("An user just logged !!!");
-      console.log(user);
-    },
-  },
-
   methods: {
     async logUser() {
       let response = await axios.post("http://127.0.0.1:5000/auth/login", {

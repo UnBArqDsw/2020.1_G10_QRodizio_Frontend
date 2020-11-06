@@ -8,6 +8,7 @@ export default new Vuex.Store({
     userToken: "",
     userData: {},
     tableSession: {},
+    loggedUsers: {},
   },
   mutations: {
     logUserIn(state, { token, user }) {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
     setTableSesssion(state, session) {
       state.tableSession = session;
     },
+
+    setLoggedUsers(state, users) {
+      state.loggedUsers = users;
+    }
   },
   actions: {
     logUserIn(context, { token, user }) {
@@ -46,6 +51,10 @@ export default new Vuex.Store({
     setTableSesssion(context, session) {
       context.commit("setTableSesssion", session);
     },
+
+    setLoggedUsers(context, users) {
+      context.commit("setLoggedUsers", users);
+    }
   },
   getters: {
     logged(state) {
@@ -59,5 +68,9 @@ export default new Vuex.Store({
 
       return state.userData.role === 1;
     },
+
+    loggedUsers(state) {
+      return state.loggedUsers;
+    }
   },
 });

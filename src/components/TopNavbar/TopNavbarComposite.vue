@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
 export default {
   name: "TopNavbarComposite",
 
@@ -33,10 +35,13 @@ export default {
     logged() {
       return this.$store.getters.logged;
     },
+
+    ...mapState(['userData'])
   },
 
   methods: {
-    logUserOut() {
+    async logUserOut() {
+      await this.$socket.emit("employee_to_logout", this.userData);
       this.$store.dispatch("logUserOut");
       this.$router.push("/");
     },
