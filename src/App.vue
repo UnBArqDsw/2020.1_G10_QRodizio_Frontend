@@ -23,7 +23,13 @@ export default {
   sockets: {
     frontend_current_logged_employee(employees) {
       this.$store.dispatch("setLoggedUsers", employees);
-    }
+    },
+
+    frontend_call_for_employee_on_table(tableSession) {
+      console.log("Called on ");
+      console.log(tableSession);
+      this.$store.dispatch("addTableToCalling", tableSession);
+    },
   },
 
   mounted() {

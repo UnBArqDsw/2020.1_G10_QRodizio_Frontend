@@ -22,11 +22,16 @@
       v-bind:class="{ hidden: notLogged }"
     >
       Mesas
+      <span class="spacer" v-if="isTableCalling">
+        <b-icon icon="bell" size="is-small" type="is-danger" /> {{ totalTableCalling }}
+      </span>
     </b-navbar-item>
   </fragment>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "EmployeeRoutesLeaf",
 
@@ -34,6 +39,8 @@ export default {
     notLogged() {
       return !this.$store.getters.logged;
     },
+
+    ...mapGetters(['isTableCalling', 'totalTableCalling'])
   },
 };
 </script>
@@ -41,5 +48,8 @@ export default {
 <style scoped>
 .hidden {
   display: none;
+}
+.spacer {
+  margin-left: 10px;
 }
 </style>

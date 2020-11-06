@@ -9,6 +9,7 @@ export default new Vuex.Store({
     userData: {},
     tableSession: {},
     loggedUsers: {},
+    tablesCalling: {},
   },
   mutations: {
     logUserIn(state, { token, user }) {
@@ -17,10 +18,6 @@ export default new Vuex.Store({
 
       localStorage.setItem("userToken", token);
       localStorage.setItem("userData", JSON.stringify(user));
-    },
-
-    SOCKET_logUserIn(state, { user }) {
-      console.log(`User ${user.email} logged`);
     },
 
     logUserOut(state) {
@@ -37,7 +34,23 @@ export default new Vuex.Store({
 
     setLoggedUsers(state, users) {
       state.loggedUsers = users;
-    }
+    },
+
+    addTableToCalling(state, table) {
+      if (table["session"]["id"] in state.tablesCalling) return;
+
+      state.tablesCalling = {
+        [table["session"]["id"]]: table["session"],
+        ...state.tablesCalling,
+      };
+    },
+
+    removeTableToCalling(state, table) {
+      let copy = { ...state.tablesCalling };
+      delete copy[table["session"]["id"]];
+
+      state.tablesCalling = { ...copy };
+    },
   },
   actions: {
     logUserIn(context, { token, user }) {
@@ -54,7 +67,15 @@ export default new Vuex.Store({
 
     setLoggedUsers(context, users) {
       context.commit("setLoggedUsers", users);
-    }
+    },
+
+    addTableToCalling(context, table) {
+      context.commit("addTableToCalling", table);
+    },
+
+    removeTableToCalling(context, table) {
+      context.commit("removeTableToCalling", table);
+    },
   },
   getters: {
     logged(state) {
@@ -71,6 +92,15 @@ export default new Vuex.Store({
 
     loggedUsers(state) {
       return state.loggedUsers;
-    }
+    },
+
+    isTableCalling(state) {
+      return Object.keys(state.tablesCalling).length > 0;
+    },
+
+    totalTableCalling(state) {
+      console.log(state.tablesCalling);
+      return Object.keys(state.tablesCalling).length;
+    },
   },
 });

@@ -4,6 +4,12 @@
       Fazer novo peido
     </a>
 
+    &nbsp;
+
+    <a class="button is-light is-info" @click="callForAssistance">
+      Chamar funcionário
+    </a>
+
     <hr />
 
     <table class="table">
@@ -57,7 +63,19 @@ export default {
     this.keepUpdateLoop = false;
   },
 
+  sockets: {
+    frontend_employee_called(message) {
+      alert(message);
+    }
+  },
+
   methods: {
+    async callForAssistance() {
+      let { url } = this.$route.params;
+
+      await this.$socket.emit("call_for_assistance", url);
+    },
+
     demandDisplayStatus(demandStatus) {
       let status = "";
 
