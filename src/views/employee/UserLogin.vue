@@ -64,6 +64,8 @@ export default {
 
       if (response.status === 200) {
         let { token, user } = response.data;
+        await this.$socket.emit("employee_logged", user);
+
         this.$store.dispatch("logUserIn", { token, user });
         this.$router.push("/user-home");
       } else {

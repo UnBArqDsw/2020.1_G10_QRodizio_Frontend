@@ -24,8 +24,8 @@
           </td>
           <td>{{ user.name }}</td>
           <td>
-            <span class="userNotLogged">
-              {{ "não" }}
+            <span v-bind:class="[isUserLogged(user.id) ? 'userLogged' : 'userNotLogged']">
+              {{ isUserLogged(user.id) ? "sim" : "não" }}
             </span>
           </td>
           <td>
@@ -47,6 +47,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "ListUsers",
@@ -65,6 +66,8 @@ export default {
     loggedUserId() {
       return this.$store.state.userData.id;
     },
+
+    ...mapGetters(['loggedUsers'])
   },
 
   async mounted() {
@@ -72,6 +75,10 @@ export default {
   },
 
   methods: {
+    isUserLogged(id) {
+      return id in this.loggedUsers;
+    },
+
     displayUserRole(role) {
       let text = "";
 
