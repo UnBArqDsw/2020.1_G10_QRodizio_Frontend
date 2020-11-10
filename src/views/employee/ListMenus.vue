@@ -75,7 +75,8 @@ export default {
       this.$router.push("/create-Menu");
     },
 
-    async editMenu(menu) {
+    editMenu(menu) {
+      this.$router.push({name: "EditMenu", params: {...menu}});
     },
 
     async confirmDeleteMenu(menu) {

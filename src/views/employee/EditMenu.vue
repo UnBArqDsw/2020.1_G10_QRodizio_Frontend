@@ -38,7 +38,7 @@
       <br />
       <hr />
 
-      <b-button @click="createMenu" class="button is-light">Criar</b-button>
+      <b-button @click="updateMenu" class="button is-light">Atualizar</b-button>
       &nbsp;
       <b-button @click="goBack" class="button is-light">Cancelar</b-button>
       <hr />
@@ -46,13 +46,13 @@
       <div>
         {{ message }}
 
-        <span v-if="message == 'Menu criado!'">
+        <span v-if="message == 'Menu atualizado!'">
           <br />
           <a @click="goBack">Voltar para menus</a>
         </span>
       </div>
 
-       <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="true" />
+      <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="true" />
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ import axios from "axios";
 import { mapState } from "vuex";
 
 export default {
-  name: "CreateMenu",
+  name: "EditMenu",
 
   data() {
     return {
@@ -71,12 +71,25 @@ export default {
       description: "",
       items: [],
       message: "",
-      isLoading: false
+      isLoading: false,
     };
   },
 
   computed: {
-    ...mapState(['userToken'])
+    ...mapState(["userToken"]),
+  },
+
+  mounted() {
+    if (this.$route.params.id == undefined) {
+      alert("no id");
+      this.$router.push("/list-menus");
+    }
+
+    this.id = this.$route.params.id;
+    this.is_daily = this.$route.params.is_daily;
+    this.name = this.$route.params.name;
+    this.description = this.$route.params.description;
+    this.items = this.$route.params.items;
   },
 
   methods: {
@@ -84,14 +97,7 @@ export default {
       this.$router.push("/list-menus");
     },
 
-    clearForm() {
-      this.is_daily = false;
-      this.name = ""
-      this.description = "";
-      this.items = [];
-    },
-
-    async createMenu() {
+    async updateMenu() {
       let data = {
         is_daily: this.is_daily,
         name: this.name,
@@ -100,9 +106,9 @@ export default {
       };
 
       this.isLoading = true;
-      
-      let response = await axios.post(
-        "http://127.0.0.1:5000/menus/",
+
+      let response = await axios.put(
+        `http://127.0.0.1:5000/menus/${this.id}`,
         { ...data },
         {
           headers: { Authorization: `Bearer ${this.userToken}` },
@@ -111,9 +117,8 @@ export default {
 
       this.isLoading = false;
 
-      if(response.status == 201) {
-        this.message = "Menu criado!";
-        this.clearForm();
+      if (response.status == 202) {
+        this.message = "Menu atualizado!";
       }
     },
   },
