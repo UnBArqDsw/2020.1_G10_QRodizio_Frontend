@@ -14,6 +14,7 @@ import ListTables from "../views/employee/ListTables";
 import ViewSession from "../views/employee/ViewSession";
 import EditUser from "../views/employee/EditUser";
 import ListMenus from "../views/employee/ListMenus";
+import CreateMenu from "../views/employee/CreateMenu"
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
@@ -80,6 +81,11 @@ const routes = [
     path: "/list-menus",
     name: "ListMenus",
     component: ListMenus
+  },
+  {
+    path: "/create-menu",
+    name: "CreateMenu",
+    component: CreateMenu
   },
 
   /** ################################################################### */

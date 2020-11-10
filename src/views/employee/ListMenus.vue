@@ -71,7 +71,9 @@ export default {
       this.menus = response.data.menus; 
     },
 
-    makeNewMenu() {},
+    makeNewMenu() {
+      this.$router.push("/create-Menu");
+    },
 
     async editMenu(menu) {
     },
