@@ -13,6 +13,7 @@ import CreateTable from "../views/employee/CreateTable";
 import ListTables from "../views/employee/ListTables";
 import ViewSession from "../views/employee/ViewSession";
 import EditUser from "../views/employee/EditUser";
+import ListMenus from "../views/employee/ListMenus";
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
@@ -74,6 +75,11 @@ const routes = [
     path: "/edit-user",
     name: "EditUser",
     component: EditUser, 
+  },
+  {
+    path: "/list-menus",
+    name: "ListMenus",
+    component: ListMenus
   },
 
   /** ################################################################### */
