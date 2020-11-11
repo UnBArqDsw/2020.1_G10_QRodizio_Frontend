@@ -33,6 +33,11 @@
 
       <div class="field">
         <label class="label">Items</label>
+
+        <MenuItemsForm
+          :items="items"
+          v-on:update:itemsUpdated="itemsUpdatedByForm($event)"
+        />
       </div>
 
       <br />
@@ -61,8 +66,12 @@
 import axios from "axios";
 import { mapState } from "vuex";
 
+import MenuItemsForm from "../../components/MenuItemsForm";
+
 export default {
   name: "EditMenu",
+
+  components: { MenuItemsForm },
 
   data() {
     return {
@@ -93,6 +102,10 @@ export default {
   },
 
   methods: {
+    itemsUpdatedByForm(newItems) {
+      this.items = newItems;
+    },
+
     goBack() {
       this.$router.push("/list-menus");
     },

@@ -33,6 +33,11 @@
 
       <div class="field">
         <label class="label">Items</label>
+
+        <MenuItemsForm
+          :items="items"
+          v-on:update:itemsUpdated="itemsUpdatedByForm($event)"
+        />
       </div>
 
       <br />
@@ -52,7 +57,7 @@
         </span>
       </div>
 
-       <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="true" />
+      <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="true" />
     </div>
   </div>
 </template>
@@ -61,8 +66,12 @@
 import axios from "axios";
 import { mapState } from "vuex";
 
+import MenuItemsForm from "../../components/MenuItemsForm";
+
 export default {
   name: "CreateMenu",
+
+  components: { MenuItemsForm },
 
   data() {
     return {
@@ -71,22 +80,26 @@ export default {
       description: "",
       items: [],
       message: "",
-      isLoading: false
+      isLoading: false,
     };
   },
 
   computed: {
-    ...mapState(['userToken'])
+    ...mapState(["userToken"]),
   },
 
   methods: {
+    itemsUpdatedByForm(newItems) {
+      this.items = newItems;
+    },
+
     goBack() {
       this.$router.push("/list-menus");
     },
 
     clearForm() {
       this.is_daily = false;
-      this.name = ""
+      this.name = "";
       this.description = "";
       this.items = [];
     },
@@ -100,7 +113,7 @@ export default {
       };
 
       this.isLoading = true;
-      
+
       let response = await axios.post(
         "http://127.0.0.1:5000/menus/",
         { ...data },
@@ -111,7 +124,7 @@ export default {
 
       this.isLoading = false;
 
-      if(response.status == 201) {
+      if (response.status == 201) {
         this.message = "Menu criado!";
         this.clearForm();
       }
