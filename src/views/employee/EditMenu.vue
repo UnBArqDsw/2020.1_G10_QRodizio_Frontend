@@ -35,6 +35,7 @@
         <label class="label">Items</label>
 
         <MenuItemsForm
+          :menuId="id"
           :items="items"
           v-on:update:itemsUpdated="itemsUpdatedByForm($event)"
         />
@@ -75,6 +76,7 @@ export default {
 
   data() {
     return {
+      id: -1,
       is_daily: false,
       name: "",
       description: "",

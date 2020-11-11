@@ -82,10 +82,16 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "MenuItemsForm",
 
   props: {
+    menuId: {
+      type: Number,
+      default: -1,
+    },
     items: Array,
   },
 
@@ -150,16 +156,37 @@ export default {
     confirmRemoveItem(index) {
       this.$buefy.dialog.confirm({
         message: "Deseja realmente deletar esse item ?",
-        onConfirm: async () => this.removeItem(index),
+        onConfirm: async () => await this.removeItem(index),
       });
     },
 
-    removeItem(index) {
+    async removeItem(index) {
+      await this.verifyDeleteOnBack(index);
+
       let copyItems = [...this.items];
 
       copyItems = [...copyItems.slice(0, index), ...copyItems.slice(index + 1)];
 
       this.$emit("update:itemsUpdated", copyItems);
+    },
+
+    async verifyDeleteOnBack(index) {
+      if (this.menuId > -1 && this.items[index].id !== undefined) {
+        await this.deleteItemOnBackend(this.items[index]);
+      }
+    },
+
+    async deleteItemOnBackend(item) {
+      let response = await axios.delete(
+        `http://127.0.0.1:5000/menus/${this.menuId}/${item.id}`,
+        {
+          headers: { Authorization: `Bearer ${this.userToken}` },
+        }
+      );
+
+      if(response.status === 202) {
+        alert("Deletado no servidor");
+      }
     },
   },
 };
