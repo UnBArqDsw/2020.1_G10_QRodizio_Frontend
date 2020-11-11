@@ -13,7 +13,15 @@
       to="/employee-demands"
       v-bind:class="{ hidden: notLogged }"
     >
-      Listar pedidos
+      Pedidos
+    </b-navbar-item>
+
+    <b-navbar-item
+      tag="router-link"
+      to="/list-menus"
+      v-bind:class="{ hidden: notLogged }"
+    >
+      Menus
     </b-navbar-item>
 
     <b-navbar-item
