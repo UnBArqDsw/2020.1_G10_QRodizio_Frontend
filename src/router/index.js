@@ -16,6 +16,7 @@ import EditUser from "../views/employee/EditUser";
 import ListMenus from "../views/employee/ListMenus";
 import CreateMenu from "../views/employee/CreateMenu";
 import EditMenu from "../views/employee/EditMenu";
+import DisplayTableQRCode from "../views/employee/DisplayTableQRCode"
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
@@ -92,6 +93,11 @@ const routes = [
     path: "/edit-menu",
     name: "EditMenu",
     component: EditMenu
+  },
+  {
+    path: "/display-table-qrcode/:id",
+    name: "DisplayTableQRCode",
+    component: DisplayTableQRCode
   },
 
   /** ################################################################### */

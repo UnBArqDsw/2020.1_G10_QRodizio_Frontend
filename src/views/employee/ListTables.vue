@@ -57,7 +57,7 @@
             </span>
           </td>
           <td>
-            <button class="button is-light">Ver QRCode</button>
+            <button class="button is-light" @click="displayTableQRCode(table.id)">Ver QRCode</button>
           </td>
           <td>
             <span v-if="table.last_session == undefined">Nenhuma sessão</span>
@@ -113,6 +113,10 @@ export default {
     makeNewTable() {
       this.$router.push("/create-table");
     },
+
+    displayTableQRCode(tableId) {
+      this.$router.push(`/display-table-qrcode/${tableId}`);
+    }
   },
 };
 </script>
