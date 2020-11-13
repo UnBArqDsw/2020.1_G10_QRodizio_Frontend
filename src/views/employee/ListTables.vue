@@ -1,5 +1,11 @@
 <template>
   <div class="ListTables">
+    <a class="button is-light" @click="makeNewTable">
+      Criar nova mesa
+    </a>
+
+    <br />
+
     <table class="table">
       <thead>
         <tr>
@@ -16,23 +22,47 @@
         <tr v-for="table in tables" :key="table.id">
           <td>{{ table.id }}</td>
           <td>
-            <span v-if="table.last_session.closed" class="button is-danger is-light">
-              Fechada
+            <span v-if="table.last_session == undefined">Nenhuma sessão</span>
+            <span v-else>
+              <span
+                v-if="table.last_session.closed"
+                class="button is-danger is-light"
+              >
+                Fechada
+              </span>
+              <span v-else class="button is-success is-light">Aberta</span>
             </span>
-            <span v-else class="button is-success is-light">Aberta</span>
           </td>
-          <td>{{ table.last_session.created_on }}</td>
+          <td>
+            <span v-if="table.last_session != undefined">
+              {{ table.last_session.created_on }}
+            </span>
+            <span v-else>
+              Nenhuma sessão
+            </span>
+          </td>
           <td>{{ table.total_demands }}</td>
           <td>
-            <span v-bind:class="[isCalling(table.last_session.id) ? 'calling' : '', 'blinking']">
-              {{ isCalling(table.last_session.id) ? "sim" : "não" }}
+            <span v-if="table.last_session == undefined">Nenhuma sessão</span>
+            <span v-else>
+              <span
+                v-bind:class="[
+                  isCalling(table.last_session.id)
+                    ? 'is-calling'
+                    : 'not-calling',
+                ]"
+              >
+                {{ isCalling(table.last_session.id) ? "sim" : "não" }}
+              </span>
             </span>
           </td>
           <td>
             <button class="button is-light">Ver QRCode</button>
           </td>
           <td>
+            <span v-if="table.last_session == undefined">Nenhuma sessão</span>
             <b-navbar-item
+              v-else
               class="button is-light"
               tag="router-link"
               :to="`/view-session/${table.last_session.id}`"
@@ -60,7 +90,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['tablesCalling'])
+    ...mapState(["tablesCalling"]),
   },
 
   async mounted() {
@@ -79,24 +109,20 @@ export default {
         this.tables = response.data.tables;
       }
     },
+
+    makeNewTable() {
+      this.$router.push("/create-table");
+    },
   },
 };
 </script>
 
 <style scoped>
-.calling {
+.not-calling {
+  color: #ccc;
+}
+
+.is-calling {
   color: #f14668;
 }
-
-.blinking {
-  animation:blinkingText 1.5s infinite;
-}
-@keyframes blinkingText {
-  0% {     color:#f14668; }
-  49% {    color:#f14668; }
-  60% {    color: transparent; }
-  99% {    color:transparent; }
-  100% {   color:#f14668; }
-}
-
 </style>
