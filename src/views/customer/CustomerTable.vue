@@ -50,7 +50,6 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      keepUpdateLoop: true,
       sessionUrl: "",
       demands: [],
     };
@@ -62,15 +61,9 @@ export default {
 
   async mounted() {
     this.sessionUrl = this.$route.params.url;
-
-    this.checkUserHasAName();
-
     await this.fetchSession();
-    // this.updateTableDemands();
-  },
 
-  destroyed() {
-    this.keepUpdateLoop = false;
+    this.checkUserName();
   },
 
   sockets: {
@@ -78,13 +71,16 @@ export default {
       alert(message);
     },
 
-    frontend_table_demands_updated(demands) {
-      console.log(demands);
+    frontend_table_demands_updated(data) {
+      if (data.session_url == this.sessionUrl) {
+        console.log("Updating my table demands");
+        this.demands = [...data.demands];
+      }
     },
   },
 
   methods: {
-    checkUserHasAName() {
+    async checkUserName() {
       if (this.customerName.length > 0) return;
 
       this.$buefy.dialog.prompt({
@@ -94,12 +90,21 @@ export default {
           maxlength: 30,
         },
         trapFocus: true,
-        onConfirm: (value) => this.setCustomerName(value),
+        onConfirm: async (name) => await this.joinRoom(name),
       });
     },
 
-    setCustomerName(name) {
-      this.$store.dispatch('setCustomerName', name);
+    async joinRoom(name) {
+      if (name.length > 0) {
+        this.$store.dispatch("setCustomerName", name);
+
+        await this.$socket.emit("customer_join_room", {
+          session_url: this.sessionUrl,
+          name,
+        });
+      } else {
+        alert("No name was given");
+      }
     },
 
     async callForAssistance() {
@@ -145,16 +150,6 @@ export default {
 
     makeNewDemand() {
       this.$router.push(`/make-new-demand/${this.sessionUrl}`);
-    },
-
-    updateTableDemands() {
-      if (this.keepUpdateLoop == false) return;
-
-      window.setTimeout(async () => {
-        await this.fetchSession();
-
-        this.updateTableDemands();
-      }, 1000);
     },
 
     async confirmCancelDemand(demandId) {

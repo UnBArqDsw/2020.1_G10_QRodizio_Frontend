@@ -113,6 +113,7 @@ export default {
       this.isLoading = false;
 
       if (response.status == 201) {
+        await this.emitNewDemand();
         this.$router.push(`/table/${this.sessionUrl}`);
       } else {
         alert("Deu ruim");
@@ -126,6 +127,10 @@ export default {
         onConfirm: async () => await this.sendDemand(),
       });
     },
+
+    async emitNewDemand() {
+      await this.$socket.emit("customer_new_demand_sent", this.sessionUrl);
+    }
   },
 };
 </script>
