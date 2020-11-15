@@ -77,7 +77,7 @@ const routes = [
   {
     path: "/edit-user",
     name: "EditUser",
-    component: EditUser, 
+    component: EditUser,
   },
   {
     path: "/list-menus",

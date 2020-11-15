@@ -17,7 +17,31 @@
         Valor unitário: R$ {{ value }}
         <br />
         Quantidade:
-        <input type="number" v-model="quantity" />
+        <br />
+
+        <div class="columns">
+          <div class="column">
+            <b-button
+              rounded
+              type="is-light"
+              icon-left="minus"
+              @click="decQuantity"
+            />
+          </div>
+
+          <div class="column">
+            {{ quantity }}
+          </div>
+
+          <div class="column">
+            <b-button
+              rounded
+              type="is-light"
+              icon-left="plus"
+              @click="incQuantity"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <footer class="card-footer">
@@ -33,6 +57,7 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   name: "MenuItemForDemand",
@@ -59,24 +84,32 @@ export default {
       return this.$store.state.tableSession.id;
     },
 
-    sessionUrl() {
-      return this.$store.state.tableSession.url;
-    },
+    ...mapState(["customerName"]),
   },
 
   methods: {
+    decQuantity() {
+      if (this.quantity == 1) return;
+      this.quantity -= 1;
+    },
+
+    incQuantity() {
+      this.quantity += 1;
+    },
+
     async sendDemand() {
-      let quantity = this.quantity;
-      let item_id = this.id;
-      let session_id = this.sessionId;
+      let postData = {
+        quantity: this.quantity,
+        item_id: this.id,
+        session_id: this.sessionId,
+        customer: this.customerName,
+      };
 
       this.isLoading = true;
-      let response = await axios.post("http://127.0.0.1:5000/demands/", {
-        customer: "Ninguem",
-        quantity,
-        item_id,
-        session_id
-      });
+      let response = await axios.post(
+        "http://127.0.0.1:5000/demands/",
+        postData
+      );
       this.isLoading = false;
 
       if (response.status == 201) {

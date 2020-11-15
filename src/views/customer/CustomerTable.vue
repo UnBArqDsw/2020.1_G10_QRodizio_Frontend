@@ -45,18 +45,28 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       keepUpdateLoop: true,
+      sessionUrl: "",
       demands: [],
     };
   },
 
+  computed: {
+    ...mapState(["customerName"]),
+  },
+
   async mounted() {
+    this.sessionUrl = this.$route.params.url;
+
+    this.checkUserHasAName();
+
     await this.fetchSession();
-    this.updateTableDemands();
+    // this.updateTableDemands();
   },
 
   destroyed() {
@@ -66,10 +76,32 @@ export default {
   sockets: {
     frontend_employee_called(message) {
       alert(message);
-    }
+    },
+
+    frontend_table_demands_updated(demands) {
+      console.log(demands);
+    },
   },
 
   methods: {
+    checkUserHasAName() {
+      if (this.customerName.length > 0) return;
+
+      this.$buefy.dialog.prompt({
+        message: `Qual o seu nome?`,
+        inputAttrs: {
+          placeholder: "Nome",
+          maxlength: 30,
+        },
+        trapFocus: true,
+        onConfirm: (value) => this.setCustomerName(value),
+      });
+    },
+
+    setCustomerName(name) {
+      this.$store.dispatch('setCustomerName', name);
+    },
+
     async callForAssistance() {
       let { url } = this.$route.params;
 
@@ -100,11 +132,8 @@ export default {
     },
 
     async fetchSession() {
-      // TODO: use this.$route.params.url when table as qrcode in backend
-      let url = "1-59a9639a-1778-11eb-aa36-7429afd877c3";
-      let response = await axios.get(
-        `http://127.0.0.1:5000/sessions/url/${url}`
-      );
+      let url = `http://127.0.0.1:5000/sessions/url/${this.sessionUrl}`;
+      let response = await axios.get(url);
 
       if (response.status == 200) {
         let { id, url } = response.data.session;
@@ -115,8 +144,7 @@ export default {
     },
 
     makeNewDemand() {
-      let sessionUrl = this.$route.params.url;
-      this.$router.push(`/make-new-demand/${sessionUrl}`);
+      this.$router.push(`/make-new-demand/${this.sessionUrl}`);
     },
 
     updateTableDemands() {

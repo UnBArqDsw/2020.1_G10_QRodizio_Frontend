@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    customerName: "",
     userToken: "",
     userData: {},
     tableSession: {},
@@ -12,6 +13,10 @@ export default new Vuex.Store({
     tablesCalling: {},
   },
   mutations: {
+    setCustomerName(state, name) {
+      state.customerName = name;
+    },
+
     logUserIn(state, { token, user }) {
       state.userToken = token;
       state.userData = user;
@@ -53,6 +58,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    setCustomerName(context, name) {
+      context.commit('setCustomerName', name);
+    },
+
     logUserIn(context, { token, user }) {
       context.commit("logUserIn", { token, user });
     },
