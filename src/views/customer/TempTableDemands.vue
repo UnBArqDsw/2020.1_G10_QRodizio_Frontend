@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a class="button is-light" @click="makeNewDemand">
-      Fazer novo peido
+      Fazer novo pedido
     </a>
 
     <hr />

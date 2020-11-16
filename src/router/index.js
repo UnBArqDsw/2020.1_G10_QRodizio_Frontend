@@ -21,6 +21,7 @@ import EditMenu from "../views/employee/EditMenu";
 import CustomerTable from "../views/customer/CustomerTable";
 import TempTableDemands from "../views/customer/TempTableDemands";
 import MakeNewDemand from "../views/customer/MakeNewDemand";
+import MakePayment from "../views/customer/MakePayment";
 
 Vue.use(VueRouter);
 
@@ -111,6 +112,11 @@ const routes = [
     path: "/table/:url",
     name: "CustomerTable",
     component: CustomerTable,
+  },
+  {
+    path: "/payment/:url",
+    name: "MakePayment",
+    component: MakePayment,
   },
 ];
 
