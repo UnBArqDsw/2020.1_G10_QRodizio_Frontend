@@ -19,6 +19,7 @@
 </p>
     <hr />
 
+ 
     <table class="table">
       <thead>
         <tr>
@@ -137,7 +138,7 @@ export default {
           status = "Aguardando";
           break;
         case 1:
-          status = "Procesando";
+          status = "Processando";
           break;
         case 2:
           status = "Concluído";
@@ -170,7 +171,7 @@ export default {
 
     async confirmCancelDemand(demandId) {
       this.$buefy.dialog.confirm({
-        message: "Deseja realmente cancelar ?",
+        message: "Deseja realmente cancelar o pedido ?",
         onConfirm: async () => await this.cancelDemand(demandId),
       });
     },
