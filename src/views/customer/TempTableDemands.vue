@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a class="button is-light" @click="makeNewDemand">
-      Fazer novo peido
+      Fazer novo pedido
     </a>
 
     <hr />
@@ -117,6 +117,13 @@ export default {
         let request = await axios.put(
           `http://127.0.0.1:5000/demands/${demandId}/cancel`
         );
+
+        if(request.status == 202){
+          console.log('opa');
+        } else{
+          alert(request.data.error);
+        }
+
       } catch (err) {
         console.log(err);
       }

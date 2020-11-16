@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a class="button is-light" @click="makeNewDemand">
-      Fazer novo peido
+      Fazer novo pedido
     </a>
 
     &nbsp;
@@ -10,6 +10,13 @@
       Chamar funcionário
     </a>
 
+    <hr />
+  <p>
+     Nome do cliente: {{clientName}}
+    <a class="button is-light is-info" @click="changeClientName">
+      Alterar      
+    </a>
+</p>
     <hr />
 
     <table class="table">
@@ -52,6 +59,7 @@ export default {
     return {
       sessionUrl: "",
       demands: [],
+      clientName: localStorage.getItem("name") != null ? localStorage.getItem("name") : 'Cliente',
     };
   },
 
@@ -81,17 +89,18 @@ export default {
 
   methods: {
     async checkUserName() {
-      if (this.customerName.length > 0) return;
 
-      this.$buefy.dialog.prompt({
-        message: `Qual o seu nome?`,
+      if(localStorage.getItem('name')===null) {
+        this.$buefy.dialog.prompt({
+        message: 'Qual seu nome ?',
         inputAttrs: {
-          placeholder: "Nome",
+          placeholder: 'Nome',
           maxlength: 30,
         },
         trapFocus: true,
         onConfirm: async (name) => await this.joinRoom(name),
-      });
+        });
+      } 
     },
 
     async joinRoom(name) {
@@ -102,6 +111,8 @@ export default {
           session_url: this.sessionUrl,
           name,
         });
+        localStorage.setItem('name', name);
+        this.$router.go(this.$router.currentRoute);
       } else {
         alert("No name was given");
       }
@@ -111,6 +122,11 @@ export default {
       let { url } = this.$route.params;
 
       await this.$socket.emit("call_for_assistance", url);
+    },
+
+     changeClientName() {
+      localStorage.removeItem("name");
+      this.checkUserName();
     },
 
     demandDisplayStatus(demandStatus) {
@@ -164,6 +180,15 @@ export default {
         let request = await axios.put(
           `http://127.0.0.1:5000/demands/${demandId}/cancel`
         );
+
+        if(request.status===406){
+          alert("Demanda ja cancelada");
+        }
+
+        if(request.status === 202){
+          alert("Demanda cancelada");
+          this.$router.go(this.$router.currentRoute);
+        }
       } catch (err) {
         console.log(err);
       }

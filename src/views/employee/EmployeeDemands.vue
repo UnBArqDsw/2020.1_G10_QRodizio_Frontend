@@ -5,7 +5,7 @@
       <div class="control">
         <div class="select">
           <select v-model="demandStatus">
-            <option v-for="s in status" :key="s" :value="s">{{ s }}</option>
+            <option v-for="s in status" :key="s.status" :value="s.status">{{ s.statusPt }}</option>
           </select>
         </div>
       </div>
@@ -68,7 +68,7 @@ export default {
 
   async mounted() {
     await this.getDemandStatus();
-    this.demands = this.status[0];
+    this.demands = this.status[0].status;
     await this.fetchDemands(this.demandStatus);
     this.updateDemandsTable();
   },
@@ -92,7 +92,25 @@ export default {
       let request = await axios.get("http://127.0.0.1:5000/demands/status");
 
       if (request.status === 200) {
-        this.status = request.data.status;
+        if(request.data.status) {
+          request.data.status.forEach(element => {
+            if(element==='waiting'){
+              this.status.push({'status': element, 'statusPt': 'Aguardando'});
+            }
+            if(element==='processing'){
+              this.status.push({'status': element, 'statusPt': 'Processando'});
+            }
+            if(element==='done'){
+              this.status.push({'status': element, 'statusPt': 'Pronto'});
+            }
+            if(element==='canceled'){
+              this.status.push({'status': element, 'statusPt': 'Cancelado'});
+            }
+
+          });
+        }
+        // this.status = request.data.status;
+        console.log(this.status)
       }
     },
 
