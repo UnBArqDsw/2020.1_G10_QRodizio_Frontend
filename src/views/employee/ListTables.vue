@@ -16,6 +16,7 @@
           <th>Pedindo atendimento</th>
           <th>Ver QRCode</th>
           <th>Ver Sessão</th>
+          <th>Encerrar mesa</th>
         </tr>
       </thead>
       <tbody>
@@ -70,6 +71,11 @@
               Ver Sessão
             </b-navbar-item>
           </td>
+
+          <td>
+            <span v-if="table.last_session == undefined">Sem sessões</span>
+             <a v-else class="button is-danger" @click="endSession(table.last_session.id)">Encerrar mesa</a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -100,6 +106,23 @@ export default {
   methods: {
     isCalling(id) {
       return id in this.tablesCalling;
+    },
+   
+   async endSession(sessionId) {
+      console.log("Session to end: ", sessionId);      
+      try {
+        let data = {"closed": true};
+        let request = await axios.put(
+          `http://127.0.0.1:5000/sessions/${sessionId}`, 
+        { ...data },
+        {
+          headers: { Authorization: `Bearer ${this.userToken}` },
+        });
+
+         this.$router.go(this.$router.currentRoute);
+      }catch (err) {
+          console.log(err);
+      }   
     },
 
     async fetchTables() {

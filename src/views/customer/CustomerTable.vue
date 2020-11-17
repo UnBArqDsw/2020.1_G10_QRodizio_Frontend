@@ -8,9 +8,6 @@
       Chamar funcionário
     </a>
     &nbsp;
-    <a class="button is-danger" @click="endSession">Encerrar sessão</a>
-    &nbsp;
-     <hr />
     Nome do cliente: {{clientName}}
     &nbsp;
     &nbsp;
@@ -130,29 +127,7 @@ export default {
       this.checkUserName();
     },
 
-    async endSession() {
-      console.log("Session to end: ", this.sessionId);      
-      try {
-        let data = {"closed": true};
-        let request = await axios.put(
-          `http://127.0.0.1:5000/sessions/${this.sessionId}`, 
-        { ...data },
-        {
-          headers: { Authorization: `Bearer ${this.userToken}` },
-        }
-        );
-        if(request.status===406){
-          alert("Mesa Ja foi cancelada");
-        }
 
-        if(request.status === 202){
-          alert("Mesa cancelada");
-          this.$router.go(this.$router.currentRoute);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    },
 
     demandDisplayStatus(demandStatus) {
       let status = "";
