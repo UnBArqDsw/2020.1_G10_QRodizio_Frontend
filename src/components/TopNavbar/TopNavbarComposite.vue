@@ -1,5 +1,5 @@
 <template>
-  <b-navbar>
+  <b-navbar id = "header">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img src="@/assets/qr_code_icon.png" alt="QRodizio logo" />
@@ -48,3 +48,12 @@ export default {
   },
 };
 </script>
+
+<style>
+  #header{
+    background: linear-gradient(315deg, #3c9c33 0%, #3c9c33 32%);
+  }
+  #link{
+    color: #ffffff;
+  }
+</style>

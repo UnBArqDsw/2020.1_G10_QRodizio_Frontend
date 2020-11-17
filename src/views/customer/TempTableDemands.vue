@@ -3,7 +3,9 @@
     <a class="button is-light" @click="makeNewDemand">
       Fazer novo pedido
     </a>
-
+    <a class="button is-light" @click="getTotal">
+      Fechar Conta
+    </a>
     <hr />
 
     <table class="table">

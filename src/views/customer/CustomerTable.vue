@@ -3,6 +3,9 @@
     <a class="button is-light" @click="makeNewDemand">
       Fazer novo pedido
     </a>
+     <a class="button is-light" @click="getTotal">
+      Fechar Conta
+    </a>
     &nbsp;
     <a class="button is-light is-info" @click="callForAssistance">
       Chamar funcionário
@@ -116,7 +119,9 @@ export default {
         alert("No name was given");
       }
     },
-
+    async getTotal() {
+      console.log("teste");
+    },
     async callForAssistance() {
       let { url } = this.$route.params;
       console.log(url)
