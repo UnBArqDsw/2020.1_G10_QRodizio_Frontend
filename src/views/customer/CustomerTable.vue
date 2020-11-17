@@ -8,6 +8,7 @@
       Chamar funcionário
     </a>
     &nbsp;
+    <br>
     Nome do cliente: {{clientName}}
     &nbsp;
     &nbsp;
@@ -118,7 +119,7 @@ export default {
 
     async callForAssistance() {
       let { url } = this.$route.params;
-
+      console.log(url)
       await this.$socket.emit("call_for_assistance", url);
     },
 

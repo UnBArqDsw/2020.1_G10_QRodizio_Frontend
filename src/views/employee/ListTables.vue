@@ -53,7 +53,7 @@
                     : 'not-calling',
                 ]"
               >
-                {{ isCalling(table.last_session.id) ? "sim" : "não" }}
+                <b-button @click="attendant(table.last_session.url)" v-if="isCalling(table.last_session.id) ? true : false" size="is-small">Atender</b-button>
               </span>
             </span>
           </td>
@@ -131,6 +131,10 @@ export default {
       if (response.status == 200) {
         this.tables = response.data.tables;
       }
+    },
+
+   async attendant(urlTable){
+      await this.$socket.emit("call_for_assistance", urlTable);     
     },
 
     makeNewTable() {
