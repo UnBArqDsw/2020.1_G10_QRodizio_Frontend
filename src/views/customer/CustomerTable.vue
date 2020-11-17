@@ -3,22 +3,21 @@
     <a class="button is-light" @click="makeNewDemand">
       Fazer novo pedido
     </a>
-
     &nbsp;
-
     <a class="button is-light is-info" @click="callForAssistance">
       Chamar funcionário
     </a>
-
-    <hr />
-  <p>
-     Nome do cliente: {{clientName}}
-    <a class="button is-light is-info" @click="changeClientName">
-      Alterar      
+    &nbsp;
+    <a class="button is-danger" @click="endSession">Encerrar sessão</a>
+    &nbsp;
+     <hr />
+    Nome do cliente: {{clientName}}
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    <a class="button is-light" @click="changeClientName">
+     Alterar
     </a>
-</p>
-    <hr />
-
  
     <table class="table">
       <thead>
@@ -61,6 +60,7 @@ export default {
       sessionUrl: "",
       demands: [],
       clientName: localStorage.getItem("name") != null ? localStorage.getItem("name") : 'Cliente',
+      sessionId: 0,
     };
   },
 
@@ -130,6 +130,30 @@ export default {
       this.checkUserName();
     },
 
+    async endSession() {
+      console.log("Session to end: ", this.sessionId);      
+      try {
+        let data = {"closed": true};
+        let request = await axios.put(
+          `http://127.0.0.1:5000/sessions/${this.sessionId}`, 
+        { ...data },
+        {
+          headers: { Authorization: `Bearer ${this.userToken}` },
+        }
+        );
+        if(request.status===406){
+          alert("Mesa Ja foi cancelada");
+        }
+
+        if(request.status === 202){
+          alert("Mesa cancelada");
+          this.$router.go(this.$router.currentRoute);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     demandDisplayStatus(demandStatus) {
       let status = "";
 
@@ -162,6 +186,7 @@ export default {
 
         this.$store.dispatch("setTableSesssion", { id, url });
         this.demands = response.data.session.demands;
+        this.sessionId = id;
       }
     },
 
