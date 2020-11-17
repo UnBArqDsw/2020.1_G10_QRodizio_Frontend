@@ -2,7 +2,7 @@
   <b-navbar id = "header">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
-        <img src="@/assets/qr_code_icon.png" alt="QRodizio logo" />
+        <img src="@/assets/Logov.png" alt="QRodizio logo" />
       </b-navbar-item>
     </template>
 

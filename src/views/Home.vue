@@ -2,7 +2,7 @@
   <div class="home">
     <!-- <b-button @click="clickMe">Click Me</b-button> -->
 
-    <img src="@/assets/index.png" alt="QRodizio logo" />
+    <img src="@/assets/Logov.png" alt="QRodizio logo" />
     <footer class="footer">
      <div class="content has-text-centered">
         <p>
