@@ -25,10 +25,17 @@ export default {
       this.$store.dispatch("setLoggedUsers", employees);
     },
 
+    //appvue pq fica na navbar
     frontend_call_for_employee_on_table(tableSession) {
       console.log("Called on ");
       console.log(tableSession);
       this.$store.dispatch("addTableToCalling", tableSession);
+    },
+
+    frontend_not_call_for_employee_on_table(tableSession) {
+      console.log("Called on ");
+      console.log(tableSession);
+      this.$store.dispatch("removeTableToCalling", tableSession);
     },
   },
 

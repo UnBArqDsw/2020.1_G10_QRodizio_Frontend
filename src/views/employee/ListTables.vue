@@ -54,6 +54,7 @@
                 ]"
               >
                 <b-button @click="attendant(table.last_session.url)" v-if="isCalling(table.last_session.id) ? true : false" size="is-small">Atender</b-button>
+                <p v-if="isCalling(table.last_session.id) ? false : true" size="is-small">Em atendimento</p>
               </span>
             </span>
           </td>
@@ -103,6 +104,22 @@ export default {
     await this.fetchTables();
   },
 
+    sockets: {
+    
+    //so msg recebida pelo socket do servidor
+    frontend_employee_called(message) {
+      alert(message);
+    },
+
+  
+    frontend_update_employee_called(data) {
+      if (data.session_url == this.sessionUrl) {
+        console.log("Updating my table demands");
+        this.demands = [...data.demands];
+      }
+    },
+  },
+
   methods: {
     isCalling(id) {
       return id in this.tablesCalling;
@@ -134,7 +151,7 @@ export default {
     },
 
    async attendant(urlTable){
-      await this.$socket.emit("call_for_assistance", urlTable);     
+      await this.$socket.emit("response_for_assistence", urlTable);     
     },
 
     makeNewTable() {
