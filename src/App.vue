@@ -2,7 +2,7 @@
   <div id="app">
     <TopNavbar />
 
-    <div id="main-content" class="container">
+    <div class="container">
       <router-view />
     </div>
         <footer class="footer">
@@ -63,9 +63,7 @@ export default {
 };
 </script>
 
-<style scoped>
-#main-content {
-  margin-top: 5px;
-  
-}
+<style >
+@import '/assets/styles/styles.css';
+
 </style>

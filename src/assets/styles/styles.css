@@ -1,0 +1,35 @@
+.title {
+  text-align: center;
+  margin: 0 auto;
+}
+.content {
+  margin: 0px;
+  text-align: center;
+}
+img.center {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+}
+div.home {
+  background-color: #4dff88;
+  padding: 0px;
+  width: auto;
+}
+article.tile {
+  background-color: #1aff66;
+}
+
+.app {
+  max-width: 100%;
+}
+.main-content {
+  margin-top: 5px;
+  background-color: #1aff66;
+}
+.footer {
+  background-color: #1aff66;
+}
+.container {
+  background-color: #1aff66;
+}

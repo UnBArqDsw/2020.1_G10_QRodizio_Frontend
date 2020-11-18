@@ -45,27 +45,6 @@ export default {
   }
 }
 </script>
-
 <style>
-p.title{
-  text-align: center;
-  margin: 0 auto;
-}
-div.content{
-  margin: 0px;
-  text-align: center;
-}
-img.center {
-    display: block;
-    margin: 0 auto;
-    width: 50%;
-}
-div.home {
-  background-color:  #4dff88;
-  padding: 0px;
-}
-article.tile {
-  background-color: #1aff66 ;
-}
-
+  @import '../assets/styles/styles.css';
 </style>
