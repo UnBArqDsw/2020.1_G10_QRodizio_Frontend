@@ -13,16 +13,34 @@
     &nbsp;
     <br>
     <br>
-    <h3 class="title is-3">Cliente:  </h3> <i><b>{{clientName}}</b></i>
-&nbsp;
-&nbsp;
-&nbsp;
-    <b-button size="is-small"
+    <h3 class="title is-3">Nome:  
+    <i><b>{{clientName}}</b></i>          
+    <b-button style="margin-left: 20px; margin-top: 10px" size="is-small"
       @click="changeClientName"
         icon-left="refresh">
         alterar
-    </b-button>
- 
+    </b-button>      
+      
+      </h3> 
+
+<h3  v-if="paymentSelect" class="title is-4">Forma de pagamento:  </h3>
+
+    <section  v-if="paymentSelect"  @change="teste()">
+      <div class="field">
+          <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
+      </div>
+      <div class="field">
+          <b-checkbox v-model="method" native-value="card">
+              Cartão
+          </b-checkbox>
+      </div>
+      <div class="field">
+          <b-checkbox v-model="method" native-value="both">
+              Indeterminado
+          </b-checkbox>
+      </div>
+    </section>
+
     <table class="table">
       <thead>
         <tr>
@@ -65,6 +83,9 @@ export default {
       demands: [],
       clientName: localStorage.getItem("name") != null ? localStorage.getItem("name") : 'Cliente',
       sessionId: 0,
+      paymentSelect: false,
+      method: [],
+      session: {}
     };
   },
 
@@ -93,6 +114,11 @@ export default {
   },
 
   methods: {
+
+    teste() {
+      // this.paymentSelect=!this.paymentSelect;
+      localStorage.setItem('payment', this.method);   
+    },
     async checkUserName() {
 
       if(localStorage.getItem('name')===null) {
@@ -123,8 +149,10 @@ export default {
       }
     },
     async getTotal() {
+      this.paymentSelect=true;
       console.log("teste");
     },
+
 
     async callForAssistance() {
       let { url } = this.$route.params;
@@ -132,7 +160,7 @@ export default {
       await this.$socket.emit("call_for_assistance", url);
     },
 
-     changeClientName() {
+    changeClientName() {
       localStorage.removeItem("name");
       this.checkUserName();
     },
@@ -166,6 +194,7 @@ export default {
 
       if (response.status == 200) {
         let { id, url } = response.data.session;
+        this.session=response.data.session;
 
         this.$store.dispatch("setTableSesssion", { id, url });
         this.demands = response.data.session.demands;
@@ -174,7 +203,13 @@ export default {
     },
 
     makeNewDemand() {
-      this.$router.push(`/make-new-demand/${this.sessionUrl}`);
+      console.log(this.session)
+      if(this.session.closed==false){
+        this.$router.push(`/make-new-demand/${this.sessionUrl}`);
+      } else {
+        alert("A mesa precisa estar aberta para realizar uma demanda");
+      }
+ 
     },
 
     async confirmCancelDemand(demandId) {

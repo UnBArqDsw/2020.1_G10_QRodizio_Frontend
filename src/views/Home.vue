@@ -5,7 +5,7 @@
     <h1 style="text-align:center" class="title is-2">Rodizio direto e simples</h1>
     <img class="center" src="@/assets/Logov.png" alt="QRodizio logo" />
 
-    <div class="tile is-ancestor">
+<div class="tile is-ancestor">
   <div class="tile is-parent">
     <article class="tile is-child box">
       <p class="title">Leitura de QRCode</p>

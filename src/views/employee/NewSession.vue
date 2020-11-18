@@ -6,20 +6,20 @@
     <h1>Escolha a forma de pagamento</h1>
       <br>
       <br>
-        <section>
-        <div class="field">
-            <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
-        </div>
-        <div class="field">
-            <b-checkbox v-model="method" native-value="card">
-                Cartão
-            </b-checkbox>
-        </div>
-        <div class="field">
-            <b-checkbox v-model="method" native-value="both">
-                Indeterminado
-            </b-checkbox>
-        </div>
+    <section>
+      <div class="field">
+          <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
+      </div>
+      <div class="field">
+          <b-checkbox v-model="method" native-value="card">
+              Cartão
+          </b-checkbox>
+      </div>
+      <div class="field">
+          <b-checkbox v-model="method" native-value="both">
+              Indeterminado
+          </b-checkbox>
+      </div>
     </section>
     <p>{{method}}</p>
     <br>

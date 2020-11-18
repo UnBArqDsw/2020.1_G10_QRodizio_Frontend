@@ -102,7 +102,7 @@ export default {
         quantity: this.quantity,
         item_id: this.id,
         session_id: this.sessionId,
-        customer: this.customerName,
+        customer: localStorage.getItem("name"),
       };
 
       this.isLoading = true;
