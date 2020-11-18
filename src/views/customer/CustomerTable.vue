@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-        <a class="button-normal" @click="makeNewDemand">
+      <a class="button-normal" @click="makeNewDemand">
         Novo pedido
       </a>
       <a class="button-normal" @click="callForAssistance">
@@ -12,22 +12,17 @@
         Fechar conta
       </a>
       &nbsp;
-    
-  
-    <br>
-    <br>
-    <h3 class="name-costumer">Nome:  
-    <i><b>{{clientName}}</b></i>
-      <a class="button-normal" @click="changeClientName"  icon-left="refresh">
-      alterar
-      </a>          
-          
-    </h3> 
-
-<h3  v-if="paymentSelect" class="title is-4">Forma de pagamento:  </h3>
-
-    <section  v-if="paymentSelect"  @change="teste()">
-      <div class="field">
+    <a class="button-cancel" @click="isComponentModalActive= true">
+        teste fechar conta
+      </a>
+    <b-modal :active.sync="isComponentModalActive" has-modal-card>
+      <form action="">
+        <div class="modal-card" style="width: auto">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Fechar conta</p>
+          </header>
+          <section class="modal-card-body">
+            <div class="field">
           <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
       </div>
       <div class="field">
@@ -40,7 +35,24 @@
               Indeterminado
           </b-checkbox>
       </div>
-    </section>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button" type="button" @click="$parent.close()">Cancelar</button>
+            <button class="button is-primary" @click="teste">Confirmar</button>
+          </footer>
+        </div>
+      </form>
+    </b-modal>
+    <br>
+    <br>
+    <h3 class="name-costumer">Nome:  
+    <i><b>{{clientName}}</b></i>
+      <a class="button-normal" @click="changeClientName"  icon-left="refresh">
+      alterar
+      </a>          
+          
+    </h3> 
+
     <div style="overflow-x:auto;>">
       <table class="table">
         <thead>
@@ -61,7 +73,7 @@
             <td>
               <button
                 v-if="demand.status == 0"
-                class="button-cancel-demand"
+                class="button-cancel"
                 @click="confirmCancelDemand(demand.id)"
               >
                 Cancelar
@@ -87,7 +99,8 @@ export default {
       sessionId: 0,
       paymentSelect: false,
       method: [],
-      session: {}
+      session: {},
+      isComponentModalActive: false,
     };
   },
 
@@ -127,9 +140,10 @@ export default {
 
       if (response.status == 200) {
         let price = response.data.table;
-
+        console.log("chegou aqui ruim");
         alert('Valor a ser pago por ' + this.clientName + ' :' + price);
-      }      
+      }   
+      console.log("chegou aqui ruim");   
       
     },
     async checkUserName() {
@@ -146,7 +160,6 @@ export default {
         });
       } 
     },
-
     async joinRoom(name) {
       if (name.length > 0) {
         this.$store.dispatch("setCustomerName", name);
@@ -177,7 +190,9 @@ export default {
       localStorage.removeItem("name");
       this.checkUserName();
     },
-
+    closeTable(){
+      this.paymentSelect();
+    },
     demandDisplayStatus(demandStatus) {
       let status = "";
 
