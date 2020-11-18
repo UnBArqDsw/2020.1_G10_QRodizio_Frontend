@@ -8,14 +8,11 @@
         Chamar funcionário
       </a>
     </div>
-      <a class="button-cancel" @click="getTotal">
+      &nbsp;
+    <a class="button-cancel" @click="selectPayment= true">
         Fechar conta
       </a>
-      &nbsp;
-    <a class="button-cancel" @click="isComponentModalActive= true">
-        teste fechar conta
-      </a>
-    <b-modal :active.sync="isComponentModalActive" has-modal-card>
+    <b-modal :active.sync="selectPayment" has-modal-card>
       <form action="">
         <div class="modal-card" style="width: auto">
           <header class="modal-card-head">
@@ -37,17 +34,16 @@
       </div>
           </section>
           <footer class="modal-card-foot">
-            <button class="button" type="button" @click="$parent.close()">Cancelar</button>
-            <button class="button is-primary" @click="teste">Confirmar</button>
+            <button class="button" @click="$parent.close()" >Cancelar</button>
+            <button class="button is-primary" @click="() =>{teste(); callForAssistance()}" >Confirmar</button>
           </footer>
         </div>
       </form>
     </b-modal>
     <br>
-    <br>
     <h3 class="name-costumer">Nome:  
     <i><b>{{clientName}}</b></i>
-      <a class="button-normal" @click="changeClientName"  icon-left="refresh">
+      <a class="button-normal" @click="changeClientName">
       alterar
       </a>          
           
@@ -73,7 +69,7 @@
             <td>
               <button
                 v-if="demand.status == 0"
-                class="button-cancel"
+                class="button-cancel-demand"
                 @click="confirmCancelDemand(demand.id)"
               >
                 Cancelar
@@ -100,7 +96,7 @@ export default {
       paymentSelect: false,
       method: [],
       session: {},
-      isComponentModalActive: false,
+      selectPayment: false,
     };
   },
 
@@ -138,12 +134,13 @@ export default {
       let url = `http://127.0.0.1:5000/sessions/${this.session.id}/close`;
       let response = await axios.get(url);
 
+      this.pay
       if (response.status == 200) {
         let price = response.data.table;
-        console.log("chegou aqui ruim");
+        
         alert('Valor a ser pago por ' + this.clientName + ' :' + price);
       }   
-      console.log("chegou aqui ruim");   
+        
       
     },
     async checkUserName() {
