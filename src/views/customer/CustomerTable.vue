@@ -125,6 +125,7 @@ export default {
     async getTotal() {
       console.log("teste");
     },
+
     async callForAssistance() {
       let { url } = this.$route.params;
       console.log(url)
@@ -135,8 +136,6 @@ export default {
       localStorage.removeItem("name");
       this.checkUserName();
     },
-
-
 
     demandDisplayStatus(demandStatus) {
       let status = "";

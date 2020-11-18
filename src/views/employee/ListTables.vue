@@ -75,7 +75,7 @@
 
           <td>
             <span v-if="table.last_session == undefined">Sem sessões</span>
-             <a v-else class="button is-danger" @click="endSession(table.last_session.id)">Encerrar mesa</a>
+             <a v-else class="button is-danger" @click="endSession(table.last_session.id, table.last_session.closed)">Encerrar mesa</a>
           </td>
         </tr>
       </tbody>
@@ -126,21 +126,26 @@ export default {
       return id in this.tablesCalling;
     },
    
-   async endSession(sessionId) {
-      console.log("Session to end: ", sessionId);      
-      try {
-        let data = {"closed": true};
-        let request = await axios.put(
-          `http://127.0.0.1:5000/sessions/${sessionId}`, 
-        { ...data },
-        {
-          headers: { Authorization: `Bearer ${this.userToken}` },
-        });
+   async endSession(sessionId, status) {
+            
+      if(status===false) {
+        try {
+          let data = {"closed": true};
+          let request = await axios.put(
+            `http://127.0.0.1:5000/sessions/${sessionId}`, 
+          { ...data },
+          {
+            headers: { Authorization: `Bearer ${this.userToken}` },
+          });
 
-         this.$router.go(this.$router.currentRoute);
-      }catch (err) {
-          console.log(err);
-      }   
+          this.$router.go(this.$router.currentRoute);
+        }catch (err) {
+            console.log(err);
+        }   
+      } else {        
+        alert('Mesa ja fechada')
+      }
+
     },
 
     async fetchTables() {
