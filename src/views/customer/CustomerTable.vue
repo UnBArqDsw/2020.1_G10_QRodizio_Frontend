@@ -1,28 +1,28 @@
 <template>
-  <div id="container" class="container">
-    <a id="new-demand" class="button is-light" @click="makeNewDemand">
-      Novo pedido
-    </a>
-    <a id = "call-employee" class="button is-light is-info" @click="callForAssistance">
-      Chamar funcionário
-    </a>
-     <a id = "close" class="button is-light" @click="getTotal">
-      Fechar conta
-    </a>
-    &nbsp;
+  <div class="container">
+    <div>
+        <a class="button-normal" @click="makeNewDemand">
+        Novo pedido
+      </a>
+      <a class="button-normal" @click="callForAssistance">
+        Chamar funcionário
+      </a>
+    </div>
+      <a class="button-cancel" @click="getTotal">
+        Fechar conta
+      </a>
+      &nbsp;
     
-    &nbsp;
+  
     <br>
     <br>
-    <h3 class="title is-3">Nome:  
-    <i><b>{{clientName}}</b></i>          
-    <b-button style="margin-left: 20px; margin-top: 10px" size="is-small"
-      @click="changeClientName"
-        icon-left="refresh">
-        alterar
-    </b-button>      
-      
-      </h3> 
+    <h3 class="name-costumer">Nome:  
+    <i><b>{{clientName}}</b></i>
+      <a class="button-normal" @click="changeClientName"  icon-left="refresh">
+      alterar
+      </a>          
+          
+    </h3> 
 
 <h3  v-if="paymentSelect" class="title is-4">Forma de pagamento:  </h3>
 
@@ -41,35 +41,36 @@
           </b-checkbox>
       </div>
     </section>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Pedido</th>
-          <th>Quantidade</th>
-          <th>Status</th>
-          <th>Cancelar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="demand in demands" :key="demand.id">
-          <td>{{ demand.customer }}</td>
-          <td>{{ demand.item.name }}</td>
-          <td>{{ demand.quantity }}</td>
-          <td>{{ demandDisplayStatus(demand.status) }}</td>
-          <td>
-            <button
-              v-if="demand.status == 0"
-              class="button is-light"
-              @click="confirmCancelDemand(demand.id)"
-            >
-              Cancelar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="overflow-x:auto;>">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Pedido</th>
+            <th>Quantidade</th>
+            <th>Status</th>
+            <th>Cancelar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="demand in demands" :key="demand.id">
+            <td>{{ demand.customer }}</td>
+            <td>{{ demand.item.name }}</td>
+            <td>{{ demand.quantity }}</td>
+            <td>{{ demandDisplayStatus(demand.status) }}</td>
+            <td>
+              <button
+                v-if="demand.status == 0"
+                class="button-cancel-demand"
+                @click="confirmCancelDemand(demand.id)"
+              >
+                Cancelar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -253,14 +254,5 @@ export default {
 </script>
 
 <style >
-#container{
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  background-size: contain;
-  background-color: #1aff66;
-}
-div.table {
-  overflow-x: auto;
-}
+  @import '../../assets/styles/styles.css';
 </style>

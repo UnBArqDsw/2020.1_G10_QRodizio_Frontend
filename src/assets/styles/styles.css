@@ -2,6 +2,13 @@
   text-align: center;
   margin: 0 auto;
 }
+.name-costumer {
+  text-align: justify;
+  margin: 10 auto;
+  margin-left: 10px;
+  color: black;
+  font-size: 16px;
+}
 .content {
   margin: 0px;
   text-align: center;
@@ -32,4 +39,64 @@ article.tile {
 }
 .container {
   background-color: #1aff66;
+}
+.button-normal {
+  align-items: center;
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: #277429;
+  padding: 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.button-cancel {
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: red;
+  padding: 7px 95px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 8px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button-cancel:hover {
+  background-color: #f44336;
+  color: white;
+}
+.button-cancel-demand {
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: red;
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 8px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button-cancel-demand:hover {
+  background-color: #f44336;
+  color: white;
+}
+.table {
 }
