@@ -5,7 +5,15 @@
     <div id="main-content" class="container">
       <router-view />
     </div>
+        <footer class="footer">
+     <div class="content has-text-centered">
+        <p>
+        <strong>Qrcode</strong> by <a href="https://jgthms.com">Universidade de Brasilia</a>. The source code is licensed
+        </p>
+      </div>
+    </footer>
   </div>
+  
 </template>
 
 <script>

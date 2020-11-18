@@ -12,13 +12,16 @@
     </a>
     &nbsp;
     <br>
-    Nome do cliente: {{clientName}}
-    &nbsp;
-    &nbsp;
-    &nbsp;
-    <a class="button is-light" @click="changeClientName">
-     Alterar
-    </a>
+    <br>
+    <h3 class="title is-3">Cliente:  </h3> <i><b>{{clientName}}</b></i>
+&nbsp;
+&nbsp;
+&nbsp;
+    <b-button size="is-small"
+      @click="changeClientName"
+        icon-left="refresh">
+        alterar
+    </b-button>
  
     <table class="table">
       <thead>
