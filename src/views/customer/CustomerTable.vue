@@ -115,9 +115,18 @@ export default {
 
   methods: {
 
-    teste() {
+    async teste() {
       // this.paymentSelect=!this.paymentSelect;
-      localStorage.setItem('payment', this.method);   
+      localStorage.setItem('payment', this.method);
+      let url = `http://127.0.0.1:5000/sessions/${this.session.id}/close`;
+      let response = await axios.get(url);
+
+      if (response.status == 200) {
+        let price = response.data.table;
+
+        alert('Valor a ser pago por ' + this.clientName + ' :' + price);
+      }      
+      
     },
     async checkUserName() {
 
@@ -209,7 +218,6 @@ export default {
       } else {
         alert("A mesa precisa estar aberta para realizar uma demanda");
       }
- 
     },
 
     async confirmCancelDemand(demandId) {
