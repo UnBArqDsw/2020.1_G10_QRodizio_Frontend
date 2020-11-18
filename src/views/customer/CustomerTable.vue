@@ -1,15 +1,16 @@
 <template>
-  <div class="container">
-    <a class="button is-light" @click="makeNewDemand">
-      Fazer novo pedido
+  <div id="container" class="container">
+    <a id="new-demand" class="button is-light" @click="makeNewDemand">
+      Novo pedido
     </a>
-     <a class="button is-light" @click="getTotal">
-      Fechar Conta
-    </a>
-    &nbsp;
-    <a class="button is-light is-info" @click="callForAssistance">
+    <a id = "call-employee" class="button is-light is-info" @click="callForAssistance">
       Chamar funcionário
     </a>
+     <a id = "close" class="button is-light" @click="getTotal">
+      Fechar conta
+    </a>
+    &nbsp;
+    
     &nbsp;
     <br>
     <br>
@@ -248,3 +249,16 @@ export default {
   },
 };
 </script>
+
+<style >
+#container{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  background-size: contain;
+  background-color: #1aff66;
+}
+div.table {
+  overflow-x: auto;
+}
+</style>
