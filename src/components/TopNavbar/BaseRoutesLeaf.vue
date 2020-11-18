@@ -1,17 +1,32 @@
 <template>
   <fragment>
-    <b-navbar-item
-      tag="router-link"
-      to="/table/1-59a9639a-1778-11eb-aa36-7429afd877c3"
+    <a class="navbar-item"
+      @click="go"
     >
       Pedidos
-    </b-navbar-item>
+    </a>
   </fragment>
 </template>
 
 <script>
 export default {
   name: "BaseRoutesLeaf",
+
+  data() {
+    return {
+      sessionUrl: "",
+    };
+  },
+
+  async mounted() {
+    this.sessionUrl = '/table/'+localStorage.getItem('urlParam');
+  },
+
+  methods: {
+    go(){
+      this.$router.push('/table/'+localStorage.getItem('urlParam'));
+    }
+  }
 };
 </script>
 

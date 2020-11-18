@@ -96,6 +96,8 @@ export default {
 
   async mounted() {
     this.sessionUrl = this.$route.params.url;
+    localStorage.setItem('urlParam', this.sessionUrl);
+
     await this.fetchSession();
 
     this.checkUserName();
