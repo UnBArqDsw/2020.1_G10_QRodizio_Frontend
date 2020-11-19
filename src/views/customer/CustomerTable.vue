@@ -9,7 +9,7 @@
       </a>
     </div>
       &nbsp;
-    <a class="button-cancel" @click="selectPayment= true">
+    <a class="button-cancel" @click="endAccount">
         Fechar conta
       </a>
     <b-modal :active.sync="selectPayment" has-modal-card>
@@ -18,6 +18,37 @@
           <header class="modal-card-head">
             <p class="modal-card-title">Fechar conta</p>
           </header>
+          <div class = "total-value-to-payment" style="overflow-x:auto;>">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Pedido</th>
+                  <th>Quantidade</th>
+                  <th>Valor</th>
+                  <th>Valor total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="demand in demands" :key="demand.id">
+                  <td>{{ demand.customer }}</td>
+                  <td>{{ demand.item.name }}</td>
+                  <td>{{ demand.quantity }}</td>
+                  <td>{{ demand.item.value }}R$</td>
+                  <td>{{demand.quantity * demand.item.value}}R$</td>
+                </tr>
+               
+              </tbody>
+            </table>
+            <div class="content-color">
+              <h3 style="margin-left: 15px">
+                Valor total por cliente: {{priceClient}}R$
+              </h3>
+              <h3 style="margin-left: 15px">
+                Valor total da mesa : {{tabletotal}} R$
+              </h3>   
+            </div>
+          </div>
           <section class="modal-card-body">
             <div class="field">
           <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
@@ -35,7 +66,7 @@
           </section>
           <footer class="modal-card-foot">
             <button class="button" @click="$parent.close()" >Cancelar</button>
-            <button class="button is-primary" @click="() =>{teste(); callForAssistance()}" >Confirmar</button>
+            <button class="button is-primary" @click="callForAssistance" >Confirmar</button>
           </footer>
         </div>
       </form>
@@ -98,6 +129,8 @@ export default {
       method: [],
       session: {},
       selectPayment: false,
+      tabletotal: 0,
+      
     };
   },
 
@@ -123,23 +156,25 @@ export default {
       if (data.session_url == this.sessionUrl) {
         console.log("Updating my table demands");
         this.demands = [...data.demands];
+        
       }
+      
     },
   },
 
   methods: {
 
-    async teste() {
+    async endAccount() {
       // this.paymentSelect=!this.paymentSelect;
       localStorage.setItem('payment', this.method);
       let url = `http://127.0.0.1:5000/sessions/${this.session.id}/close`;
       let response = await axios.get(url);
 
-      this.pay
       if (response.status == 200) {
         let price = response.data.table;
-        
-        alert('Valor a ser pago por ' + this.clientName + ' :' + price);
+        this.priceClient = price;
+        this.selectPayment = true;
+        console.log(price);
       }   
         
       
@@ -183,7 +218,9 @@ export default {
       console.log(url)
       await this.$socket.emit("call_for_assistance", url);
     },
+    priceTotal(){
 
+    },
     changeClientName() {
       localStorage.removeItem("name");
       this.checkUserName();
@@ -224,6 +261,11 @@ export default {
 
         this.$store.dispatch("setTableSesssion", { id, url });
         this.demands = response.data.session.demands;
+        let total = 0;
+        this.demands.forEach(demand => {
+          total += demand.quantity * demand.item.value;
+        });
+        this.tabletotal = total;
         this.sessionId = id;
       }
     },
@@ -268,4 +310,5 @@ export default {
 
 <style >
   @import '../../assets/styles/styles.css';
+
 </style>

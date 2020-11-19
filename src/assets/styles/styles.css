@@ -151,3 +151,6 @@ article.tile {
 .button-is-light {
   background-color: red;
 }
+.total-value-to-payment {
+  font-size: 16px;
+}
