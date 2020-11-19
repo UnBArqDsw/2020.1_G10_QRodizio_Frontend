@@ -60,7 +60,7 @@
       </div>
           </section>
           <footer class="modal-card-foot">
-            <button class="button" @click="$parent.close()" >Cancelar</button>
+            <button class="button" @click="selectPayment = false" >Cancelar</button>
             <button class="button is-primary" @click="callForAssistance" >Confirmar</button>
           </footer>
         </div>

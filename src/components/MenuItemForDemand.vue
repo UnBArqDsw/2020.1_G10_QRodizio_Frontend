@@ -2,7 +2,7 @@
   <div class="card">
     <header class="card-header">
       <p class="card-header-title">
-        {{ name }}
+        {{ name }}      R$ {{value}}
       </p>
       <a href="#" class="card-header-icon" aria-label="more options">
         <span class="icon">
@@ -10,49 +10,37 @@
         </span>
       </a>
     </header>
+  
+    
     <div class="card-content">
-      <div class="content">
-        {{ description }}
-        <br />
-        Valor unitário: R$ {{ value }}
-        <br />
-        Quantidade:
-        <br />
-
-        <div class="columns">
-          <div class="column">
-            <b-button
-              rounded
-              type="is-light"
-              icon-left="minus"
-              @click="decQuantity"
-            />
+      <div class="content-card">
+        <div class="column">
+          
+          <label id="descritionDemand">{{description}}</label>
+          <b-button style="margin-left: 60px "
+            rounded
+            type="is-light"
+            icon-left="minus"
+            @click="decQuantity"
+          />
+          {{ quantity }}
+          <b-button 
+            rounded
+            type="is-light"
+            icon-left="plus"
+            @click="incQuantity"
+          />
           </div>
-
-          <div class="column">
-            {{ quantity }}
-          </div>
-
-          <div class="column">
-            <b-button
-              rounded
-              type="is-light"
-              icon-left="plus"
-              @click="incQuantity"
-            />
-          </div>
-        </div>
+          
       </div>
     </div>
-    <footer class="card-footer">
-      <a @click="makeDemand" class="card-footer-item">Pedir</a>
-    </footer>
-    <b-loading
-      :is-full-page="true"
-      v-model="isLoading"
-      :can-cancel="true"
-    ></b-loading>
+      <b-loading
+        :is-full-page="true"
+        v-model="isLoading"
+        :can-cancel="true"
+      ></b-loading> 
   </div>
+  
 </template>
 
 <script>
@@ -67,14 +55,14 @@ export default {
   data() {
     return {
       isLoading: false,
-      quantity: 1,
+      quantity: 0,
     };
   },
 
   watch: {
     quantity(newQuantity) {
-      if (newQuantity < 1) {
-        this.quantity = 1;
+      if (newQuantity < 0) {
+        this.quantity = 0;
       }
     },
   },
@@ -89,7 +77,7 @@ export default {
 
   methods: {
     decQuantity() {
-      if (this.quantity == 1) return;
+      if (this.quantity == 0) return;
       this.quantity -= 1;
     },
 
@@ -116,7 +104,6 @@ export default {
         await this.emitNewDemand();
         this.$router.push(`/table/${this.sessionUrl}`);
       } else {
-        alert("Deu ruim");
         console.log(request);
       }
     },
@@ -135,4 +122,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import '/../assets/styles/styles.css';
+</style>

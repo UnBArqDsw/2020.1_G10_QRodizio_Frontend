@@ -12,9 +12,9 @@
                 </option>
               </select>
             </div>
+              
           </div>
-        </div>
-
+        </div>   
         <b-loading
           :is-full-page="true"
           v-model="isLoading"
@@ -23,8 +23,11 @@
         <hr />
       </div>
     </div>
-
+    
     <div class="columns">
+      <button class="button-demand">
+                Fazer pedido
+              </button>
       <div class="column" v-for="item in items" :key="item.id">
         <MenuItemForDemand
           :name="item.name"
@@ -35,6 +38,7 @@
         />
       </div>
     </div>
+  
   </div>
 </template>
 
