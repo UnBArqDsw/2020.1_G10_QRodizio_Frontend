@@ -1,46 +1,48 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">
-        {{ name }}      R$ {{value}}
-      </p>
+      <p class="card-header-title">{{ name }} R$ {{ value }}</p>
       <a href="#" class="card-header-icon" aria-label="more options">
         <span class="icon">
           <i class="fas fa-angle-down" aria-hidden="true"></i>
         </span>
       </a>
     </header>
-  
-    
+
     <div class="card-content">
       <div class="content-card">
         <div class="column">
-          
-          <label id="descritionDemand">{{description}}</label>
-          <b-button style="margin-left: 60px "
+          <label id="descritionDemand">{{ description }}</label>
+          <b-button
+            style="margin-left: 60px "
             rounded
             type="is-light"
             icon-left="minus"
             @click="decQuantity"
           />
           {{ quantity }}
-          <b-button 
+          <b-button
             rounded
             type="is-light"
             icon-left="plus"
             @click="incQuantity"
           />
-          </div>
-          
+        </div>
       </div>
     </div>
-      <b-loading
-        :is-full-page="true"
-        v-model="isLoading"
-        :can-cancel="true"
-      ></b-loading> 
+
+    <!--
+    <footer class="card-footer">
+      <a @click="makeDemand" class="card-footer-item">Pedir</a>
+    </footer>
+    -->
+
+    <b-loading
+      :is-full-page="true"
+      v-model="isLoading"
+      :can-cancel="true"
+    ></b-loading>
   </div>
-  
 </template>
 
 <script>
@@ -117,11 +119,11 @@ export default {
 
     async emitNewDemand() {
       await this.$socket.emit("customer_new_demand_sent", this.sessionUrl);
-    }
+    },
   },
 };
 </script>
 
 <style>
-@import '/../assets/styles/styles.css';
+@import "/../assets/styles/styles.css";
 </style>

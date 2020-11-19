@@ -2,7 +2,9 @@
   <div class="container">
     <div class="columns">
       <div class="column">
-        <button class="go-back-button button is-light" @click="goBack">Voltar</button>
+        <button class="go-back-button button is-light" @click="goBack">
+          Voltar
+        </button>
       </div>
 
       <div class="column is-full">
@@ -16,9 +18,8 @@
                 </option>
               </select>
             </div>
-              
           </div>
-        </div>   
+        </div>
         <b-loading
           :is-full-page="true"
           v-model="isLoading"
@@ -31,8 +32,9 @@
 
     <div class="columns">
       <button class="button-demand">
-                Fazer pedido
-              </button>
+        Fazer pedido
+      </button>
+
       <div class="column" v-for="item in items" :key="item.id">
         <MenuItemForDemand
           :name="item.name"
@@ -43,7 +45,6 @@
         />
       </div>
     </div>
-  
   </div>
 </template>
 
@@ -68,7 +69,7 @@ export default {
   computed: {
     sessionUrl() {
       return this.$route.params.sessionUrl;
-    }
+    },
   },
 
   watch: {

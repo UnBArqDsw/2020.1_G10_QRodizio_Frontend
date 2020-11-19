@@ -112,10 +112,7 @@
                 Cancelar
               </button>
 
-              <button
-                v-else
-                disabled
-              >
+              <button v-else disabled>
                 Cancelar
               </button>
             </td>
@@ -199,6 +196,7 @@ export default {
         console.log(price);
       }
     },
+
     async checkUserName() {
       if (localStorage.getItem("name") === null) {
         this.$buefy.dialog.prompt({
@@ -212,6 +210,7 @@ export default {
         });
       }
     },
+
     async joinRoom(name) {
       if (name.length > 0) {
         this.$store.dispatch("setCustomerName", name);
@@ -226,24 +225,25 @@ export default {
         alert("No name was given");
       }
     },
+
     async getTotal() {
       this.paymentSelect = true;
-      console.log("teste");
     },
 
     async callForAssistance() {
       let { url } = this.$route.params;
-      console.log(url);
       await this.$socket.emit("call_for_assistance", url);
     },
-    priceTotal() {},
+
     changeClientName() {
       localStorage.removeItem("name");
       this.checkUserName();
     },
+
     closeTable() {
       this.paymentSelect();
     },
+
     demandDisplayStatus(demandStatus) {
       let status = "";
 
