@@ -59,6 +59,7 @@ export default {
 <style>
   #header{
     background: linear-gradient(315deg, #d7ddd7 0%, #d7ddd7 32%);
+    margin-bottom: 10px;
   }
   #link{
     color: #ffffff;
