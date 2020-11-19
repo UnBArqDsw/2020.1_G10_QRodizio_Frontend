@@ -58,11 +58,6 @@
               Cartão
           </b-checkbox>
       </div>
-      <div class="field">
-          <b-checkbox v-model="method" native-value="both">
-              Indeterminado
-          </b-checkbox>
-      </div>
           </section>
           <footer class="modal-card-foot">
             <button class="button" @click="$parent.close()" >Cancelar</button>
@@ -130,6 +125,7 @@ export default {
       session: {},
       selectPayment: false,
       tabletotal: 0,
+      priceClient: 0,
       
     };
   },
