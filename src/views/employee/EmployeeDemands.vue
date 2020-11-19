@@ -5,7 +5,9 @@
       <div class="control">
         <div class="select">
           <select @change="handler($event)" v-model="demandStatus">
-            <option v-for="s in status" :key="s.status" :value="s.status">{{ s.statusPt }}</option>
+            <option v-for="s in status" :key="s.status" :value="s.status">{{
+              s.statusPt
+            }}</option>
           </select>
         </div>
       </div>
@@ -35,13 +37,21 @@
             <td>{{ demand.quantity }}</td>
             <td>{{ demand.customer }}</td>
             <td>
-            <div class="control">
-              <div class="select">
-              <select @change="someHandler($event, demand.id)" v-model="demandStatus" >
-              <option v-for="s in status" :key="s.status" :value="s.status">{{ s.statusPt }}</option>
-            </select>
-          </div>
-        </div>
+              <div class="control">
+                <div class="select">
+                  <select
+                    @change="someHandler($event, demand.id)"
+                  >
+                    <option
+                      v-for="s in status"
+                      :key="s.status"
+                      :value="s.status"
+                      :selected="demandStatus == s.status"
+                      >{{ s.statusPt }}</option
+                    >
+                  </select>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -58,11 +68,10 @@ export default {
 
   data() {
     return {
-      keepUpdating: false,
       isLoading: false,
       status: [],
       demands: [],
-      demandStatus: 'waiting'
+      demandStatus: "waiting",
     };
   },
 
@@ -82,70 +91,59 @@ export default {
     await this.getDemandStatus();
     this.demands = this.status[0].status;
     await this.fetchDemands(this.demandStatus);
-    this.updateDemandsTable();
-  },
-
-  destroyed() {
-    this.keepUpdating = false;
   },
 
   methods: {
-    updateDemandsTable() {
-      if(this.keepUpdating == false) return;
-
-      window.setTimeout(async () => {
-        await this.fetchDemands(this.demandStatus);
-
-        this.updateDemandsTable();
-      }, 1000);
-    },
     handler(event) {
-      this.demandStatus=event.target.value;
+      this.demandStatus = event.target.value;
     },
-    async someHandler(event, demandId){
-      
-      console.log("Status to change ", event.target.value);      
+
+    async someHandler(event, demandId) {
+      console.log("Status to change ", event.target.value);
+
       try {
-        let data = {"status": event.target.value};
+        let data = { status: event.target.value };
+
         let request = await axios.put(
-          `http://127.0.0.1:5000/demands/${demandId}/status`, 
-        { ...data },
-        {
-          headers: { Authorization: `Bearer ${this.userToken}` },
-        });
-          this.fetchDemands(event.target.value);
-          // console.log(this.demands);
-          
-         this.$router.go(this.$router.currentRoute);
-      }catch (err) {
-          console.log(err);
-      }   
+          `http://127.0.0.1:5000/demands/${demandId}/status`,
+          { ...data },
+          {
+            headers: { Authorization: `Bearer ${this.userToken}` },
+          }
+        );
+
+        await this.fetchDemands(this.demandStatus);
+        // console.log(this.demands);
+
+        // this.$router.go(this.$router.currentRoute);
+      } catch (err) {
+        console.log(err);
+      }
       console.log(event.target.value);
-    }, 
+    },
 
     async getDemandStatus() {
       let request = await axios.get("http://127.0.0.1:5000/demands/status");
 
       if (request.status === 200) {
-        if(request.data.status) {
-          request.data.status.forEach(element => {
-            if(element==='waiting'){
-              this.status.push({'status': element, 'statusPt': 'Aguardando'});
+        if (request.data.status) {
+          request.data.status.forEach((element) => {
+            if (element === "waiting") {
+              this.status.push({ status: element, statusPt: "Aguardando" });
             }
-            if(element==='processing'){
-              this.status.push({'status': element, 'statusPt': 'Processando'});
+            if (element === "processing") {
+              this.status.push({ status: element, statusPt: "Processando" });
             }
-            if(element==='done'){
-              this.status.push({'status': element, 'statusPt': 'Pronto'});
+            if (element === "done") {
+              this.status.push({ status: element, statusPt: "Pronto" });
             }
-            if(element==='canceled'){
-              this.status.push({'status': element, 'statusPt': 'Cancelado'});
+            if (element === "canceled") {
+              this.status.push({ status: element, statusPt: "Cancelado" });
             }
-
           });
         }
         // this.status = request.data.status;
-        console.log(this.status)
+        console.log(this.status);
       }
     },
 
@@ -159,10 +157,9 @@ export default {
       // this.isLoading = false;
 
       if (request.status === 200) {
-
         this.demands = request.data.demands;
       }
-    }
+    },
   },
 };
 </script>

@@ -20,7 +20,7 @@ export default {
     urlParam() {
       let url = localStorage.getItem("urlParam");
 
-      if (url == "null") url = "";
+      if (url == null || url == "null") url = "";
 
       return url;
     },
