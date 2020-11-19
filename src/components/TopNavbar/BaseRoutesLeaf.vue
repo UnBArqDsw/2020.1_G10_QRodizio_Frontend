@@ -1,8 +1,6 @@
 <template>
   <fragment>
-    <a class="navbar-item"
-      @click="go"
-    >
+    <a class="navbar-item" @click="go" v-if="urlParam.length > 0">
       Pedidos
     </a>
   </fragment>
@@ -18,15 +16,27 @@ export default {
     };
   },
 
+  computed: {
+    urlParam() {
+      let url = localStorage.getItem("urlParam");
+
+      if (url == "null") url = "";
+
+      return url;
+    },
+  },
+
   async mounted() {
-    this.sessionUrl = '/table/'+localStorage.getItem('urlParam');
+    this.sessionUrl = "/table/" + this.urlParam;
   },
 
   methods: {
-    go(){
-      this.$router.push('/table/'+localStorage.getItem('urlParam'));
-    }
-  }
+    go() {
+      if (this.urlParam == "") return;
+
+      this.$router.push("/table/" + this.urlParam);
+    },
+  },
 };
 </script>
 
