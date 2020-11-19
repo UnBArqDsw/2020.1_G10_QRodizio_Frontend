@@ -8,17 +8,17 @@
         Chamar funcionário
       </a>
     </div>
-      &nbsp;
+    &nbsp;
     <a class="button-cancel" @click="endAccount">
-        Fechar conta
-      </a>
+      Fechar conta
+    </a>
     <b-modal :active.sync="selectPayment" has-modal-card>
       <form action="">
         <div class="modal-card" style="width: auto">
           <header class="modal-card-head">
             <p class="modal-card-title">Fechar conta</p>
           </header>
-          <div class = "total-value-to-payment" style="overflow-x:auto;>">
+          <div class="total-value-to-payment" style="overflow-x:auto;>">
             <table class="table">
               <thead>
                 <tr>
@@ -35,46 +35,53 @@
                   <td>{{ demand.item.name }}</td>
                   <td>{{ demand.quantity }}</td>
                   <td>{{ demand.item.value }}R$</td>
-                  <td>{{demand.quantity * demand.item.value}}R$</td>
+                  <td>{{ demand.quantity * demand.item.value }}R$</td>
                 </tr>
-               
               </tbody>
             </table>
             <div class="content-color">
               <h3 style="margin-left: 15px">
-                Valor total por cliente: {{priceClient}}R$
+                Valor total por cliente: {{ priceClient }}R$
               </h3>
               <h3 style="margin-left: 15px">
-                Valor total da mesa : {{tabletotal}} R$
-              </h3>   
+                Valor total da mesa : {{ tabletotal }} R$
+              </h3>
             </div>
           </div>
           <section class="modal-card-body">
             <div class="field">
-          <b-checkbox v-model="method" native-value="money">Dinheiro</b-checkbox>
-      </div>
-      <div class="field">
-          <b-checkbox v-model="method" native-value="card">
-              Cartão
-          </b-checkbox>
-      </div>
+              <b-checkbox v-model="method" native-value="money"
+                >Dinheiro</b-checkbox
+              >
+            </div>
+            <div class="field">
+              <b-checkbox v-model="method" native-value="card">
+                Cartão
+              </b-checkbox>
+            </div>
           </section>
           <footer class="modal-card-foot">
-            <button class="button" @click="selectPayment = false" >Cancelar</button>
-            <button class="button is-primary" @click="callForAssistance" >Confirmar</button>
+            <button class="button" @click="selectPayment = false">
+              Cancelar
+            </button>
+            <button class="button is-primary" @click="callForAssistance">
+              Confirmar
+            </button>
           </footer>
         </div>
       </form>
     </b-modal>
-    <br>
+    <br />
     <div class="content-color">
-      <h3 style="margin-left: 15px">Nome:  
-      <i><b>{{clientName}}</b></i>
+      <h3 style="margin-left: 15px">
+        Nome:
+        <i
+          ><b>{{ clientName }}</b></i
+        >
         <a class="button-change" @click="changeClientName">
-        alterar
-        </a>          
-            
-      </h3> 
+          alterar
+        </a>
+      </h3>
     </div>
     <div style="overflow-x:auto;>">
       <table class="table is-striped is-fullwidth">
@@ -96,9 +103,18 @@
             <td>
               <button
                 v-if="demand.status == 0"
-                v-bind:class="{'button-cancel-demand': isCustomerTheDemandOwner(demand)}"
+                v-bind:class="{
+                  'button-cancel-demand': isCustomerTheDemandOwner(demand),
+                }"
                 @click="confirmCancelDemand(demand.id)"
                 :disabled="!isCustomerTheDemandOwner(demand)"
+              >
+                Cancelar
+              </button>
+
+              <button
+                v-else
+                disabled
               >
                 Cancelar
               </button>
@@ -126,7 +142,6 @@ export default {
       selectPayment: false,
       tabletotal: 0,
       priceClient: 0,
-      
     };
   },
 
@@ -134,7 +149,7 @@ export default {
     clientName() {
       let name = "Cliente";
 
-      if(localStorage.getItem("name") != null) {
+      if (localStorage.getItem("name") != null) {
         name = localStorage.getItem("name");
       }
 
@@ -146,7 +161,7 @@ export default {
 
   async mounted() {
     this.sessionUrl = this.$route.params.url;
-    localStorage.setItem('urlParam', this.sessionUrl);
+    localStorage.setItem("urlParam", this.sessionUrl);
 
     await this.fetchSession();
 
@@ -162,9 +177,7 @@ export default {
       if (data.session_url == this.sessionUrl) {
         console.log("Updating my table demands");
         this.demands = [...data.demands];
-        
       }
-      
     },
   },
 
@@ -173,10 +186,9 @@ export default {
       return demand.customer == this.clientName;
     },
 
-
     async endAccount() {
       // this.paymentSelect=!this.paymentSelect;
-      localStorage.setItem('payment', this.method);
+      localStorage.setItem("payment", this.method);
       let url = `http://127.0.0.1:5000/sessions/${this.session.id}/close`;
       let response = await axios.get(url);
 
@@ -185,23 +197,20 @@ export default {
         this.priceClient = price;
         this.selectPayment = true;
         console.log(price);
-      }   
-        
-      
+      }
     },
     async checkUserName() {
-
-      if(localStorage.getItem('name')===null) {
+      if (localStorage.getItem("name") === null) {
         this.$buefy.dialog.prompt({
-        message: 'Qual seu nome ?',
-        inputAttrs: {
-          placeholder: 'Nome',
-          maxlength: 30,
-        },
-        trapFocus: true,
-        onConfirm: async (name) => await this.joinRoom(name),
+          message: "Qual seu nome ?",
+          inputAttrs: {
+            placeholder: "Nome",
+            maxlength: 30,
+          },
+          trapFocus: true,
+          onConfirm: async (name) => await this.joinRoom(name),
         });
-      } 
+      }
     },
     async joinRoom(name) {
       if (name.length > 0) {
@@ -211,31 +220,28 @@ export default {
           session_url: this.sessionUrl,
           name,
         });
-        localStorage.setItem('name', name);
+        localStorage.setItem("name", name);
         this.$router.go(this.$router.currentRoute);
       } else {
         alert("No name was given");
       }
     },
     async getTotal() {
-      this.paymentSelect=true;
+      this.paymentSelect = true;
       console.log("teste");
     },
 
-
     async callForAssistance() {
       let { url } = this.$route.params;
-      console.log(url)
+      console.log(url);
       await this.$socket.emit("call_for_assistance", url);
     },
-    priceTotal(){
-
-    },
+    priceTotal() {},
     changeClientName() {
       localStorage.removeItem("name");
       this.checkUserName();
     },
-    closeTable(){
+    closeTable() {
       this.paymentSelect();
     },
     demandDisplayStatus(demandStatus) {
@@ -267,12 +273,12 @@ export default {
 
       if (response.status == 200) {
         let { id, url } = response.data.session;
-        this.session=response.data.session;
+        this.session = response.data.session;
 
         this.$store.dispatch("setTableSesssion", { id, url });
         this.demands = response.data.session.demands;
         let total = 0;
-        this.demands.forEach(demand => {
+        this.demands.forEach((demand) => {
           total += demand.quantity * demand.item.value;
         });
         this.tabletotal = total;
@@ -281,8 +287,8 @@ export default {
     },
 
     makeNewDemand() {
-      console.log(this.session)
-      if(this.session.closed==false){
+      console.log(this.session);
+      if (this.session.closed == false) {
         this.$router.push(`/make-new-demand/${this.sessionUrl}`);
       } else {
         alert("A mesa precisa estar aberta para realizar uma demanda");
@@ -302,11 +308,11 @@ export default {
           `http://127.0.0.1:5000/demands/${demandId}/cancel`
         );
 
-        if(request.status===406){
+        if (request.status === 406) {
           alert("Demanda ja cancelada");
         }
 
-        if(request.status === 202){
+        if (request.status === 202) {
           alert("Demanda cancelada");
           this.$router.go(this.$router.currentRoute);
         }
@@ -318,7 +324,6 @@ export default {
 };
 </script>
 
-<style >
-  @import '../../assets/styles/styles.css';
-
+<style>
+@import "../../assets/styles/styles.css";
 </style>
