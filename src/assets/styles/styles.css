@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 .name-costumer {
-  text-align: justify;
+  text-align: center;
   margin: 10 auto;
   margin-left: 0px;
   color: black;
@@ -81,7 +81,7 @@ article.tile {
   transition-duration: 0.4s;
   cursor: pointer;
 }
-.button:hover {
+.button-normal:hover {
   background-color: #4caf50;
   color: white;
 }
