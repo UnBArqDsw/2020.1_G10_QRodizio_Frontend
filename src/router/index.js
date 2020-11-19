@@ -21,7 +21,6 @@ import DisplayTableQRCode from "../views/employee/DisplayTableQRCode"
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
-import TempTableDemands from "../views/customer/TempTableDemands";
 import MakeNewDemand from "../views/customer/MakeNewDemand";
 
 Vue.use(VueRouter);
@@ -109,11 +108,6 @@ const routes = [
   /** ################################################################### */
   /** ################## CUSTOMER ROUTES ################################ */
   /** ################################################################### */
-  {
-    path: "/temp-table-demands/:id",
-    name: "TempTableDemands",
-    component: TempTableDemands,
-  },
   {
     path: "/make-new-demand/:sessionUrl",
     name: "MakeNewDemand",
