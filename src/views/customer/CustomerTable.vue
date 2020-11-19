@@ -96,8 +96,9 @@
             <td>
               <button
                 v-if="demand.status == 0"
-                class="button-cancel-demand"
+                v-bind:class="{'button-cancel-demand': isCustomerTheDemandOwner(demand)}"
                 @click="confirmCancelDemand(demand.id)"
+                :disabled="!isCustomerTheDemandOwner(demand)"
               >
                 Cancelar
               </button>
@@ -168,6 +169,10 @@ export default {
   },
 
   methods: {
+    isCustomerTheDemandOwner(demand) {
+      return demand.customer == this.clientName;
+    },
+
 
     async endAccount() {
       // this.paymentSelect=!this.paymentSelect;
