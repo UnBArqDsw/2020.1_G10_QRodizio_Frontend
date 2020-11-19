@@ -118,7 +118,6 @@ export default {
     return {
       sessionUrl: "",
       demands: [],
-      clientName: localStorage.getItem("name") != null ? localStorage.getItem("name") : 'Cliente',
       sessionId: 0,
       paymentSelect: false,
       method: [],
@@ -131,6 +130,16 @@ export default {
   },
 
   computed: {
+    clientName() {
+      let name = "Cliente";
+
+      if(localStorage.getItem("name") != null) {
+        name = localStorage.getItem("name");
+      }
+
+      return name;
+    },
+
     ...mapState(["customerName"]),
   },
 
