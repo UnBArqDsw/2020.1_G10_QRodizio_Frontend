@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <div class="columns">
+      <div class="column">
+        <button class="go-back-button button is-light" @click="goBack">Voltar</button>
+      </div>
+
       <div class="column is-full">
         <div class="field">
           <label class="label">Menu:</label>
@@ -20,10 +24,11 @@
           v-model="isLoading"
           :can-cancel="true"
         />
-        <hr />
       </div>
     </div>
-    
+
+    <hr />
+
     <div class="columns">
       <button class="button-demand">
                 Fazer pedido
@@ -77,6 +82,10 @@ export default {
   },
 
   methods: {
+    goBack() {
+      this.$router.push("/table/" + this.sessionUrl);
+    },
+
     async fetchMenus() {
       this.isLoading = true;
       let request = await axios.get("http://127.0.0.1:5000/menus/");
@@ -91,4 +100,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.go-back-button {
+  margin-top: 32px;
+}
+
+@media screen and (max-width: 760px) {
+  .go-back-button {
+    margin-top: 5px;
+  }
+}
+</style>

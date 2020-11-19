@@ -161,6 +161,7 @@ article.tile {
   position: relative;
   text-align: justify;
 }
+
 .content-card {
   text-align: justify;
   font-size: 14px;
@@ -182,9 +183,11 @@ div.buttonValue {
 
 .column {
   font-size: 16px;
+  text-align: justify;
 }
 #descritionDemand {
   text-align: left;
+  margin-right: 0;
   text-justify: auto;
 }
 

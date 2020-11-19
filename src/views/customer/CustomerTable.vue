@@ -96,8 +96,9 @@
             <td>
               <button
                 v-if="demand.status == 0"
-                class="button-cancel-demand"
+                v-bind:class="{'button-cancel-demand': isCustomerTheDemandOwner(demand)}"
                 @click="confirmCancelDemand(demand.id)"
+                :disabled="!isCustomerTheDemandOwner(demand)"
               >
                 Cancelar
               </button>
@@ -118,7 +119,6 @@ export default {
     return {
       sessionUrl: "",
       demands: [],
-      clientName: localStorage.getItem("name") != null ? localStorage.getItem("name") : 'Cliente',
       sessionId: 0,
       paymentSelect: false,
       method: [],
@@ -131,6 +131,16 @@ export default {
   },
 
   computed: {
+    clientName() {
+      let name = "Cliente";
+
+      if(localStorage.getItem("name") != null) {
+        name = localStorage.getItem("name");
+      }
+
+      return name;
+    },
+
     ...mapState(["customerName"]),
   },
 
@@ -159,6 +169,10 @@ export default {
   },
 
   methods: {
+    isCustomerTheDemandOwner(demand) {
+      return demand.customer == this.clientName;
+    },
+
 
     async endAccount() {
       // this.paymentSelect=!this.paymentSelect;
