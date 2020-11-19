@@ -54,7 +54,8 @@ export default {
   height: 100%;
 }
 body { 
-			background-image: url(https://images.unsplash.com/photo-1571939634097-f1829662cdfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80) ;
+      background-image: url("../assets/rodizioClaro.jpg");
+			/**background-image: url(https://images.unsplash.com/photo-1571939634097-f1829662cdfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80) ;**/
 			background-position: center center;
 			background-repeat:  no-repeat;
 			background-attachment: fixed;
