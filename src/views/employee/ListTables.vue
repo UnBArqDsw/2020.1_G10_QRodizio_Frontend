@@ -74,8 +74,8 @@
             </td>
 
             <td>
-              <span v-if="table.last_session == undefined">Sem sessões</span>
-              <a v-else class="button is-danger" @click="endSession(table.last_session.id, table.last_session.closed)">Encerrar mesa</a>
+              <span v-if="table.last_session == undefined || table.last_session.closed" >Sem sessões</span>
+              <a v-else class="button is-danger" @click="confirmEndSession(table.last_session.id, table.last_session.closed)">Encerrar mesa</a>
             </td>
           </tr>
         </tbody>
@@ -126,7 +126,12 @@ export default {
     isCalling(id) {
       return id in this.tablesCalling;
     },
-   
+   async confirmEndSession(sessionId, status) {
+      this.$buefy.dialog.confirm({
+        message: "Deseja realmente fechar a mesa ?",
+        onConfirm: async () => await this.endSession(sessionId, status),
+      });
+    },
    async endSession(sessionId, status) {
             
       if(status===false) {

@@ -41,16 +41,17 @@
       </form>
     </b-modal>
     <br>
-    <h3 class="name-costumer">Nome:  
-    <i><b>{{clientName}}</b></i>
-      <a class="button-normal" @click="changeClientName">
-      alterar
-      </a>          
-          
-    </h3> 
-
+    <div class="content-color">
+      <h3 style="margin-left: 15px">Nome:  
+      <i><b>{{clientName}}</b></i>
+        <a class="button-change" @click="changeClientName">
+        alterar
+        </a>          
+            
+      </h3> 
+    </div>
     <div style="overflow-x:auto;>">
-      <table class="table">
+      <table class="table is-striped is-fullwidth">
         <thead>
           <tr>
             <th>Cliente</th>
