@@ -54,7 +54,7 @@ article.tile {
 .app {
   max-width: auto;
 }
-.wrapper{
+.wrapper {
   margin-top: 100px;
 }
 .main-content {
@@ -156,4 +156,61 @@ article.tile {
 }
 .total-value-to-payment {
   font-size: 16px;
+}
+.columns {
+  position: relative;
+  text-align: justify;
+}
+.content-card {
+  text-align: justify;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(78, 78, 78);
+}
+.card-header-title {
+  text-align: justify;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(78, 78, 78);
+}
+div.buttonValue {
+  color: #277429;
+  position: relative;
+  right: 0px;
+  width: auto;
+}
+
+.column {
+  font-size: 16px;
+}
+#descritionDemand {
+  text-align: left;
+  text-justify: auto;
+}
+
+.button-demand {
+  display: relative;
+  box-shadow: inset 0px 1px 0px 0px #f29c93;
+  background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+  background-color: #fe1a00;
+  border-radius: 6px;
+  border: 1px solid #d83526;
+  display: inline-block;
+  margin-left: 160px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #b23e35;
+}
+.button-demand:hover {
+  background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+  background-color: #ce0100;
+}
+.button-demand:active {
+  position: relative;
+  top: 1px;
 }
