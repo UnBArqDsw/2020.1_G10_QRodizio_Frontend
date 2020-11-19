@@ -5,9 +5,29 @@
 .name-costumer {
   text-align: justify;
   margin: 10 auto;
-  margin-left: 10px;
+  margin-left: 0px;
   color: black;
   font-size: 16px;
+  background-color: green;  
+  width: 435px;
+}
+.name-status{
+  text-align: center;
+  margin: 10 auto;
+  margin-left: 0px;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  background-color: green;  
+  width: 150px;
+  border-radius: 10px;
+}
+.description{
+  font-size: 20px;
+  color: white;
+  font-weight: 900;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
 .content {
   margin: 0px;
@@ -20,6 +40,8 @@ img.center {
 }
 div.home {
   background-color: #4dff88;
+  background-size: cover;
+  height: 100%;
   padding: 0px;
   width: auto;
 }
@@ -28,18 +50,22 @@ article.tile {
 }
 
 .app {
-  max-width: 100%;
+  max-width: auto;
+
 }
 .main-content {
   margin-top: 5px;
   background-color: #1aff66;
 }
 .footer {
-  background-color: #1aff66;
+  background: #ffab62;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
-.container {
-  background-color: #1aff66;
-}
+
 .button-normal {
   align-items: center;
   background-color: white; /* Green */
@@ -99,4 +125,9 @@ article.tile {
   color: white;
 }
 .table {
+}
+
+.button-is-light {
+background-color: red;
+
 }

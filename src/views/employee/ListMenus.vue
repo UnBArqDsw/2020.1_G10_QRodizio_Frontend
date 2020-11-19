@@ -1,6 +1,6 @@
 <template>
 <div class="ListMenus">
-    <a class="button is-light" @click="makeNewMenu">
+    <a class="button is-success" @click="makeNewMenu">
       Fazer novo menu
     </a>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-flex is-vcentered is-centered">
     <div class="column is-half">
-      <a class="button is-light" @click="goBack">
+      <a class="button is-danger" @click="goBack">
         Voltar
       </a>
 
@@ -9,7 +9,7 @@
       <br />
 
       <div class="field">
-        <label class="label">Tipo de conta:</label>
+        <label class="description">Tipo de conta:</label>
         <div class="control">
           <div class="select">
             <select v-model="role">
@@ -21,7 +21,7 @@
       </div>
 
       <div class="field">
-        <label class="label">Nome</label>
+        <label class="description">Nome</label>
         <div class="control has-icons-left has-icons-right">
           <input
             class="input"
@@ -36,6 +36,7 @@
       </div>
 
       <div class="field">
+        <label class="description">E-mail</label>
         <p class="control has-icons-left has-icons-right">
           <input
             class="input"
@@ -50,6 +51,7 @@
       </div>
 
       <div class="field">
+        <label class="description">Senha</label>
         <p class="control has-icons-left">
           <input
             class="input"
@@ -63,7 +65,7 @@
         </p>
       </div>
 
-      <b-button @click="registerUser">Registrar</b-button>
+      <b-button class="button is-success" @click="registerUser">Registrar</b-button>
       <hr />
 
       <div>

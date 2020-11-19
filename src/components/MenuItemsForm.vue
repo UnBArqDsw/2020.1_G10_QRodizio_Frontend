@@ -3,7 +3,7 @@
     <button
       v-if="!displayForm"
       @click="displayForm = true"
-      class="button is-light"
+      class="button is-success"
     >
       Adicionar novo item
     </button>

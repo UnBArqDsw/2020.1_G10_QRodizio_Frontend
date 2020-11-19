@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a class="button is-light" @click="gotoRegisterNewUser">
+    <a class="button is-success" @click="gotoRegisterNewUser">
       Cadastrar novo usuário
     </a>
 

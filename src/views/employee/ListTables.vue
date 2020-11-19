@@ -1,6 +1,6 @@
 <template>
   <div class="ListTables">
-    <a class="button is-light" @click="makeNewTable">
+    <a class="button is-success" @click="makeNewTable">
       Criar nova mesa
     </a>
 
@@ -179,4 +179,6 @@ export default {
 .is-calling {
   color: #f14668;
 }
+
+
 </style>

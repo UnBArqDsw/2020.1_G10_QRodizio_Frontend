@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="field">
-      <label class="label">Tipo de status:</label>
+      <h2 class="name-status">Status:</h2>
       <div class="control">
         <div class="select">
           <select @change="handler($event)" v-model="demandStatus">

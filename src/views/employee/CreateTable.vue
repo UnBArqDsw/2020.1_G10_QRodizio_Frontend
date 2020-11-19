@@ -2,7 +2,7 @@
   <div class="columns is-flex is-vcentered is-centered">
     <div class="column is-half">
       <div class="field">
-        <label class="label">Identificador</label>
+        <label class="description">Identificador</label>
         <div class="control has-icons-left has-icons-right">
           <input
             class="input"
@@ -13,13 +13,13 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="field description">
         QRCODE
       </div>
 
-      <b-button @click="createTable" class="button is-light">Criar</b-button>
+      <b-button @click="createTable" class="button is-success">Criar</b-button>
       &nbsp;
-      <b-button @click="goBack" class="button is-light">Cancelar</b-button>
+      <b-button @click="goBack" class="button is-danger">Cancelar</b-button>
       <hr />
 
       <div>
