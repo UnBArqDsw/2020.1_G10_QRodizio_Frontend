@@ -42,8 +42,8 @@ const routes = [
   },
   {
     path: "/user-home",
-    name: "UserHome",
-    component: UserHome,
+    name: "Home",
+    component: Home,
   },
   {
     path: "/register-new-user",
