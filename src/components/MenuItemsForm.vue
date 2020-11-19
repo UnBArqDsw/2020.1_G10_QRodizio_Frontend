@@ -47,37 +47,38 @@
       &nbsp;
       <button class="button is-light" @click="clearForm">Cancelar</button>
     </fieldset>
+    <div style="overflow-x:auto;>">
+      <table class="table is-striped is-fullwidth" v-if="!displayForm">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
 
-    <table class="table is-striped is-fullwidth" v-if="!displayForm">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Valor</th>
-          <th>Editar</th>
-          <th>Deletar</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr v-for="(item, index) in items" :key="item.name">
-          <td>{{ item.name }}</td>
-          <td>{{ item.value }}</td>
-          <td>
-            <button class="button is-light" @click="editItem(index)">
-              Editar
-            </button>
-          </td>
-          <td>
-            <button
-              class="button is-light is-danger"
-              @click="confirmRemoveItem(index)"
-            >
-              Deletar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr v-for="(item, index) in items" :key="item.name">
+            <td>{{ item.name }}</td>
+            <td>{{ item.value }}</td>
+            <td>
+              <button class="button is-light" @click="editItem(index)">
+                Editar
+              </button>
+            </td>
+            <td>
+              <button
+                class="button is-light is-danger"
+                @click="confirmRemoveItem(index)"
+              >
+                Deletar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

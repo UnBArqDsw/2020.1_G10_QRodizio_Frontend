@@ -5,43 +5,44 @@
     </a>
 
     <hr />
+    <div style="overflow-x:auto;>">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>Cargo</th>
+            <th>Nome</th>
+            <th>Logado</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
 
-    <table class="table is-striped is-fullwidth">
-      <thead>
-        <tr>
-          <th>Cargo</th>
-          <th>Nome</th>
-          <th>Logado</th>
-          <th>Editar</th>
-          <th>Deletar</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <td>
-            {{ displayUserRole(user.role) }}
-          </td>
-          <td>{{ user.name }}</td>
-          <td>
-            <span v-bind:class="[isUserLogged(user.id) ? 'userLogged' : 'userNotLogged']">
-              {{ isUserLogged(user.id) ? "sim" : "não" }}
-            </span>
-          </td>
-          <td>
-            <button class="button is-light" @click="gotoEditUser(user)">editar</button>
-          </td>
-          <td>
-            <button
-              class="button is-danger"
-              @click="confirmDeleteUser(user.id)"
-            >
-              deletar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr v-for="user in users" :key="user.id">
+            <td>
+              {{ displayUserRole(user.role) }}
+            </td>
+            <td>{{ user.name }}</td>
+            <td>
+              <span v-bind:class="[isUserLogged(user.id) ? 'userLogged' : 'userNotLogged']">
+                {{ isUserLogged(user.id) ? "sim" : "não" }}
+              </span>
+            </td>
+            <td>
+              <button class="button is-light" @click="gotoEditUser(user)">editar</button>
+            </td>
+            <td>
+              <button
+                class="button is-danger"
+                @click="confirmDeleteUser(user.id)"
+              >
+                deletar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

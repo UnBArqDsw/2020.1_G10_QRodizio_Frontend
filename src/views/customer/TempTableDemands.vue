@@ -8,7 +8,7 @@
     </a>
     <hr />
 
-    <table class="table">
+    <table class="table is-striped is-fullwidth">
       <thead>
         <tr>
           <th>Cliente</th>

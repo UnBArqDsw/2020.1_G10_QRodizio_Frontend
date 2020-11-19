@@ -1,35 +1,36 @@
 <template>
   <div class="ViewSession">
     <b-navbar-item
-      class="button is-light"
+      class="button-normal"
       tag="router-link"
       to="/list-tables"
     >
       Voltar
     </b-navbar-item>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Status</th>
-          <th>Mesa</th>
-          <th>Cliente</th>
-          <th>Pedido</th>
-          <th>Quantidade</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="demand in demands" :key="demand.id">
-          <td>{{ demand.id }}</td>
-          <td>{{ status[demand.status] }}</td>
-          <td>Identificador da mesa</td>
-          <td>{{ demand.customer }}</td>
-          <td>{{ demand.item.name }}</td>
-          <td>{{ demand.quantity }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="overflow-x:auto;>">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Status</th>
+            <th>Mesa</th>
+            <th>Cliente</th>
+            <th>Pedido</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="demand in demands" :key="demand.id">
+            <td>{{ demand.id }}</td>
+            <td>{{ status[demand.status] }}</td>
+            <td>Identificador da mesa</td>
+            <td>{{ demand.customer }}</td>
+            <td>{{ demand.item.name }}</td>
+            <td>{{ demand.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -81,4 +82,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  @import '../../assets/styles/styles.css';
+</style>

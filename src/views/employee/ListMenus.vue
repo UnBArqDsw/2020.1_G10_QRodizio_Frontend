@@ -5,47 +5,48 @@
     </a>
 
     <br />
+    <div style="overflow-x:auto;>">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Menu do dia</th>
+            <th>Nome</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
 
-    <table class="table is-striped is-fullwidth">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Menu do dia</th>
-          <th>Nome</th>
-          <th>Editar</th>
-          <th>Deletar</th>
-        </tr>
-      </thead>
+        <tbody>
+          <tr v-for="menu in menus" :key="menu.id">
+            <td>{{ menu.id }}</td>
 
-      <tbody>
-        <tr v-for="menu in menus" :key="menu.id">
-          <td>{{ menu.id }}</td>
+            <td>
+              <span v-if="menu.is_daily" class="button is-success is-light">
+                Sim
+              </span>
+              <span v-else class="button is-danger is-light">Não</span>
+            </td>
 
-          <td>
-            <span v-if="menu.is_daily" class="button is-success is-light">
-              Sim
-            </span>
-            <span v-else class="button is-danger is-light">Não</span>
-          </td>
+            <td>
+              {{menu.name}}
+            </td>
 
-          <td>
-            {{menu.name}}
-          </td>
+            <td>
+              <a class="button is-light" @click="editMenu(menu)">
+                Editar
+              </a>
+            </td>
 
-          <td>
-            <a class="button is-light" @click="editMenu(menu)">
-              Editar
-            </a>
-          </td>
-
-          <td>
-            <a class="button is-danger" @click="confirmDeleteMenu(menu)">
-              Deletar
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td>
+              <a class="button is-danger" @click="confirmDeleteMenu(menu)">
+                Deletar
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

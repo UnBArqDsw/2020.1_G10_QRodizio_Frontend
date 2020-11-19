@@ -16,35 +16,37 @@
       v-model="isLoading"
       :can-cancel="true"
     ></b-loading>
-    <table class="table is-striped is-fullwidth">
-      <thead>
-        <tr>
-          <th>Mesa</th>
-          <th>Pedido</th>
-          <th>Quantidade</th>
-          <th>Cliente</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+    <div style="overflow-x:auto;>">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>Mesa</th>
+            <th>Pedido</th>
+            <th>Quantidade</th>
+            <th>Cliente</th>
+            <th>Status</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr v-for="demand in demands" :key="demand.id">
-          <td>Mesa X</td>
-          <td>{{ demand.item ? demand.item.name : "" }}</td>
-          <td>{{ demand.quantity }}</td>
-          <td>{{ demand.customer }}</td>
-          <td>
-          <div class="control">
-            <div class="select">
-            <select @change="someHandler($event, demand.id)" v-model="demandStatus" >
-            <option v-for="s in status" :key="s.status" :value="s.status">{{ s.statusPt }}</option>
-          </select>
+        <tbody>
+          <tr v-for="demand in demands" :key="demand.id">
+            <td>Mesa X</td>
+            <td>{{ demand.item ? demand.item.name : "" }}</td>
+            <td>{{ demand.quantity }}</td>
+            <td>{{ demand.customer }}</td>
+            <td>
+            <div class="control">
+              <div class="select">
+              <select @change="someHandler($event, demand.id)" v-model="demandStatus" >
+              <option v-for="s in status" :key="s.status" :value="s.status">{{ s.statusPt }}</option>
+            </select>
+          </div>
         </div>
-      </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

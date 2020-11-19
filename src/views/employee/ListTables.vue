@@ -5,81 +5,82 @@
     </a>
 
     <br />
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Status</th>
-          <th>Data</th>
-          <th>Quantidade de pedidos</th>
-          <th>Pedindo atendimento</th>
-          <th>Ver QRCode</th>
-          <th>Ver Sessão</th>
-          <th>Encerrar mesa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="table in tables" :key="table.id">
-          <td>{{ table.id }}</td>
-          <td>
-            <span v-if="table.last_session == undefined">Nenhuma sessão</span>
-            <span v-else>
-              <span
-                v-if="table.last_session.closed"
-                class="button is-danger is-light"
-              >
-                Fechada
+    <div style="overflow-x:auto;>">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Quantidade de pedidos</th>
+            <th>Pedindo atendimento</th>
+            <th>Ver QRCode</th>
+            <th>Ver Sessão</th>
+            <th>Encerrar mesa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="table in tables" :key="table.id">
+            <td>{{ table.id }}</td>
+            <td>
+              <span v-if="table.last_session == undefined">Nenhuma sessão</span>
+              <span v-else>
+                <span
+                  v-if="table.last_session.closed"
+                  class="button is-danger is-light"
+                >
+                  Fechada
+                </span>
+                <span v-else class="button is-success is-light">Aberta</span>
               </span>
-              <span v-else class="button is-success is-light">Aberta</span>
-            </span>
-          </td>
-          <td>
-            <span v-if="table.last_session != undefined">
-              {{ table.last_session.created_on }}
-            </span>
-            <span v-else>
-              Nenhuma sessão
-            </span>
-          </td>
-          <td>{{ table.total_demands }}</td>
-          <td>
-            <span v-if="table.last_session == undefined">Nenhuma sessão</span>
-            <span v-else>
-              <span
-                v-bind:class="[
-                  isCalling(table.last_session.id)
-                    ? 'is-calling'
-                    : 'not-calling',
-                ]"
-              >
-                <b-button @click="attendant(table.last_session.url)" v-if="isCalling(table.last_session.id) ? true : false" size="is-small">Atender</b-button>
-                <p v-if="isCalling(table.last_session.id) ? false : true" size="is-small">Em atendimento</p>
+            </td>
+            <td>
+              <span v-if="table.last_session != undefined">
+                {{ table.last_session.created_on }}
               </span>
-            </span>
-          </td>
-          <td>
-            <button class="button is-light" @click="displayTableQRCode(table.id)">Ver QRCode</button>
-          </td>
-          <td>
-            <span v-if="table.last_session == undefined">Nenhuma sessão</span>
-            <b-navbar-item
-              v-else
-              class="button is-light"
-              tag="router-link"
-              :to="`/view-session/${table.last_session.id}`"
-            >
-              Ver Sessão
-            </b-navbar-item>
-          </td>
+              <span v-else>
+                Nenhuma sessão
+              </span>
+            </td>
+            <td>{{ table.total_demands }}</td>
+            <td>
+              <span v-if="table.last_session == undefined">Nenhuma sessão</span>
+              <span v-else>
+                <span
+                  v-bind:class="[
+                    isCalling(table.last_session.id)
+                      ? 'is-calling'
+                      : 'not-calling',
+                  ]"
+                >
+                  <b-button @click="attendant(table.last_session.url)" v-if="isCalling(table.last_session.id) ? true : false" size="is-small">Atender</b-button>
+                  <p v-if="isCalling(table.last_session.id) ? false : true" size="is-small">Em atendimento</p>
+                </span>
+              </span>
+            </td>
+            <td>
+              <button class="button is-light" @click="displayTableQRCode(table.id)">Ver QRCode</button>
+            </td>
+            <td>
+              <span v-if="table.last_session == undefined">Nenhuma sessão</span>
+              <b-navbar-item
+                v-else
+                class="button is-light"
+                tag="router-link"
+                :to="`/view-session/${table.last_session.id}`"
+              >
+                Ver Sessão
+              </b-navbar-item>
+            </td>
 
-          <td>
-            <span v-if="table.last_session == undefined">Sem sessões</span>
-             <a v-else class="button is-danger" @click="endSession(table.last_session.id, table.last_session.closed)">Encerrar mesa</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td>
+              <span v-if="table.last_session == undefined">Sem sessões</span>
+              <a v-else class="button is-danger" @click="endSession(table.last_session.id, table.last_session.closed)">Encerrar mesa</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

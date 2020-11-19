@@ -8,26 +8,26 @@
   margin-left: 0px;
   color: black;
   font-size: 16px;
-  background-color: green;  
-  width: 435px;
+  background-color: green;
+  width: auto;
 }
-.name-status{
+.name-status {
   text-align: center;
   margin: 10 auto;
   margin-left: 0px;
   color: white;
   font-size: 20px;
   font-weight: 900;
-  background-color: green;  
+  background-color: green;
   width: 150px;
   border-radius: 10px;
 }
-.description{
+.description {
   font-size: 20px;
   color: white;
   font-weight: 900;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 .content {
   margin: 0px;
@@ -51,7 +51,6 @@ article.tile {
 
 .app {
   max-width: auto;
-
 }
 .main-content {
   margin-top: 5px;
@@ -61,7 +60,7 @@ article.tile {
   background: #ffab62;
   width: 100%;
   height: 100px;
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
 }
@@ -72,10 +71,10 @@ article.tile {
   border: none;
   border-radius: 15px;
   color: #277429;
-  padding: 7px 10px;
+  padding: 10%;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+
   font-size: 16px;
   margin: 4px 6px;
   transition-duration: 0.4s;
@@ -125,9 +124,10 @@ article.tile {
   color: white;
 }
 .table {
+  position: relative;
+  padding: auto;
 }
 
 .button-is-light {
-background-color: red;
-
+  background-color: red;
 }
