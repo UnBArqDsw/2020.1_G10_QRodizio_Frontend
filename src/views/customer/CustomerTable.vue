@@ -41,10 +41,10 @@
             </table>
             <div class="content-color">
               <h3 style="margin-left: 15px">
-                Valor total por cliente: {{ priceClient }}R$
+                subtotal de {{clientName}}: {{ priceClient }}R$
               </h3>
               <h3 style="margin-left: 15px">
-                Valor total da mesa : {{ tabletotal }} R$
+                Valor total da mesa: {{ tabletotal }} R$
               </h3>
             </div>
           </div>
