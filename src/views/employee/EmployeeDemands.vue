@@ -40,7 +40,7 @@
               <div class="control">
                 <div class="select">
                   <select
-                    @change="someHandler($event, demand.id)"
+                    @change="someHandler($event, demand)"
                   >
                     <option
                       v-for="s in status"
@@ -68,6 +68,7 @@ export default {
 
   data() {
     return {
+      keepUpdated: true,
       isLoading: false,
       status: [],
       demands: [],
@@ -91,15 +92,35 @@ export default {
     await this.getDemandStatus();
     this.demands = this.status[0].status;
     await this.fetchDemands(this.demandStatus);
+    this.autoUpdate();
+  },
+
+  destroyed() {
+    this.keepUpdated = false;
   },
 
   methods: {
+    autoUpdate() {
+      console.log("OI");
+      if(this.keepUpdated == false) return;
+
+      window.setTimeout(async () => {
+        await this.fetchDemands(this.demandStatus);
+        this.autoUpdate();
+      }, 2000);
+    },
+
     handler(event) {
       this.demandStatus = event.target.value;
     },
 
-    async someHandler(event, demandId) {
+    async someHandler(event, demand) {
+      let demandId = demand.id;
       console.log("Status to change ", event.target.value);
+
+      console.log("UPDATE DEMAND");
+      let sessionUrl = demand.table_session.url;
+      console.log(sessionUrl);
 
       try {
         let data = { status: event.target.value };
@@ -112,6 +133,7 @@ export default {
           }
         );
 
+        await this.$socket.emit("customer_new_demand_sent", sessionUrl);
         await this.fetchDemands(this.demandStatus);
         // console.log(this.demands);
 
