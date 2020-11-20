@@ -68,7 +68,7 @@ export default {
 
       this.isLoading = true;
 
-      let response = await axios.post("http://127.0.0.1:5000/tables/", data, {
+      let response = await axios.post("/tables/", data, {
         headers: { Authorization: `Bearer ${this.userToken}` },
       });
 

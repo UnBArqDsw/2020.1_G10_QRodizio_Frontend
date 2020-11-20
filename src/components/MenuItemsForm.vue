@@ -179,7 +179,7 @@ export default {
 
     async deleteItemOnBackend(item) {
       let response = await axios.delete(
-        `http://127.0.0.1:5000/menus/${this.menuId}/${item.id}`,
+        `/menus/${this.menuId}/${item.id}`,
         {
           headers: { Authorization: `Bearer ${this.userToken}` },
         }

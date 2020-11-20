@@ -85,7 +85,7 @@ export default {
       this.quantity -= 1;
       console.log(this.id)
 
-      let respose = await axios.delete(`http://127.0.0.1:5000/demands/${this.currentDemandId}`);
+      let respose = await axios.delete(`/demands/${this.currentDemandId}`);
       
     },
 
@@ -105,7 +105,7 @@ export default {
       
       this.isLoading = true;
       let response = await axios.post(
-        "http://127.0.0.1:5000/demands/",
+        "/demands/",
         postData
       );
       if (response.status == 201) {

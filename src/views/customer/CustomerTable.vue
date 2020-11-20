@@ -186,7 +186,7 @@ export default {
     async endAccount() {
       // this.paymentSelect=!this.paymentSelect;
       localStorage.setItem("payment", this.method);
-      let url = `http://127.0.0.1:5000/sessions/${this.session.id}/close`;
+      let url = `/sessions/${this.session.id}/close`;
       let response = await axios.get(url);
 
       if (response.status == 200) {
@@ -268,7 +268,7 @@ export default {
     },
 
     async fetchSession() {
-      let url = `http://127.0.0.1:5000/sessions/url/${this.sessionUrl}`;
+      let url = `/sessions/url/${this.sessionUrl}`;
       let response = await axios.get(url);
 
       if (response.status == 200) {
@@ -305,7 +305,7 @@ export default {
     async cancelDemand(demandId) {
       try {
         let request = await axios.put(
-          `http://127.0.0.1:5000/demands/${demandId}/cancel`
+          `/demands/${demandId}/cancel`
         );
 
         if (request.status === 406) {

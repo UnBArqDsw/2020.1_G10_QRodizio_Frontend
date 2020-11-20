@@ -115,7 +115,7 @@ export default {
       this.isLoading = true;
 
       let response = await axios.post(
-        "http://127.0.0.1:5000/menus/",
+        "/menus/",
         { ...data },
         {
           headers: { Authorization: `Bearer ${this.userToken}` },

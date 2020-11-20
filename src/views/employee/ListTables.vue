@@ -138,7 +138,7 @@ export default {
         try {
           let data = {"closed": true};
           let request = await axios.put(
-            `http://127.0.0.1:5000/sessions/${sessionId}`, 
+            `/sessions/${sessionId}`, 
           { ...data },
           {
             headers: { Authorization: `Bearer ${this.userToken}` },
@@ -155,7 +155,7 @@ export default {
     },
 
     async fetchTables() {
-      let response = await axios.get("http://127.0.0.1:5000/tables/");
+      let response = await axios.get("/tables/");
 
       if (response.status == 200) {
         this.tables = response.data.tables;

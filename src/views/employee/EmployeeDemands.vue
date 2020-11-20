@@ -105,7 +105,7 @@ export default {
         let data = { status: event.target.value };
 
         let request = await axios.put(
-          `http://127.0.0.1:5000/demands/${demandId}/status`,
+          `/demands/${demandId}/status`,
           { ...data },
           {
             headers: { Authorization: `Bearer ${this.userToken}` },
@@ -123,7 +123,7 @@ export default {
     },
 
     async getDemandStatus() {
-      let request = await axios.get("http://127.0.0.1:5000/demands/status");
+      let request = await axios.get("/demands/status");
 
       if (request.status === 200) {
         if (request.data.status) {
@@ -150,7 +150,7 @@ export default {
     async fetchDemands(status) {
       // this.isLoading = true;
 
-      let request = await axios.get(`http://127.0.0.1:5000/demands/${status}`, {
+      let request = await axios.get(`/demands/${status}`, {
         headers: { Authorization: `Bearer ${this.loggedUserToken}` },
       });
 

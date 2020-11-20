@@ -98,7 +98,7 @@ export default {
     },
 
     async fetchUsers() {
-      let response = await axios.get("http://127.0.0.1:5000/employees/", {
+      let response = await axios.get("/employees/", {
         headers: { Authorization: `Bearer ${this.loggedUserToken}` },
       });
 
@@ -133,7 +133,7 @@ export default {
 
     async deleteUser(userId) {
       let response = await axios.delete(
-        `http://127.0.0.1:5000/employees/${userId}`,
+        `/employees/${userId}`,
         {
           headers: { Authorization: `Bearer ${this.loggedUserToken}` },
         }

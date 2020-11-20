@@ -68,7 +68,7 @@ export default {
 
   methods: {
     async fetchMenus() {
-      let response = await axios.get("http://127.0.0.1:5000/menus");
+      let response = await axios.get("/menus");
       this.menus = response.data.menus; 
     },
 
@@ -88,7 +88,7 @@ export default {
     },
 
     async deleteMenu(menu) {
-      let respose = await axios.delete(`http://127.0.0.1:5000/menus/${menu.id}`);
+      let respose = await axios.delete(`/menus/${menu.id}`);
 
       if(respose.status == 202) {
         await this.fetchMenus();

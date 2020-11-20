@@ -33,7 +33,7 @@ export default {
 
   methods: {
     async fetchQRCode(id) {
-      const url = `http://127.0.0.1:5000/tables/${id}/qrcode`;
+      const url = `/tables/${id}/qrcode`;
       let response = await axios.get(url);
 
       if (response.status == 200) {

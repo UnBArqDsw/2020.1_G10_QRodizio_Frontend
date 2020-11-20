@@ -58,7 +58,7 @@ export default {
     registerNewSession() {
       axios
         .post(
-          "http://127.0.0.1:5000/sessions/",
+          "/sessions/",
           
           {
             url: this.generateUrl,

@@ -56,7 +56,7 @@ export default {
 
   methods: {
     async getDemandStatus() {
-      let request = await axios.get("http://127.0.0.1:5000/demands/status");
+      let request = await axios.get("/demands/status");
 
       if (request.status === 200) {
         this.status = request.data.status;

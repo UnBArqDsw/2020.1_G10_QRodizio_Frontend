@@ -93,7 +93,7 @@ export default {
 
     async fetchMenus() {
       this.isLoading = true;
-      let request = await axios.get("http://127.0.0.1:5000/menus/");
+      let request = await axios.get("/menus/");
       this.isLoading = false;
 
       if (request.status === 200) {

@@ -111,7 +111,7 @@ export default {
     registerUser() {
       axios
         .post(
-          "http://127.0.0.1:5000/auth/register",
+          "/auth/register",
           {
             role: this.role,
             name: this.name,

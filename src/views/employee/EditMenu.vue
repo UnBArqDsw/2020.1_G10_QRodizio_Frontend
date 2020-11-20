@@ -123,7 +123,7 @@ export default {
       this.isLoading = true;
 
       let response = await axios.put(
-        `http://127.0.0.1:5000/menus/${this.id}`,
+        `/menus/${this.id}`,
         { ...data },
         {
           headers: { Authorization: `Bearer ${this.userToken}` },

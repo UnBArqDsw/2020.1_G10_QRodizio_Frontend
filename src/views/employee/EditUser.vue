@@ -121,7 +121,7 @@ export default {
 
       axios
         .put(
-          `http://127.0.0.1:5000/employees/${this.id}`,
+          `/employees/${this.id}`,
           { ...data },
           {
             headers: { Authorization: `Bearer ${this.loggedUserToken}` },
