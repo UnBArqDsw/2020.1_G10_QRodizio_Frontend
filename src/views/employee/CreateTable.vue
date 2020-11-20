@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 import { mapState } from "vuex";
 
 export default {

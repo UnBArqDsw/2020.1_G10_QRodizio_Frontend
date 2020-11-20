@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 import { mapGetters } from "vuex";
 
 export default {

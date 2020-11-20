@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 import MenuItemForDemand from "../../components/MenuItemForDemand";
 
 export default {

@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 
 export default {
   name: "EmployeeDemands",
