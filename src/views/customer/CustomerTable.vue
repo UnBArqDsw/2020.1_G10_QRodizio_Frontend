@@ -202,9 +202,18 @@ export default {
             maxlength: 30,
           },
           trapFocus: true,
-          onConfirm: async (name) => await this.joinRoom(name),
+          onConfirm: async (name) => await this.setUserNameOnCache(name),
         });
+      } else {
+        let name = localStorage.getItem("name");
+        await this.joinRoom(name);
       }
+    },
+
+    async setUserNameOnCache(name) {
+      await this.joinRoom(name);
+      localStorage.setItem("name", name);
+      this.$router.go(this.$router.currentRoute);
     },
 
     async joinRoom(name) {
@@ -215,8 +224,6 @@ export default {
           session_url: this.sessionUrl,
           name,
         });
-        localStorage.setItem("name", name);
-        this.$router.go(this.$router.currentRoute);
       } else {
         alert("No name was given");
       }

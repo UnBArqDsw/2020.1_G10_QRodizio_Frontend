@@ -30,8 +30,7 @@
 
     <hr />
 
-   
-      <div class="columns">
+    <div class="columns">
       <div class="column" v-for="item in items" :key="item.id">
         <MenuItemForDemand
           :name="item.name"
@@ -40,20 +39,20 @@
           :value="item.value"
           :sessionUrl="sessionUrl"
           v-on:update:demandsUpdated="demandsUpdatedByForm($event)"
-          :demands ="demands"
+          :demands="demands"
         />
-      </div>      
+      </div>
     </div>
-      <button class="button-demand" @click="awaysendButton">
-        Fazer pedido
-      </button>
+    <button class="button-demand" @click="awaysendButton">
+      Fazer pedido
+    </button>
   </div>
 </template>
 
 <script>
 import axios from "@/axios-config";
 import MenuItemForDemand from "../../components/MenuItemForDemand";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   name: "MakeNewDemand",
@@ -87,32 +86,38 @@ export default {
   },
 
   methods: {
-    demandsUpdatedByForm(demand){
+    demandsUpdatedByForm(demand) {
       this.demands[demand.item_id] = demand;
     },
-    async awaysendButton(){
+    async awaysendButton() {
       let requests = [];
 
-      for (let key of Object.keys(this.demands)){
+      for (let key of Object.keys(this.demands)) {
         let demand = this.demands[key];
-        if(!demand){
+
+        if (!demand) {
           console.log("item nao encontrado: ");
           console.log(key);
           continue;
         }
-        if(demand.quantity == 0 ){
+        if (demand.quantity == 0) {
           continue;
         }
-        requests.push(axios.post(
-        "/demands/",
-        demand));
+        
+        requests.push(axios.post("/demands/", demand));
       }
-      try{
+      try {
         await Promise.all(requests);
+        await this.emitNewDemand();
+
         this.$router.push(`/table/${this.sessionUrl}`);
-      }catch(err){
+      } catch (err) {
         console.log(err);
-      } 
+      }
+    },
+
+    async emitNewDemand() {
+      await this.$socket.emit("customer_new_demand_sent", this.sessionUrl);
     },
 
     goBack() {
