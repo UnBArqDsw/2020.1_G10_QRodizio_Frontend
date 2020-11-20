@@ -24,7 +24,6 @@
                 <tr>
                   <th>Cliente</th>
                   <th>Pedido</th>
-                  <th>Quantidade</th>
                   <th>Valor</th>
                   <th>Valor total</th>
                 </tr>
@@ -32,8 +31,7 @@
               <tbody>
                 <tr v-for="demand in demands" :key="demand.id">
                   <td>{{ demand.customer }}</td>
-                  <td>{{ demand.item.name }}</td>
-                  <td>{{ demand.quantity }}</td>
+                  <td > {{demand.quantity}}x {{ demand.item.name }}</td>
                   <td>{{ demand.item.value }}R$</td>
                   <td>{{ demand.quantity * demand.item.value }}R$</td>
                 </tr>
