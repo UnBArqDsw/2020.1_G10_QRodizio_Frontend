@@ -35,6 +35,7 @@ export default new Vuex.Store({
 
     setTableSesssion(state, session) {
       state.tableSession = session;
+      console.log(session);
     },
 
     setLoggedUsers(state, users) {
@@ -97,6 +98,9 @@ export default new Vuex.Store({
       if (userDataIsEmpty) return false;
 
       return state.userData.role === 1;
+    },
+    sessionId(state) {
+      return state.tableSession.id;
     },
 
     loggedUsers(state) {

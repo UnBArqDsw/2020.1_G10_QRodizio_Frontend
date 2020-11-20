@@ -39,6 +39,8 @@
           :id="item.id"
           :value="item.value"
           :sessionUrl="sessionUrl"
+          v-on:update:demandsUpdated="demandsUpdatedByForm($event)"
+          :demands ="demands"
         />
       </div>      
     </div>
@@ -51,6 +53,7 @@
 <script>
 import axios from "@/axios-config";
 import MenuItemForDemand from "../../components/MenuItemForDemand";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "MakeNewDemand",
@@ -63,6 +66,7 @@ export default {
       menu: 1,
       menus: [],
       items: [],
+      demands: {},
     };
   },
 
@@ -83,8 +87,29 @@ export default {
   },
 
   methods: {
+    demandsUpdatedByForm(demand){
+      this.demands[demand.item_id] = demand;
+    },
     async awaysendButton(){
-      this.$router.push(`/table/${this.sessionUrl}`);
+      let requests = [];
+
+      for (let key of Object.keys(this.demands)){
+        let demand = this.demands[key];
+        if(!demand){
+          console.log("item nao encontrado: ");
+          console.log(key);
+          continue;
+        }
+        requests.push(axios.post(
+        "http://127.0.0.1:5000/demands/",
+        demand));
+      }
+      try{
+        await Promise.all(requests);
+        this.$router.push(`/table/${this.sessionUrl}`);
+      }catch(err){
+        console.log(err);
+      } 
     },
 
     goBack() {

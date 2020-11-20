@@ -276,6 +276,7 @@ export default {
         this.session = response.data.session;
 
         this.$store.dispatch("setTableSesssion", { id, url });
+  
         this.demands = response.data.session.demands;
         let total = 0;
         this.demands.forEach((demand) => {

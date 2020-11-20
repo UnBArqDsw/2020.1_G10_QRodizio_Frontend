@@ -47,12 +47,12 @@
 
 <script>
 import axios from "@/axios-config";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "MenuItemForDemand",
 
-  props: ["name", "description", "id", "value", "sessionUrl"],
+  props: ["name", "description", "id", "value", "sessionUrl", "demands"],
 
   data() {
     return {
@@ -72,11 +72,8 @@ export default {
   },
 
   computed: {
-    sessionId() {
-      return this.$store.state.tableSession.id;
-    },
-
     ...mapState(["customerName"]),
+    ...mapGetters(["sessionId"])
   },
 
   methods: {
@@ -97,7 +94,9 @@ export default {
         session_id: this.sessionId,
         customer: localStorage.getItem("name"),
       }
-      this.sendDemand(postData);
+      console.log(this.sessionId);
+      this.$emit("update:demandsUpdated", postData);
+      //this.sendDemand(postData);
       
     },
 
