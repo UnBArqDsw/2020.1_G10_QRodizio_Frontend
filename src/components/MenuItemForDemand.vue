@@ -58,6 +58,8 @@ export default {
     return {
       isLoading: false,
       quantity: 0,
+      demandsArrays: [],
+      currentDemandId: 0,
     };
   },
 
@@ -78,38 +80,47 @@ export default {
   },
 
   methods: {
-    decQuantity() {
+    async decQuantity() {
       if (this.quantity == 0) return;
       this.quantity -= 1;
+      console.log(this.id)
+
+      let respose = await axios.delete(`http://127.0.0.1:5000/demands/${this.currentDemandId}`);
+      
     },
 
     incQuantity() {
       this.quantity += 1;
-    },
-
-    async sendDemand() {
       let postData = {
         quantity: this.quantity,
         item_id: this.id,
         session_id: this.sessionId,
         customer: localStorage.getItem("name"),
-      };
+      }
+      this.sendDemand(postData);
+      
+    },
 
+    async sendDemand(postData) {
+      
       this.isLoading = true;
       let response = await axios.post(
         "http://127.0.0.1:5000/demands/",
         postData
       );
+      if (response.status == 201) {
+        this.currentDemandId = response.data.demand.id;
+      }
       this.isLoading = false;
 
-      if (response.status == 201) {
+      /*if (response.status == 201) {
         await this.emitNewDemand();
         this.$router.push(`/table/${this.sessionUrl}`);
       } else {
         console.log(request);
-      }
+      }*/
     },
-
+    
     async makeDemand() {
       this.$buefy.dialog.confirm({
         message: "Deseja realizar esse pedido ?",

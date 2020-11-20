@@ -42,7 +42,7 @@
         />
       </div>      
     </div>
-      <button class="button-demand">
+      <button class="button-demand" @click="awaysendButton">
         Fazer pedido
       </button>
   </div>
@@ -83,6 +83,10 @@ export default {
   },
 
   methods: {
+    async awaysendButton(){
+      this.$router.push(`/table/${this.sessionUrl}`);
+    },
+
     goBack() {
       this.$router.push("/table/" + this.sessionUrl);
     },
