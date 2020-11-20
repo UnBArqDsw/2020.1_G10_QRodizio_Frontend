@@ -1,0 +1,220 @@
+.title {
+  text-align: center;
+  margin: 0 auto;
+}
+.content-color {
+  text-align: left;
+  margin: 10 auto;
+  margin-left: auto;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: green;
+  width: auto;
+}
+.name-status {
+  text-align: center;
+  margin: 10 auto;
+  margin-left: 0px;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  background-color: green;
+  width: 150px;
+  border-radius: 10px;
+}
+.description {
+  font-size: 20px;
+  color: white;
+  font-weight: 900;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+.content {
+  margin: 0px;
+  text-align: center;
+}
+img.center {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+}
+div.home {
+  background-color: #4dff88;
+  background-size: cover;
+  height: 100%;
+  padding: 0px;
+  width: auto;
+}
+article.tile {
+  background-color: #d0d8d2;
+  margin-top: 100px;
+}
+
+.app {
+  max-width: auto;
+}
+.wrapper {
+  margin-top: 100px;
+}
+.main-content {
+  background-color: #d0d8d2;
+}
+.footer {
+  background: #ffab62;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.button-normal {
+  align-items: center;
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: #277429;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 18px;
+  margin: 4px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.button-normal:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.button-cancel {
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: red;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 18px;
+  margin: 4px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button-cancel:hover {
+  background-color: #f44336;
+  color: white;
+}
+.button-cancel-demand {
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: red;
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 8px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button-cancel-demand:hover {
+  background-color: #f44336;
+  color: white;
+}
+.button-change {
+  align-items: center;
+  background-color: white; /* Green */
+  border: none;
+  border-radius: 15px;
+  color: #277429;
+  padding: 7px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  font-size: 16px;
+  margin: 4px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.button-change:hover {
+  background-color: #4caf50;
+  color: white;
+}
+.table {
+  position: relative;
+  padding: auto;
+}
+
+.button-is-light {
+  background-color: red;
+}
+.total-value-to-payment {
+  font-size: 16px;
+}
+.columns {
+  position: relative;
+  text-align: justify;
+}
+
+.content-card {
+  text-align: justify;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(78, 78, 78);
+}
+.card-header-title {
+  text-align: justify;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(78, 78, 78);
+}
+div.buttonValue {
+  color: #277429;
+  position: relative;
+  right: 0px;
+  width: auto;
+}
+
+.column {
+  font-size: 19px;
+  text-align: justify;
+  
+}
+#descritionDemand {
+  text-align: left;
+  margin-right: 0;
+  text-justify: auto;
+}
+
+.button-demand {
+  display: relative;
+  box-shadow: inset 0px 1px 0px 0px #f29c93;
+  background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+  background-color: #fe1a00;
+  border-radius: 6px;
+  border: 1px solid #d83526;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #b23e35;
+  margin-top: 1px;
+  
+}
+.button-demand:hover {
+  background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+  background-color: #ce0100;
+}
+.button-demand:active {
+  position: relative;
+  top: 1px;
+}

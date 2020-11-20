@@ -1,8 +1,15 @@
 <template>
   <div class="columns is-flex is-vcentered is-centered">
     <div class="column is-half">
+      <a class="button is-danger" @click="goBack">
+        Voltar
+      </a>
+
+      <br />
+      <br />
+
       <div class="field">
-        <label class="label">Tipo de conta:</label>
+        <label class="description">Tipo de conta:</label>
         <div class="control">
           <div class="select">
             <select v-model="role">
@@ -14,7 +21,7 @@
       </div>
 
       <div class="field">
-        <label class="label">Nome</label>
+        <label class="description">Nome</label>
         <div class="control has-icons-left has-icons-right">
           <input
             class="input"
@@ -29,6 +36,7 @@
       </div>
 
       <div class="field">
+        <label class="description">E-mail</label>
         <p class="control has-icons-left has-icons-right">
           <input
             class="input"
@@ -43,6 +51,7 @@
       </div>
 
       <div class="field">
+        <label class="description">Senha</label>
         <p class="control has-icons-left">
           <input
             class="input"
@@ -56,7 +65,7 @@
         </p>
       </div>
 
-      <b-button @click="registerUser">Registrar</b-button>
+      <b-button class="button is-success" @click="registerUser">Registrar</b-button>
       <hr />
 
       <div>
@@ -67,7 +76,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 
 export default {
   name: "RegisterNewUser",
@@ -102,7 +111,7 @@ export default {
     registerUser() {
       axios
         .post(
-          "http://127.0.0.1:5000/auth/register",
+          "/auth/register",
           {
             role: this.role,
             name: this.name,
@@ -123,6 +132,10 @@ export default {
           this.userCreated.message = error.response.data.error;
         });
     },
+
+    goBack() {
+      this.$router.push("/list-users");
+    }
   },
 };
 </script>

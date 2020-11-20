@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 
 export default {
   name: "UserLogin",
@@ -57,13 +57,16 @@ export default {
 
   methods: {
     async logUser() {
-      let response = await axios.post("http://127.0.0.1:5000/auth/login", {
+      let response = await axios.post("/auth/login", {
         email: this.email,
         password: this.password,
       });
 
       if (response.status === 200) {
-        this.$store.dispatch("logUserIn", response.data.token);
+        let { token, user } = response.data;
+        await this.$socket.emit("employee_logged", user);
+
+        this.$store.dispatch("logUserIn", { token, user });
         this.$router.push("/user-home");
       } else {
         alert("Deu ruim");

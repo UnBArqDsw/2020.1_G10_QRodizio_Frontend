@@ -2,14 +2,18 @@
   <div id="app">
     <TopNavbar />
 
-    <div id="main-content" class="container">
+    <div class="container">
       <router-view />
     </div>
+        
   </div>
+  
 </template>
 
 <script>
-import TopNavbar from "./components/TopNavbar";
+import TopNavbar from "./components/TopNavbar/TopNavbar";
+
+const isNotBank = (data) => data !== null && data.length > 0;
 
 export default {
   name: "App",
@@ -18,19 +22,42 @@ export default {
     TopNavbar,
   },
 
+  sockets: {
+    frontend_current_logged_employee(employees) {
+      this.$store.dispatch("setLoggedUsers", employees);
+    },
+
+    //appvue pq fica na navbar
+    frontend_call_for_employee_on_table(tableSession) {
+      console.log("Called on ");
+      console.log(tableSession);
+      this.$store.dispatch("addTableToCalling", tableSession);
+    },
+
+    frontend_not_call_for_employee_on_table(tableSession) {
+      console.log("Called on ");
+      console.log(tableSession);
+      this.$store.dispatch("removeTableToCalling", tableSession);
+    },
+  },
+
   mounted() {
     let userToken = localStorage.getItem("userToken");
+    let userData = localStorage.getItem("userData");
 
-    if (userToken !== null && userToken.length > 0) {
-      this.$store.dispatch("logUserIn", userToken);
+    if (isNotBank(userToken) && isNotBank(userData)) {
+      this.$store.dispatch("logUserIn", {
+        token: userToken,
+        user: JSON.parse(userData),
+      });
+
       this.logged = true;
     }
   },
 };
 </script>
 
-<style scoped>
-#main-content {
-  margin-top: 20px;
-}
+<style >
+@import '/assets/styles/styles.css';
+
 </style>

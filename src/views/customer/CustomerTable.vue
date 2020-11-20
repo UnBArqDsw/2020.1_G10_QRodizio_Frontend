@@ -1,63 +1,252 @@
 <template>
   <div class="container">
-    <a class="button is-light" @click="makeNewDemand">
-      Fazer novo peido
+    <div>
+      <a class="button-normal" @click="makeNewDemand">
+        Novo pedido
+      </a>
+      <a class="button-normal" @click="callForAssistance">
+        Chamar funcionário
+      </a>
+    </div>
+    &nbsp;
+    <a class="button-cancel" @click="endAccount">
+      Fechar conta
     </a>
-
-    <hr />
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Pedido</th>
-          <th>Quantidade</th>
-          <th>Status</th>
-          <th>Cancelar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="demand in demands" :key="demand.id">
-          <td>{{ demand.customer }}</td>
-          <td>{{ demand.item.name }}</td>
-          <td>{{ demand.quantity }}</td>
-          <td>{{ demandDisplayStatus(demand.status) }}</td>
-          <td>
-            <button
-              v-if="demand.status == 0"
-              class="button is-light"
-              @click="confirmCancelDemand(demand.id)"
-            >
+    <b-modal :active.sync="selectPayment" has-modal-card>
+      <form action="">
+        <div class="modal-card" style="width: auto">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Fechar conta</p>
+          </header>
+          <div class="total-value-to-payment" style="overflow-x:auto;>">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Pedido</th>
+                  <th>Valor</th>
+                  <th>Valor total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="demand in demands" :key="demand.id">
+                  <td>{{ demand.customer }}</td>
+                  <td > {{demand.quantity}}x {{ demand.item.name }}</td>
+                  <td>{{ demand.item.value }}R$</td>
+                  <td>{{ demand.quantity * demand.item.value }}R$</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="content-color">
+              <h3 style="margin-left: 15px">
+                subtotal de {{clientName}}: {{ priceClient }}R$
+              </h3>
+              <h3 style="margin-left: 15px">
+                Valor total da mesa: {{ tabletotal }} R$
+              </h3>
+            </div>
+          </div>
+          <section class="modal-card-body">
+            <div class="field">
+              <b-checkbox v-model="method" native-value="money"
+                >Dinheiro</b-checkbox
+              >
+            </div>
+            <div class="field">
+              <b-checkbox v-model="method" native-value="card">
+                Cartão
+              </b-checkbox>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button" @click="selectPayment = false">
               Cancelar
             </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <button class="button is-primary" @click="callForAssistance">
+              Confirmar
+            </button>
+          </footer>
+        </div>
+      </form>
+    </b-modal>
+    <br />
+    <div class="content-color">
+      <h3 style="margin-left: 15px">
+        Nome:
+        <i
+          ><b>{{ clientName }}</b></i
+        >
+        <a class="button-change" @click="changeClientName">
+          alterar
+        </a>
+      </h3>
+    </div>
+    <div style="overflow-x:auto;>">
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Pedido</th>
+            <th>Status</th>
+            <th>Cancelar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="demand in demands" :key="demand.id">
+            <td>{{ demand.customer }}</td>
+            <td>{{ demand.quantity }}x {{ demand.item.name }}</td>
+            <td>{{ demandDisplayStatus(demand.status) }}</td>
+            <td>
+              <button
+                v-if="demand.status == 0"
+                v-bind:class="{
+                  'button-cancel-demand': isCustomerTheDemandOwner(demand),
+                }"
+                @click="confirmCancelDemand(demand.id)"
+                :disabled="!isCustomerTheDemandOwner(demand)"
+              >
+                Cancelar
+              </button>
+
+              <button v-else disabled>
+                Cancelar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
-      keepUpdateLoop: true,
+      sessionUrl: "",
       demands: [],
+      sessionId: 0,
+      paymentSelect: false,
+      method: [],
+      session: {},
+      selectPayment: false,
+      tabletotal: 0,
+      priceClient: 0,
     };
   },
 
-  async mounted() {
-    await this.fetchSession();
-    this.updateTableDemands();
+  computed: {
+    clientName() {
+      let name = "Cliente";
+
+      if (localStorage.getItem("name") != null) {
+        name = localStorage.getItem("name");
+      }
+
+      return name;
+    },
+
+    ...mapState(["customerName"]),
   },
 
-  destroyed() {
-    this.keepUpdateLoop = false;
+  async mounted() {
+    this.sessionUrl = this.$route.params.url;
+    localStorage.setItem("urlParam", this.sessionUrl);
+
+    await this.fetchSession();
+
+    this.checkUserName();
+  },
+
+  sockets: {
+    frontend_employee_called(message) {
+      alert(message);
+    },
+
+    frontend_table_demands_updated(data) {
+      if (data.session_url == this.sessionUrl) {
+        console.log("Updating my table demands");
+        this.demands = [...data.demands];
+      }
+    },
   },
 
   methods: {
+    isCustomerTheDemandOwner(demand) {
+      return demand.customer == this.clientName;
+    },
+
+    async endAccount() {
+      // this.paymentSelect=!this.paymentSelect;
+      localStorage.setItem("payment", this.method);
+      let url = `/sessions/${this.session.id}/close`;
+      let response = await axios.get(url);
+
+      if (response.status == 200) {
+        let price = response.data.table;
+        this.priceClient = price;
+        this.selectPayment = true;
+        console.log(price);
+      }
+    },
+
+    async checkUserName() {
+      if (localStorage.getItem("name") === null) {
+        this.$buefy.dialog.prompt({
+          message: "Qual seu nome ?",
+          inputAttrs: {
+            placeholder: "Nome",
+            maxlength: 30,
+          },
+          trapFocus: true,
+          onConfirm: async (name) => await this.setUserNameOnCache(name),
+        });
+      } else {
+        let name = localStorage.getItem("name");
+        await this.joinRoom(name);
+      }
+    },
+
+    async setUserNameOnCache(name) {
+      await this.joinRoom(name);
+      localStorage.setItem("name", name);
+      this.$router.go(this.$router.currentRoute);
+    },
+
+    async joinRoom(name) {
+      if (name.length > 0) {
+        this.$store.dispatch("setCustomerName", name);
+
+        await this.$socket.emit("customer_join_room", {
+          session_url: this.sessionUrl,
+          name,
+        });
+      } else {
+        alert("No name was given");
+      }
+    },
+
+    async getTotal() {
+      this.paymentSelect = true;
+    },
+
+    async callForAssistance() {
+      let { url } = this.$route.params;
+      await this.$socket.emit("call_for_assistance", url);
+    },
+
+    changeClientName() {
+      localStorage.removeItem("name");
+      this.checkUserName();
+    },
+
+    closeTable() {
+      this.paymentSelect();
+    },
+
     demandDisplayStatus(demandStatus) {
       let status = "";
 
@@ -66,7 +255,7 @@ export default {
           status = "Aguardando";
           break;
         case 1:
-          status = "Procesando";
+          status = "Processando";
           break;
         case 2:
           status = "Concluído";
@@ -82,38 +271,37 @@ export default {
     },
 
     async fetchSession() {
-      // TODO: use this.$route.params.url when table as qrcode in backend
-      let url = "1-59a9639a-1778-11eb-aa36-7429afd877c3";
-      let response = await axios.get(
-        `http://127.0.0.1:5000/sessions/url/${url}`
-      );
+      let url = `/sessions/url/${this.sessionUrl}`;
+      let response = await axios.get(url);
 
       if (response.status == 200) {
         let { id, url } = response.data.session;
+        this.session = response.data.session;
 
         this.$store.dispatch("setTableSesssion", { id, url });
+  
         this.demands = response.data.session.demands;
+        let total = 0;
+        this.demands.forEach((demand) => {
+          total += demand.quantity * demand.item.value;
+        });
+        this.tabletotal = total;
+        this.sessionId = id;
       }
     },
 
     makeNewDemand() {
-      let sessionUrl = this.$route.params.url;
-      this.$router.push(`/make-new-demand/${sessionUrl}`);
-    },
-
-    updateTableDemands() {
-      if (this.keepUpdateLoop == false) return;
-
-      window.setTimeout(async () => {
-        await this.fetchSession();
-
-        this.updateTableDemands();
-      }, 1000);
+      console.log(this.session);
+      if (this.session.closed == false) {
+        this.$router.push(`/make-new-demand/${this.sessionUrl}`);
+      } else {
+        alert("A mesa precisa estar aberta para realizar uma demanda");
+      }
     },
 
     async confirmCancelDemand(demandId) {
       this.$buefy.dialog.confirm({
-        message: "Deseja realmente cancelar ?",
+        message: "Deseja realmente cancelar o pedido ?",
         onConfirm: async () => await this.cancelDemand(demandId),
       });
     },
@@ -121,8 +309,17 @@ export default {
     async cancelDemand(demandId) {
       try {
         let request = await axios.put(
-          `http://127.0.0.1:5000/demands/${demandId}/cancel`
+          `/demands/${demandId}/cancel`
         );
+
+        if (request.status === 406) {
+          alert("Demanda ja cancelada");
+        }
+
+        if (request.status === 202) {
+          alert("Demanda cancelada");
+          this.$router.go(this.$router.currentRoute);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -130,3 +327,7 @@ export default {
   },
 };
 </script>
+
+<style>
+@import "../../assets/styles/styles.css";
+</style>

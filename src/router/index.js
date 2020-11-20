@@ -11,12 +11,18 @@ import ListUsers from "../views/employee/ListUsers";
 import EmployeeDemands from "../views/employee/EmployeeDemands";
 import CreateTable from "../views/employee/CreateTable";
 import ListTables from "../views/employee/ListTables";
+import NewSession from "../views/employee/NewSession";
 import ViewSession from "../views/employee/ViewSession";
+import EditUser from "../views/employee/EditUser";
+import ListMenus from "../views/employee/ListMenus";
+import CreateMenu from "../views/employee/CreateMenu";
+import EditMenu from "../views/employee/EditMenu";
+import DisplayTableQRCode from "../views/employee/DisplayTableQRCode"
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
-import TempTableDemands from "../views/customer/TempTableDemands";
 import MakeNewDemand from "../views/customer/MakeNewDemand";
+import MakePayment from "../views/customer/MakePayment";
 
 Vue.use(VueRouter);
 
@@ -36,8 +42,8 @@ const routes = [
   },
   {
     path: "/user-home",
-    name: "UserHome",
-    component: UserHome,
+    name: "Home",
+    component: Home,
   },
   {
     path: "/register-new-user",
@@ -57,28 +63,52 @@ const routes = [
   {
     path: "/create-table",
     name: "CreateTable",
-    component: CreateTable
+    component: CreateTable,
   },
   {
     path: "/list-tables",
     name: "ListTables",
-    component: ListTables
+    component: ListTables,
+  },
+  {
+    path: "/new-session",
+    name: "NewSession",
+    component: NewSession
   },
   {
     path: "/view-session/:id",
     name: "ViewSession",
-    component: ViewSession
+    component: ViewSession,
   },
-
+  {
+    path: "/edit-user",
+    name: "EditUser",
+    component: EditUser,
+  },
+  {
+    path: "/list-menus",
+    name: "ListMenus",
+    component: ListMenus
+  },
+  {
+    path: "/create-menu",
+    name: "CreateMenu",
+    component: CreateMenu
+  },
+  {
+    path: "/edit-menu",
+    name: "EditMenu",
+    component: EditMenu
+  },
+  {
+    path: "/display-table-qrcode/:id",
+    name: "DisplayTableQRCode",
+    component: DisplayTableQRCode
+  },
 
   /** ################################################################### */
   /** ################## CUSTOMER ROUTES ################################ */
   /** ################################################################### */
-  {
-    path: "/temp-table-demands/:id",
-    name: "TempTableDemands",
-    component: TempTableDemands,
-  },
   {
     path: "/make-new-demand/:sessionUrl",
     name: "MakeNewDemand",
@@ -88,6 +118,11 @@ const routes = [
     path: "/table/:url",
     name: "CustomerTable",
     component: CustomerTable,
+  },
+  {
+    path: "/payment/:url",
+    name: "MakePayment",
+    component: MakePayment,
   },
 ];
 
