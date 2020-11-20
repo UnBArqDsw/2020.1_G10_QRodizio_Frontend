@@ -2,7 +2,7 @@
   <div class="columns is-flex is-vcentered is-centered">
     <div class="column is-half">
       <div class="field">
-        <label class="label">Menu do dia ?</label>
+        <h2 class="description">Menu do dia ?</h2>
         <div class="control">
           <div class="select">
             <select v-model="is_daily">
@@ -14,14 +14,14 @@
       </div>
 
       <div class="field">
-        <label class="label">Nome</label>
+        <label class="description">Nome</label>
         <div class="control has-icons-left has-icons-right">
           <input class="input" type="text" placeholder="Nome" v-model="name" />
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Descrição</label>
+        <label class="description">Descrição</label>
         <p class="control has-icons-left has-icons-right">
           <textarea
             v-model="description"
@@ -32,7 +32,7 @@
       </div>
 
       <div class="field">
-        <label class="label">Items</label>
+        <label class="description">Items</label>
 
         <MenuItemsForm
           :items="items"
@@ -43,9 +43,9 @@
       <br />
       <hr />
 
-      <b-button @click="createMenu" class="button is-light">Criar</b-button>
+      <b-button @click="createMenu" class="button is-success">Criar</b-button>
       &nbsp;
-      <b-button @click="goBack" class="button is-light">Cancelar</b-button>
+      <b-button @click="goBack" class="button is-danger">Cancelar</b-button>
       <hr />
 
       <div>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 import { mapState } from "vuex";
 
 import MenuItemsForm from "../../components/MenuItemsForm";
@@ -115,7 +115,7 @@ export default {
       this.isLoading = true;
 
       let response = await axios.post(
-        "http://127.0.0.1:5000/menus/",
+        "/menus/",
         { ...data },
         {
           headers: { Authorization: `Bearer ${this.userToken}` },
@@ -133,4 +133,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import "/assets/styles/styles.css"
+</style>

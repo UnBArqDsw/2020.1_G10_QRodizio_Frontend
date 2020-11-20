@@ -11,15 +11,16 @@ import ListUsers from "../views/employee/ListUsers";
 import EmployeeDemands from "../views/employee/EmployeeDemands";
 import CreateTable from "../views/employee/CreateTable";
 import ListTables from "../views/employee/ListTables";
+import NewSession from "../views/employee/NewSession";
 import ViewSession from "../views/employee/ViewSession";
 import EditUser from "../views/employee/EditUser";
 import ListMenus from "../views/employee/ListMenus";
 import CreateMenu from "../views/employee/CreateMenu";
 import EditMenu from "../views/employee/EditMenu";
+import DisplayTableQRCode from "../views/employee/DisplayTableQRCode"
 
 // Customer routes
 import CustomerTable from "../views/customer/CustomerTable";
-import TempTableDemands from "../views/customer/TempTableDemands";
 import MakeNewDemand from "../views/customer/MakeNewDemand";
 import MakePayment from "../views/customer/MakePayment";
 
@@ -41,8 +42,8 @@ const routes = [
   },
   {
     path: "/user-home",
-    name: "UserHome",
-    component: UserHome,
+    name: "Home",
+    component: Home,
   },
   {
     path: "/register-new-user",
@@ -70,6 +71,11 @@ const routes = [
     component: ListTables,
   },
   {
+    path: "/new-session",
+    name: "NewSession",
+    component: NewSession
+  },
+  {
     path: "/view-session/:id",
     name: "ViewSession",
     component: ViewSession,
@@ -77,7 +83,7 @@ const routes = [
   {
     path: "/edit-user",
     name: "EditUser",
-    component: EditUser, 
+    component: EditUser,
   },
   {
     path: "/list-menus",
@@ -94,15 +100,15 @@ const routes = [
     name: "EditMenu",
     component: EditMenu
   },
+  {
+    path: "/display-table-qrcode/:id",
+    name: "DisplayTableQRCode",
+    component: DisplayTableQRCode
+  },
 
   /** ################################################################### */
   /** ################## CUSTOMER ROUTES ################################ */
   /** ################################################################### */
-  {
-    path: "/temp-table-demands/:id",
-    name: "TempTableDemands",
-    component: TempTableDemands,
-  },
   {
     path: "/make-new-demand/:sessionUrl",
     name: "MakeNewDemand",

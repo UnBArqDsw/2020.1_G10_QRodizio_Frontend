@@ -2,10 +2,12 @@
   <div id="app">
     <TopNavbar />
 
-    <div id="main-content" class="container">
+    <div class="container">
       <router-view />
     </div>
+        
   </div>
+  
 </template>
 
 <script>
@@ -25,10 +27,17 @@ export default {
       this.$store.dispatch("setLoggedUsers", employees);
     },
 
+    //appvue pq fica na navbar
     frontend_call_for_employee_on_table(tableSession) {
       console.log("Called on ");
       console.log(tableSession);
       this.$store.dispatch("addTableToCalling", tableSession);
+    },
+
+    frontend_not_call_for_employee_on_table(tableSession) {
+      console.log("Called on ");
+      console.log(tableSession);
+      this.$store.dispatch("removeTableToCalling", tableSession);
     },
   },
 
@@ -48,8 +57,7 @@ export default {
 };
 </script>
 
-<style scoped>
-#main-content {
-  margin-top: 20px;
-}
+<style >
+@import '/assets/styles/styles.css';
+
 </style>

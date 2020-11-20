@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Página inicial do usuário</h1>
-    <strong>Token: </strong>
-    <span>{{ token }}</span>
+    <h1 class="description">Página inicial do usuário</h1>
+    <strong class="description">Token: </strong>
+    <span class="description">{{ token }}</span>
   </div>
 </template>
 

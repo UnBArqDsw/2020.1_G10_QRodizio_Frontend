@@ -1,21 +1,45 @@
 <template>
   <fragment>
-    <b-navbar-item tag="router-link" to="/">
-      Home
-    </b-navbar-item>
-
-    <b-navbar-item
-      tag="router-link"
-      to="/table/1-59a9639a-1778-11eb-aa36-7429afd877c3"
-    >
-      Pedidos
-    </b-navbar-item>
+    <a class="navbar-item" @click="go" v-if="urlParam.length > 0 && logged">
+      Meus pedidos
+    </a>
   </fragment>
 </template>
 
 <script>
 export default {
   name: "BaseRoutesLeaf",
+
+  data() {
+    return {
+      sessionUrl: "",
+    };
+  },
+
+  computed: {
+    urlParam() {
+      let url = localStorage.getItem("urlParam");
+
+      if (url == null || url == "null") url = "";
+
+      return url;
+    },
+      logged() {
+      return !this.$store.getters.logged;
+    },
+  },
+
+  async mounted() {
+    this.sessionUrl = "/table/" + this.urlParam;
+  },
+
+  methods: {
+    go() {
+      if (this.urlParam == "") return;
+
+      this.$router.push("/table/" + this.urlParam);
+    },
+  },
 };
 </script>
 

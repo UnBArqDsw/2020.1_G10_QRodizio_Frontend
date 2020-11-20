@@ -1,40 +1,41 @@
 <template>
   <div class="ViewSession">
     <b-navbar-item
-      class="button is-light"
+      class="button-normal"
       tag="router-link"
       to="/list-tables"
     >
       Voltar
     </b-navbar-item>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Status</th>
-          <th>Mesa</th>
-          <th>Cliente</th>
-          <th>Pedido</th>
-          <th>Quantidade</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="demand in demands" :key="demand.id">
-          <td>{{ demand.id }}</td>
-          <td>{{ status[demand.status] }}</td>
-          <td>Identificador da mesa</td>
-          <td>{{ demand.customer }}</td>
-          <td>{{ demand.item.name }}</td>
-          <td>{{ demand.quantity }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="overflow-x:auto;>">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Status</th>
+            <th>Mesa</th>
+            <th>Cliente</th>
+            <th>Pedido</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="demand in demands" :key="demand.id">
+            <td>{{ demand.id }}</td>
+            <td>{{ status[demand.status] }}</td>
+            <td>Identificador da mesa</td>
+            <td>{{ demand.customer }}</td>
+            <td>{{ demand.item.name }}</td>
+            <td>{{ demand.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/axios-config";
 
 export default {
   name: "ViewSession",
@@ -55,7 +56,7 @@ export default {
 
   methods: {
     async getDemandStatus() {
-      let request = await axios.get("http://127.0.0.1:5000/demands/status");
+      let request = await axios.get("/demands/status");
 
       if (request.status === 200) {
         this.status = request.data.status;
@@ -66,7 +67,7 @@ export default {
     async fetchDemands() {
       let session_id = this.$route.params.id;
       let response = await axios.get(
-        `http://localhost:5000/sessions/${session_id}`
+        `/sessions/${session_id}`
       );
 
       console.log(response);
@@ -81,4 +82,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  @import '../../assets/styles/styles.css';
+</style>

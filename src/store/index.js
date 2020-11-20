@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    customerName: "",
     userToken: "",
     userData: {},
     tableSession: {},
@@ -12,6 +13,10 @@ export default new Vuex.Store({
     tablesCalling: {},
   },
   mutations: {
+    setCustomerName(state, name) {
+      state.customerName = name;
+    },
+
     logUserIn(state, { token, user }) {
       state.userToken = token;
       state.userData = user;
@@ -30,6 +35,7 @@ export default new Vuex.Store({
 
     setTableSesssion(state, session) {
       state.tableSession = session;
+      console.log(session);
     },
 
     setLoggedUsers(state, users) {
@@ -53,6 +59,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    setCustomerName(context, name) {
+      context.commit('setCustomerName', name);
+    },
+
     logUserIn(context, { token, user }) {
       context.commit("logUserIn", { token, user });
     },
@@ -88,6 +98,9 @@ export default new Vuex.Store({
       if (userDataIsEmpty) return false;
 
       return state.userData.role === 1;
+    },
+    sessionId(state) {
+      return state.tableSession.id;
     },
 
     loggedUsers(state) {
