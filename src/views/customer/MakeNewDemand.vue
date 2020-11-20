@@ -100,6 +100,9 @@ export default {
           console.log(key);
           continue;
         }
+        if(demand.quantity == 0 ){
+          continue;
+        }
         requests.push(axios.post(
         "http://127.0.0.1:5000/demands/",
         demand));

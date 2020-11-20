@@ -80,9 +80,20 @@ export default {
     async decQuantity() {
       if (this.quantity == 0) return;
       this.quantity -= 1;
+<<<<<<< HEAD
       console.log(this.id)
 
       let respose = await axios.delete(`/demands/${this.currentDemandId}`);
+=======
+       let postData = {
+        quantity: this.quantity,
+        item_id: this.id,
+        session_id: this.sessionId,
+        customer: localStorage.getItem("name"),
+      }
+      console.log(this.sessionId);
+      this.$emit("update:demandsUpdated", postData);
+>>>>>>> fix error to decremet item
       
     },
 
