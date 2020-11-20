@@ -87,7 +87,6 @@
           <tr>
             <th>Cliente</th>
             <th>Pedido</th>
-            <th>Quantidade</th>
             <th>Status</th>
             <th>Cancelar</th>
           </tr>
@@ -95,8 +94,7 @@
         <tbody>
           <tr v-for="demand in demands" :key="demand.id">
             <td>{{ demand.customer }}</td>
-            <td>{{ demand.item.name }}</td>
-            <td>{{ demand.quantity }}</td>
+            <td>{{ demand.quantity }}x {{ demand.item.name }}</td>
             <td>{{ demandDisplayStatus(demand.status) }}</td>
             <td>
               <button
