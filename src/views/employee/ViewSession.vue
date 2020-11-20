@@ -67,7 +67,7 @@ export default {
     async fetchDemands() {
       let session_id = this.$route.params.id;
       let response = await axios.get(
-        `http://localhost:5000/sessions/${session_id}`
+        `/sessions/${session_id}`
       );
 
       console.log(response);
