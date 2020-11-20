@@ -1,7 +1,7 @@
 <template>
   <fragment>
-    <a class="navbar-item" @click="go" v-if="urlParam.length > 0">
-      Pedidos
+    <a class="navbar-item" @click="go" v-if="urlParam.length > 0 && logged">
+      Meus pedidos
     </a>
   </fragment>
 </template>
@@ -23,6 +23,9 @@ export default {
       if (url == null || url == "null") url = "";
 
       return url;
+    },
+      logged() {
+      return !this.$store.getters.logged;
     },
   },
 
