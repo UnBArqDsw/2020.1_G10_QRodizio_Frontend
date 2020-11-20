@@ -2,7 +2,7 @@
   <div class="container">
     <div class="columns">
       <div class="column">
-        <button class="go-back-button button is-light" @click="goBack">
+        <button class="go-back-button button is-danger" @click="goBack">
           Voltar
         </button>
       </div>
@@ -30,11 +30,8 @@
 
     <hr />
 
-    <div class="columns">
-      <button class="button-demand">
-        Fazer pedido
-      </button>
-
+   
+      <div class="columns">
       <div class="column" v-for="item in items" :key="item.id">
         <MenuItemForDemand
           :name="item.name"
@@ -43,8 +40,11 @@
           :value="item.value"
           :sessionUrl="sessionUrl"
         />
-      </div>
+      </div>      
     </div>
+      <button class="button-demand">
+        Fazer pedido
+      </button>
   </div>
 </template>
 

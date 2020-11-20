@@ -198,8 +198,6 @@ div.buttonValue {
   background-color: #fe1a00;
   border-radius: 6px;
   border: 1px solid #d83526;
-  display: inline-block;
-  margin-left: 160px;
   cursor: pointer;
   color: #ffffff;
   font-family: Arial;
@@ -208,6 +206,8 @@ div.buttonValue {
   padding: 6px 24px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #b23e35;
+  margin-top: 15px;
+  
 }
 .button-demand:hover {
   background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
