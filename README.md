@@ -19,10 +19,6 @@ Frontend do projeto [QRodizio](https://github.com/UnBArqDsw/2020.1_G10_QRodizio)
 
 Aplicação feita em [vuejs](https://vuejs.org/).
 
-## Screenshots
-
-Adicione 3 ou mais screenshots do projeto em termos de interface e funcionamento.
-
 ## Instalação
 
 **Linguagens**: Javascript<br>
@@ -63,11 +59,3 @@ Rodando aplicação:
 
 - Com docker: sudo docker-compose up
 - Com nodejs: yarn serve
-
-## Vídeo
-
-Adicione 1 ou mais vídeos com a execução do projeto final.
-
-## Outros
-
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
